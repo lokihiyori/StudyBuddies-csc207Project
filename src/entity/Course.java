@@ -98,6 +98,7 @@ public class Course {
      *
      * @param args command-line arguments (not used)
      */
+    /*
     public static void main(String[] args) {
         // Creating an object of Course
         //need to pass in code for creating GroupChat!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -107,4 +108,5 @@ public class Course {
         // Printing the course details
         System.out.println(course.toString());
     }
+     */
 }
