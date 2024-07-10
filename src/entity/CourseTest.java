@@ -11,7 +11,7 @@ public class CourseTest {
     // creates a Course object and checks if the constructor correctly initializes the attributes
     @Test
     public void testCourseConstructor() {
-        GroupChat chat = new GroupChat();
+        GroupChat chat = new GroupChat("CSC207");
         Course course = new Course("Software Design", "CSC207", chat);
 
         assertEquals("Software Design", course.getName());
@@ -22,7 +22,7 @@ public class CourseTest {
     // test the setter methods by changing the attribute values and asserting the changes
     @Test
     public void testSetName() {
-        GroupChat chat = new GroupChat();
+        GroupChat chat = new GroupChat("CSC207");
         Course course = new Course("Software Design", "CSC207", chat);
         course.setName("Software Tools and Systems Programming");
 
@@ -32,7 +32,7 @@ public class CourseTest {
 
     @Test
     public void testSetCode() {
-        GroupChat chat = new GroupChat();
+        GroupChat chat = new GroupChat("CSC207");
         Course course = new Course("Software Design", "CSC207", chat);
         course.setCode("CSC209");
 

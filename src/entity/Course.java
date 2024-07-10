@@ -101,7 +101,7 @@ public class Course {
     public static void main(String[] args) {
         // Creating an object of Course
         //need to pass in code for creating GroupChat!!!!!!!!!!!!!!!!!!!!!!!!!
-        GroupChat chat = new GroupChat();
+        GroupChat chat = new GroupChat("CSC207");
         Course course = new Course("Software Design", "CSC207", chat);
 
         // Printing the course details
