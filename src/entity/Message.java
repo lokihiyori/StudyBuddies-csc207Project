@@ -11,7 +11,6 @@ public class Message {
     private String courseId;
     private List<Users> members;
 
-    // Constructor
     public Message(String content, Users sender,
                    GroupChat receiver, LocalDateTime timestamp,
                    String courseId) {
