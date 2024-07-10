@@ -8,7 +8,7 @@ public class GroupChat {
     private String code;
     private ArrayList<Users> GroupMembers;
     private Dictionary<Users, String> MessageHistory;
-    GroupChat(String Code){
+    public GroupChat(String Code){
         this.code = Code;
         this.GroupMembers = new ArrayList<>();
         this.MessageHistory = new Dictionary<Users, String>() {
@@ -49,5 +49,27 @@ public class GroupChat {
         };
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
 
+    public void setGroupMembers(ArrayList<Users> groupMembers) {
+        GroupMembers = groupMembers;
+    }
+
+    public void setMessageHistory(Dictionary<Users, String> messageHistory) {
+        MessageHistory = messageHistory;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public ArrayList<Users> getGroupMembers() {
+        return GroupMembers;
+    }
+
+    public Dictionary<Users, String> getMessageHistory() {
+        return MessageHistory;
+    }
 }
