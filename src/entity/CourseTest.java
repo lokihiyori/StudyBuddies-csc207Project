@@ -1,2 +1,61 @@
-package entity;public class CourseTest {
+package entity;
+
+// unit tests for the Course class
+//import static org.junit.jupiter.api.Assertions.*;
+//import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class CourseTest {
+
+    // creates a Course object and checks if the constructor correctly initializes the attributes
+    @Test
+    public void testCourseConstructor() {
+        GroupChat chat = new GroupChat();
+        Course course = new Course("Software Design", "CSC207", chat);
+
+        assertEquals("Software Design", course.getName());
+        assertEquals("CSC207", course.getCode());
+        assertEquals("CSC207_Cluster", course.getGroupchat());
+    }
+
+    // test the setter methods by changing the attribute values and asserting the changes
+    @Test
+    public void testSetName() {
+        GroupChat chat = new GroupChat();
+        Course course = new Course("Software Design", "CSC207", chat);
+        course.setName("Software Tools and Systems Programming");
+
+        assertEquals("Software Tools and Systems Programming", course.getName());
+    }
+
+
+    @Test
+    public void testSetCode() {
+        GroupChat chat = new GroupChat();
+        Course course = new Course("Software Design", "CSC207", chat);
+        course.setCode("CSC209");
+
+        assertEquals("CSC209", course.getCode());
+    }
+
+/*
+    @Test
+    public void testSetGroupchat() {
+        Course course = new Course("Software Design", "CSC207", "CSC207_Cluster");
+        course.setGroupchat("CSC209_Cluster");
+
+        assertEquals("CSC209_Cluster", course.getGroupchat());
+    }
+
+    // checks if the toString method returns the expected string representation of the Course object
+    @Test
+    public void testToString() {
+        Course course = new Course("Software Design", "CSC207", "CSC207_Cluster");
+
+        String expected_output = "Course name: Software Design, Course code: CSC207, Groupchat: CSC207_Cluster";
+        assertEquals(expected_output, course.toString());
+    }
+
+ */
 }
