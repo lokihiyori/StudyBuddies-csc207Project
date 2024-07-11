@@ -31,6 +31,7 @@ public class Course {
      * @return the name of the course
      */
     public String getName() {
+
         return name;
     }
 
@@ -40,6 +41,7 @@ public class Course {
      * @param name the new name of the course
      */
     public void setName(String name) {
+
         this.name = name;
     }
 
@@ -49,6 +51,7 @@ public class Course {
      * @return the code of the course
      */
     public String getCode() {
+
         return code;
     }
 
@@ -59,6 +62,7 @@ public class Course {
      * @param code the new code of the course
      */
     public void setCode(String code) {
+
         this.code = code;
     }
 
@@ -68,6 +72,7 @@ public class Course {
      * @return the group chat identifier of the course
      */
     public GroupChat getGroupchat() {
+
         return groupchat;
     }
 
