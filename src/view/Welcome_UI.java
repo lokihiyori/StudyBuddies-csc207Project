@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Welcome_UI extends JFrame {
 
@@ -21,6 +23,28 @@ public class Welcome_UI extends JFrame {
         // Create buttons
         loginButton = new JButton("Login");
         signupButton = new JButton("Signup");
+
+        // Add action listeners
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Open Login UI
+                Login_UI loginUI = new Login_UI();
+                loginUI.setVisible(true);
+                dispose(); // Close the current window
+            }
+        });
+
+        signupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Open Signup UI (assumed to be implemented similarly to Login_UI)
+                // For this example, let's assume Signup_UI is implemented similarly to Login_UI
+                //Signup_UI signupUI = new Signup_UI();
+                //signupUI.setVisible(true);
+                dispose(); // Close the current window
+            }
+        });
 
         // Set layout manager
         setLayout(new GridBagLayout());
