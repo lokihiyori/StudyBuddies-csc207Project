@@ -1,4 +1,8 @@
-public class Testin {
+import view.LoginUI;
+
+import javax.swing.*;
+
+public class LoginUI_test {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -10,4 +14,4 @@ public class Testin {
     }
 }
 
-}
+
