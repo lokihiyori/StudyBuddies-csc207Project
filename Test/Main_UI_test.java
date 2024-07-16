@@ -1,5 +1,3 @@
-import view.Main_UI;
-
 import javax.swing.*;
 
 public class Main_UI_test {

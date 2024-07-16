@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main_UI1 extends JFrame implements ActionListener {
+public class Main_UI extends JFrame implements ActionListener {
 
     private final JButton searchCourseButton;
     private final JButton registeredCoursesButton;
@@ -13,7 +13,7 @@ public class Main_UI1 extends JFrame implements ActionListener {
     /**
      * A window with two buttons.
      */
-    public Main_UI1() {
+    public Main_UI() {
         setTitle("Welcome to the App");
         setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,11 +39,6 @@ public class Main_UI1 extends JFrame implements ActionListener {
 
         searchCourseButton.addActionListener(this);
         registeredCoursesButton.addActionListener(this);
-    }
-
-    public Main_UI1(JButton searchCourseButton, JButton registeredCoursesButton) {
-        this.searchCourseButton = searchCourseButton;
-        this.registeredCoursesButton = registeredCoursesButton;
     }
 
     /**
@@ -74,4 +69,13 @@ public class Main_UI1 extends JFrame implements ActionListener {
         }
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Main_UI welcomeUI = new Main_UI();
+                welcomeUI.setVisible(true);
+            }
+        });
+    }
 }
