@@ -1,4 +1,4 @@
-import view1.LoginUI;
+import view.LoginUI;
 
 import javax.swing.*;
 

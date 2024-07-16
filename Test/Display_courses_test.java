@@ -1,4 +1,4 @@
-import view1.RegisteredCoursesView;
+import view.RegisteredCoursesView;
 
 import javax.swing.*;
 

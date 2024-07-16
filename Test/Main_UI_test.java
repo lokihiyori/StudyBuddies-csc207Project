@@ -1,4 +1,4 @@
-import view1.Main_UI;
+import view.Main_UI;
 
 import javax.swing.*;
 
