@@ -1,14 +1,13 @@
 package entity;
 
-/**
- * The Course class represents a course with a name, code, and group chat.
- */
+
 public class Course {
     // Attributes
     // The types of attributes need to be discussed later!!!!!!!!
     private String name;
     private String code;
-    private GroupChat groupchat;
+    private String groupchat;
+
 
     /**
      * Constructs a new Course with the specified name, code, and group chat.
@@ -17,7 +16,7 @@ public class Course {
      * @param code      the code of the course
      * @param groupchat the group chat identifier for the course
      */
-    public Course(String name, String code, GroupChat groupchat) {
+    public Course(String name, String code, String groupchat) {
         this.name = name;
         this.code = code;
         this.groupchat = groupchat;
@@ -31,6 +30,7 @@ public class Course {
      * @return the name of the course
      */
     public String getName() {
+
         return name;
     }
 
@@ -40,6 +40,7 @@ public class Course {
      * @param name the new name of the course
      */
     public void setName(String name) {
+
         this.name = name;
     }
 
@@ -49,6 +50,7 @@ public class Course {
      * @return the code of the course
      */
     public String getCode() {
+
         return code;
     }
 
@@ -59,6 +61,7 @@ public class Course {
      * @param code the new code of the course
      */
     public void setCode(String code) {
+
         this.code = code;
     }
 
@@ -67,7 +70,8 @@ public class Course {
      *
      * @return the group chat identifier of the course
      */
-    public GroupChat getGroupchat() {
+    public String getGroupchat() {
+
         return groupchat;
     }
 
@@ -76,7 +80,7 @@ public class Course {
      *
      * @param groupchat the new group chat identifier of the course
      */
-    public void setGroupchat(GroupChat groupchat) {
+    public void setGroupchat(String groupchat) {
         this.groupchat = groupchat;
     }
 
@@ -98,13 +102,15 @@ public class Course {
      *
      * @param args command-line arguments (not used)
      */
+    /*
     public static void main(String[] args) {
         // Creating an object of Course
         //need to pass in code for creating GroupChat!!!!!!!!!!!!!!!!!!!!!!!!!
-        //GroupChat chat = new GroupChat();
-        //Course course = new Course("Software Design", "CSC207", chat);
+        GroupChat chat = new GroupChat("CSC207");
+        Course course = new Course("Software Design", "CSC207", chat);
 
         // Printing the course details
-        //System.out.println(course.toString());
+        System.out.println(course.toString());
     }
+     */
 }
