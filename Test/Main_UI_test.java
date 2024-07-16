@@ -1,13 +1,16 @@
-public class Testin {
+import view1.Main_UI;
+
+import javax.swing.*;
+
+public class Main_UI_test {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                LoginUI loginUI = new LoginUI();
-                loginUI.setVisible(true);
+                Main_UI welcomeUI = new Main_UI();
+                welcomeUI.setVisible(true);
             }
         });
     }
-}
 
 }
