@@ -1,8 +1,6 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Enumeration;
+import java.util.*;
 
 public class GroupChat {
     private String code;
@@ -71,5 +69,17 @@ public class GroupChat {
 
     public Dictionary<Users, String> getMessageHistory() {
         return MessageHistory;
+    }
+
+    public void remove(String username) {
+        GroupMembers.remove(username);
+    }
+
+    public Object getChatId() {
+        return code;
+    }
+
+    public ArrayList<Users> getMembers() {
+        return GroupMembers;
     }
 }
