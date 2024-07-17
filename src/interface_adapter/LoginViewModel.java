@@ -11,7 +11,8 @@ public class LoginViewModel {
     private final PropertyChangeSupport support;
 
     public LoginViewModel() {
-        this.state = new LoginState();
+        LoginState state;
+        //this.state = new LoginState();
         this.support = new PropertyChangeSupport(this);
     }
 

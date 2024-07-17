@@ -1,27 +1,19 @@
-
 package usecase;
 
 public class LoginInputData {
+    private final String username;
+    private final String password;
 
-    final private String username;
-    final private String password;
-    final private String repeatPassword;
-
-    public LoginInputData(String username, String password, String repeatPassword) {
+    public LoginInputData(String username, String password) {
         this.username = username;
         this.password = password;
-        this.repeatPassword = repeatPassword;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    String getPassword() {
+    public String getPassword() {
         return password;
-    }
-
-    public String getRepeatPassword() {
-        return repeatPassword;
     }
 }
