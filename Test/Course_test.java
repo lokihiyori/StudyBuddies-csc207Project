@@ -1,12 +1,10 @@
-package entity;
 
-// unit tests for the Course class
-//import static org.junit.jupiter.api.Assertions.*;
-//import org.junit.jupiter.api.Test;
+import entity.Course;
+import entity.GroupChat;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class CourseTest {
+public class Course_test {
 
     // creates a Course object and checks if the constructor correctly initializes the attributes
     @Test
@@ -39,7 +37,7 @@ public class CourseTest {
         assertEquals("CSC209", course.getCode());
     }
 
-/*
+
     @Test
     public void testSetGroupchat() {
         Course course = new Course("Software Design", "CSC207", "CSC207_Cluster");
@@ -57,5 +55,5 @@ public class CourseTest {
         assertEquals(expected_output, course.toString());
     }
 
- */
+
 }
