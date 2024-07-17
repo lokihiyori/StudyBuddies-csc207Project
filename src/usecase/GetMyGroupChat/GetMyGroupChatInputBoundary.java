@@ -1,7 +1,5 @@
-package usecase.GotoGroupChat;
+package usecase.GetMyGroupChat;
 
-import usecase.LoginInputData;
-
-public interface GotoGroupChatInputBoundary {
-    void execute(GotoGroupChatInputData gotoGroupChatInputData);
+public interface GetMyGroupChatInputBoundary {
+    void execute(GetMyGroupChatInputData getMyGroupChatInputData);
 }

@@ -1,8 +1,8 @@
-package usecase.GotoGroupChat;
+package usecase.GetMyGroupChat;
 
-public interface GotoGroupChatOutPutBoundary {
-    static void prepareSuccessView(GotoGroupChatOutputData outputData) {
+public interface GetMyGroupChatOutPutBoundary {
+    static void prepareSuccessView(GetMyGroupChatOutputData outputData) {
     }
 
-    void execute(GotoGroupChatOutputData gotoGroupChatOutPutData);
+    void execute(GetMyGroupChatOutputData getMyGroupChatOutPutData);
 }

@@ -1,10 +1,13 @@
-package usecase.GotoGroupChat;
+package usecase.GetMyGroupChat;
 
-public class GotoGroupChatInputData {
-    final private String username;
-    public GotoGroupChatInputData(String username){this.username = username; }
+import entity.Users;
 
-    public String getUsername() {
-        return username;
+public class GetMyGroupChatInputData {
+    final private Users users;
+    public GetMyGroupChatInputData(Users users){
+        this.users = users;}
+
+    public String getUsers() {
+        return users.getUsername();
     }
 }
