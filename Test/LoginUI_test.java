@@ -1,5 +1,3 @@
-import view.LoginUI;
-
 import javax.swing.*;
 
 public class LoginUI_test {

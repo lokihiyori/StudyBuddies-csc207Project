@@ -11,7 +11,7 @@ public class Users implements User{
     private final List<GroupChat> groupChatList;
 
 
-    Users(String name, String password, String username, String email, List<String> courses, List<GroupChat> groupChatList) {
+    public Users(String name, String password, String username, String email, List<String> courses, List<GroupChat> groupChatList) {
         this.name = name;
         this.password = password;
         this.username = username;
