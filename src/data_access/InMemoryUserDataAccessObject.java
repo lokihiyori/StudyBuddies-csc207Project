@@ -5,7 +5,7 @@ import entity.User;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryUserDataAccessObject implements UserSignUpDataAccessInterface {
+public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
