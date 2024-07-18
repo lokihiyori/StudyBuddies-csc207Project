@@ -8,8 +8,8 @@ public class GroupChat {
     private String code;
     private ArrayList<Users> GroupMembers;
     private Dictionary<Users, String> MessageHistory;
-    public GroupChat(String Code){
-        this.code = Code;
+    public GroupChat(String code){
+        this.code = code;
         this.GroupMembers = new ArrayList<>();
         this.MessageHistory = new Dictionary<Users, String>() {
             @Override
