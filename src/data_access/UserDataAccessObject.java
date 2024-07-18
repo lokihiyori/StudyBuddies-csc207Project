@@ -16,9 +16,9 @@ public class UserDataAccessObject implements UserSignUpDataAccessInterface{
 
     private final Map<String, User> accounts = new HashMap<>();
 
-    private UserFactory userFactory;
+    private UserFactoryInterface userFactory;
 
-    public UserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
+    public UserDataAccessObject(String csvPath, UserFactoryInterface userFactory) throws IOException {
         this.userFactory = userFactory;
 
         csvFile = new File(csvPath);
@@ -43,7 +43,7 @@ public class UserDataAccessObject implements UserSignUpDataAccessInterface{
                     String password = String.valueOf(col[headers.get("password")]);
                     String email = String.valueOf(col[headers.get("email")]);
                     List<String> courses = Collections.singletonList(String.valueOf(col[headers.get("courses")]));
-                    User user = userFactory.create(name, password, username, email, courses);
+                    User user = userFactory.createUser(name, password, username, email, courses);
                     accounts.put(username, user);
                 }
             }
