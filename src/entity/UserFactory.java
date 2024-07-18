@@ -10,7 +10,7 @@ public class UserFactory implements UserFactoryInterface {
      */
 
     @Override
-    public User createUser(String name, String password, String username, String email, List<String> courses) {
-        return new Users(name, password, username, email, courses);
+    public User createUser(String name, String password, String username, String email, List<String> courses, List<GroupChat> groupChatList) {
+        return new Users(name, password, username, email, courses, groupChatList);
     }
 }

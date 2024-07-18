@@ -3,38 +3,34 @@ package interface_adapter;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoginViewModel extends ViewModel {
+public class LoginViewModel {
+    public static final String LOGIN_BUTTON_LABEL = "Login";
+    public static final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    public final String TITLE_LABEL = "Log In View";
-    public final String USERNAME_LABEL = "Enter username";
-    public final String PASSWORD_LABEL = "Enter password";
-
-    public final String LOGIN_BUTTON_LABEL = "Log in";
-    public final String CANCEL_BUTTON_LABEL = "Cancel";
-
-    private LoginState state = new LoginState();
+    private LoginState state;
+    private final PropertyChangeSupport support;
 
     public LoginViewModel() {
-        super("log in");
-    }
-
-    public void setState(LoginState state) {
-        this.state = state;
-    }
-
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
+        LoginState state;
+        //this.state = new LoginState();
+        this.support = new PropertyChangeSupport(this);
     }
 
     public LoginState getState() {
         return state;
+    }
+
+    public void setState(LoginState state) {
+        LoginState oldState = this.state;
+        this.state = state;
+        support.firePropertyChange("state", oldState, state);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
     }
 }

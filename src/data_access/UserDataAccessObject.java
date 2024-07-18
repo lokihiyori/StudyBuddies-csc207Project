@@ -1,14 +1,17 @@
 package data_access;
 
+import entity.GroupChat;
 import entity.User;
 import entity.UserFactory;
 import entity.UserFactoryInterface;
+import data_access.UserSignupDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class UserDataAccessObject implements UserSignUpDataAccessInterface{
+public class UserDataAccessObject implements UserSignupDataAccessInterface{
 
     private final File csvFile;
 
@@ -42,8 +45,13 @@ public class UserDataAccessObject implements UserSignUpDataAccessInterface{
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
                     String email = String.valueOf(col[headers.get("email")]);
-                    List<String> courses = Collections.singletonList(String.valueOf(col[headers.get("courses")]));
-                    User user = userFactory.createUser(name, password, username, email, courses);
+                    String coursesStr = col[headers.get("courses")];
+                    List<String> courses = Arrays.asList(coursesStr.split(";"));
+                    String groupchatStr = col[headers.get("groupchat")];
+                    List<GroupChat> groupchat = Arrays.asList(groupchatStr.split(";")).stream()
+                            .map(GroupChat::new) // Assuming you have a constructor in GroupChat that takes a string
+                            .collect(Collectors.toList());
+                    User user = userFactory.createUser(name, password, username, email, courses, groupchat);
                     accounts.put(username, user);
                 }
             }

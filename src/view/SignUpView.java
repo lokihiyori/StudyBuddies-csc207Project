@@ -1,117 +1,67 @@
 package view;
 
-import interface_adapter.SignUp.SignUpController;
-import interface_adapter.SignUp.SignUpState;
-import interface_adapter.SignUp.SignUpViewModel;
+import data_access.UserDAO1;
+import entity.Users;
+import interface_adapter.LoginController;
+import interface_adapter.LoginPresenter;
+import interface_adapter.LoginViewModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
-public class SignUpView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "sign up";
-    private final SignUpViewModel signupViewModel;
-    private final JTextField nameInputField = new JTextField(15);
-    private final JTextField usernameInputField = new JTextField(15);
-    private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
-    private final JTextField emailInputField = new JTextField(15);
-    private final JTextField coursesInputField = new JTextField(15);
-    private final SignUpController signupController;
+public class SignUpView extends JFrame {
+    private final UserDAO1 userDAO;
 
-    private final JButton signUp;
-    private final JButton cancel;
-
-    public SignUpView(SignUpController controller, SignUpViewModel signupViewModel) {
-
-        this.signupController = controller;
-        this.signupViewModel = signupViewModel;
-        signupViewModel.addPropertyChangeListener(this);
-
-        JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel(signupViewModel.USERNAME_LABEL), usernameInputField);
-        LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel(signupViewModel.PASSWORD_LABEL), passwordInputField);
-        LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
-                new JLabel(signupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
-
-        JPanel buttons = new JPanel();
-        signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
-        buttons.add(signUp);
-        cancel = new JButton(signupViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
-
-        signUp.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(signUp)) {
-                            String name = nameInputField.getText();
-                            String username = usernameInputField.getText();
-                            String password = String.valueOf(passwordInputField.getPassword());
-                            String repeatPassword = String.valueOf(repeatPasswordInputField.getPassword());
-                            String email = emailInputField.getText();
-                            List<String> courses = Arrays.asList(coursesInputField.getText().split(","));
-
-                            signupController.execute(name, username, password, repeatPassword, email, courses);
-                        }
-                    }
-                }
-        );
-        cancel.addActionListener(this);
-
-        // This makes a new KeyListener implementing class, instantiates it, and
-        // makes it listen to keystrokes in the usernameInputField.
-        //
-        // Notice how it has access to instance variables in the enclosing class!
-        usernameInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        SignUpState currentState = signupViewModel.getState();
-                        currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
-                        signupViewModel.setState(currentState);
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-                    }
-                });
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(passwordInfo);
-        this.add(repeatPasswordInfo);
-        this.add(buttons);
+    public SignUpView(UserDAO1 userDAO) {
+        this.userDAO = userDAO;
+        setupUI();
     }
 
-    /**
-     * React to a button click that results in evt.
-     */
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Cancel not implemented yet.");
+    private void setupUI() {
+        setTitle("Sign Up");
+        setSize(300, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        LabelTextPanel namePanel = new LabelTextPanel("Name:");
+        LabelTextPanel usernamePanel = new LabelTextPanel("Username:");
+        LabelTextPanel passwordPanel = new LabelTextPanel("Password:");
+        LabelTextPanel emailPanel = new LabelTextPanel("Email:");
+
+        JButton signUpButton = new JButton("Sign Up");
+        signUpButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                String name = namePanel.getText();
+                String username = usernamePanel.getText();
+                String password = passwordPanel.getText();
+                String email = emailPanel.getText();
+
+                Users newUser = new Users(name, username, password, email, new ArrayList<>(), new ArrayList<>());
+                userDAO.addUser(newUser);  // Assume this method is implemented to add the user to the DAO
+                JOptionPane.showMessageDialog(SignUpView.this, "User registered successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                navigateToLogin();
+            }
+        });
+
+        panel.add(namePanel);
+        panel.add(usernamePanel);
+        panel.add(passwordPanel);
+        panel.add(emailPanel);
+        panel.add(signUpButton);
+
+        add(panel);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        SignUpState state = (SignUpState) evt.getNewValue();
-        if (state.getUsernameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getUsernameError());
-        }
+    private void navigateToLogin() {
+        LoginView loginView = new LoginView(new LoginController(new use_case.LoginInteractor(userDAO, new LoginPresenter(new LoginViewModel()))), new LoginViewModel());
+        loginView.setVisible(true);
+        this.dispose();
     }
 }

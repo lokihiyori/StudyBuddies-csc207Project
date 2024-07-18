@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface UserFactoryInterface {
     /** Requires: password is valid. */
-    User createUser(String name, String username, String password, String email, List<String> courses);
+    User createUser(String name, String username, String password, String email, List<String> courses, List<GroupChat> groupChatList);
 }

@@ -1,14 +1,13 @@
 package entity;
 
-/**
- * The Course class represents a course with a name, code, and group chat.
- */
+
 public class Course {
     // Attributes
     // The types of attributes need to be discussed later!!!!!!!!
     private String name;
     private String code;
-    private GroupChat groupchat;
+    private String groupchat;
+
 
     /**
      * Constructs a new Course with the specified name, code, and group chat.
@@ -17,7 +16,7 @@ public class Course {
      * @param code      the code of the course
      * @param groupchat the group chat identifier for the course
      */
-    public Course(String name, String code, GroupChat groupchat) {
+    public Course(String name, String code, String groupchat) {
         this.name = name;
         this.code = code;
         this.groupchat = groupchat;
@@ -71,7 +70,7 @@ public class Course {
      *
      * @return the group chat identifier of the course
      */
-    public GroupChat getGroupchat() {
+    public String getGroupchat() {
 
         return groupchat;
     }
@@ -81,7 +80,7 @@ public class Course {
      *
      * @param groupchat the new group chat identifier of the course
      */
-    public void setGroupchat(GroupChat groupchat) {
+    public void setGroupchat(String groupchat) {
         this.groupchat = groupchat;
     }
 
