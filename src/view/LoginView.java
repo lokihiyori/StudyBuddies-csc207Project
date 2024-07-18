@@ -33,7 +33,7 @@ public class LoginView extends JFrame {
 
         JButton loginButton = new JButton("Login");
         loginButton.addActionListener(new ActionListener() {
-            @Override
+
             public void actionPerformed(ActionEvent e) {
                 String username = usernamePanel.getText();
                 String password = passwordPanel.getText();
