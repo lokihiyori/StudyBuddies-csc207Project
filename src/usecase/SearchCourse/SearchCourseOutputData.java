@@ -2,11 +2,11 @@ package usecase.SearchCourse;
 
 import entity.Course;
 
-public class CourseSearchOutputData {
+public class SearchCourseOutputData {
     private Course course;
     private String message;
 
-    public CourseSearchOutputData(Course course, String message) {
+    public SearchCourseOutputData(Course course, String message) {
         this.course = course;
         this.message = message;
     }
