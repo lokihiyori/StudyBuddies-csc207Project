@@ -6,7 +6,7 @@ public class Course {
     // The types of attributes need to be discussed later!!!!!!!!
     private String name;
     private String code;
-    private String groupchat;
+    private GroupChat groupchat;
 
 
     /**
@@ -16,10 +16,11 @@ public class Course {
      * @param code      the code of the course
      * @param groupchat the group chat identifier for the course
      */
-    public Course(String name, String code, String groupchat) {
+    public Course(String name, String code, GroupChat groupchat) {
         this.name = name;
         this.code = code;
-        this.groupchat = groupchat;
+        GroupChat gc = new GroupChat(code);
+        this.groupchat = gc;
     }
 
 
@@ -70,7 +71,7 @@ public class Course {
      *
      * @return the group chat identifier of the course
      */
-    public String getGroupchat() {
+    public GroupChat getGroupchat() {
 
         return groupchat;
     }
@@ -80,7 +81,7 @@ public class Course {
      *
      * @param groupchat the new group chat identifier of the course
      */
-    public void setGroupchat(String groupchat) {
+    public void setGroupchat(GroupChat groupchat) {
         this.groupchat = groupchat;
     }
 
@@ -93,7 +94,7 @@ public class Course {
     public String toString() {
         // This method overrides the toString() which belongs to the Object class. It is used to form
         // a proper string which contains all the attributes' information of the Course object.
-        return "Course name: " + name + ", Course code: " + code + ", Groupchat: " + groupchat;
+        return "Course name: " + name + ", Course code: " + code;
     }
 
 

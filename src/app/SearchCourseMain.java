@@ -1,6 +1,7 @@
 package app;
 
 import entity.Course;
+import entity.GroupChat;
 import data_access.CourseListDAO;
 import interface_adapter.SearchCourse.SearchCourseController;
 import interface_adapter.SearchCourse.SearchCoursePresenter;
@@ -19,10 +20,14 @@ public class SearchCourseMain {
         SearchCourseInputBoundary searchCourseInteractor = new SearchCourseInteractor(courseList, presenter);
         SearchCourseController controller = new SearchCourseController(searchCourseInteractor);
 
+        GroupChat gc1 = new GroupChat("CSC207");
+        GroupChat gc2 = new GroupChat("MAT141");
+        GroupChat gc3 = new GroupChat("PHY131");
+
         // Adding some sample courses to the repository
-        courseList.addCourse(new Course("Software Design", "CSC207", "CSC207_Chat"));
-        courseList.addCourse(new Course("Calculus I", "MAT141", "MAT141_Chat"));
-        courseList.addCourse(new Course("Physics I", "PHY131", "PHY131_Chat"));
+        courseList.addCourse(new Course("Software Design", "CSC207", gc1));
+        courseList.addCourse(new Course("Calculus I", "MAT141", gc2));
+        courseList.addCourse(new Course("Physics I", "PHY131", gc3));
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the course code or course name to search: ");
@@ -39,7 +44,6 @@ public class SearchCourseMain {
         else{
             //course doesn't exist, create the course or go back to the personal page
         }
-
 
         scanner.close();
     }
