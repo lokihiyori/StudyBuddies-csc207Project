@@ -5,13 +5,12 @@ import entity.Users;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO {
+public class UserDAO1 {
     private final List<User> users = new ArrayList<>();
+    public UserDAO1() {
 
-    // Constructor to add some sample users for testing
-    public UserDAO() {
         users.add(new Users("John Doe", "password123", "johndoe", "john@example.com", new ArrayList<>(), new ArrayList<>()));
-        users.add(new Users("Ana Ciur", "password456", "anaciur", "ana@example.com", new ArrayList<>(), new ArrayList<>()));
+        users.add(new Users("Jane Smith", "password456", "janesmith", "jane@example.com", new ArrayList<>(), new ArrayList<>()));
     }
 
     public User findByUsername(String username) {
@@ -20,8 +19,11 @@ public class UserDAO {
                 return user;
             }
         }
-        return null; // Return null if user not found
+        return null;
     }
 
-    // Other methods to add users, remove users, etc.
+    public void addUser(User user) {
+        users.add(user);
+    }
 }
+

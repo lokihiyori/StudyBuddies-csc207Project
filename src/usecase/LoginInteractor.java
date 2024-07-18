@@ -1,6 +1,6 @@
 package use_case;
 
-import data_access.UserDAO;
+import data_access.UserDAO1;
 import entity.User;
 import session.SessionManager;
 import usecase.LoginInputBoundary;
@@ -9,10 +9,10 @@ import usecase.LoginOutputBoundary;
 import usecase.LoginOutputData;
 
 public class LoginInteractor implements LoginInputBoundary {
-    private final UserDAO userDAO;
+    private final UserDAO1 userDAO;
     private final LoginOutputBoundary loginOutputBoundary;
 
-    public LoginInteractor(UserDAO userDAO, LoginOutputBoundary loginOutputBoundary) {
+    public LoginInteractor(UserDAO1 userDAO, LoginOutputBoundary loginOutputBoundary) {
         this.userDAO = userDAO;
         this.loginOutputBoundary = loginOutputBoundary;
     }
