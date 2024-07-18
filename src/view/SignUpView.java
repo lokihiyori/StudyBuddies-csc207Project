@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Arrays;
+import java.util.List;
 
 public class SignUpView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sign up";
@@ -21,6 +23,7 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final JTextField emailInputField = new JTextField(15);
+    private final JTextField coursesInputField = new JTextField(15);
     private final SignUpController signupController;
 
     private final JButton signUp;
@@ -53,10 +56,14 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
-                            signupController.execute(nameInputField.getText(),
-                            signupController.execute(usernameInputField.getText(), signupController.execute(emailInputField.getText());
-//                                    String.valueOf(passwordInputField.getPassword())
-//                                    String.valueOf(repeatPasswordInputField.getPassword()));
+                            String name = nameInputField.getText();
+                            String username = usernameInputField.getText();
+                            String password = String.valueOf(passwordInputField.getPassword());
+                            String repeatPassword = String.valueOf(repeatPasswordInputField.getPassword());
+                            String email = emailInputField.getText();
+                            List<String> courses = Arrays.asList(coursesInputField.getText().split(","));
+
+                            signupController.execute(name, username, password, repeatPassword, email, courses);
                         }
                     }
                 }
