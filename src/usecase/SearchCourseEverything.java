@@ -5,7 +5,7 @@ import entity.Course;
 
 import java.util.Scanner;
 
-public class SearchCourse {
+public class SearchCourseEverything {
     public static void main(String[] args) {
         CourseListDAO repository = new CourseListDAO();
 
