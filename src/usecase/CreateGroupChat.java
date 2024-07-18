@@ -44,9 +44,12 @@ public class CreateGroupChat {
 
             //add person into the group chat
 
+
             //create new course object and append it to the course list
             Course newCourse = new Course(courseName, courseCode, courseCode); //should replace by GroupChat
-            System.out.println("The course: " + newCourse +" has been created.");
+            repository.addCourse(newCourse);
+
+            System.out.println("The course: " + newCourse + " has been created.");
         }
         else{
             // go back to personal page (go to your groupchat/ go to search bar)
