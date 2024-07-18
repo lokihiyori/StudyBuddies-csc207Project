@@ -1,2 +1,5 @@
-package usecase.SearchCourse;public class SearchCourseOutputBoundary {
+package usecase.SearchCourse;
+
+public interface SearchCourseOutputBoundary {
+    void present(SearchCourseOutputData outputData) ;
 }
