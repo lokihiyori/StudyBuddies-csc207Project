@@ -7,11 +7,11 @@ public class Users implements User{
     private final String username;
     private final String password;
     private final String email;
-    private final List<String> courses;
+    private final List<Course> courses;
     private final List<GroupChat> groupChatList;
 
 
-    public Users(String name, String password, String username, String email, List<String> courses, List<GroupChat> groupChatList) {
+    public Users(String name, String password, String username, String email, List<Course> courses, List<GroupChat> groupChatList) {
         this.name = name;
         this.password = password;
         this.username = username;
@@ -42,12 +42,12 @@ public class Users implements User{
     }
 
     @Override
-    public List<String> getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
 
     @Override
-    public User get(String users) {
+    public Users get(String users) {
         return null;
     }
 

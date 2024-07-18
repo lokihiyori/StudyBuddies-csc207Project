@@ -12,7 +12,7 @@ public interface User {
 
     String getEmail();
 
-    List<String> getCourses();
+    List<Course> getCourses();
 
     User get(String users);
     List<GroupChat> getGroupChatList();
