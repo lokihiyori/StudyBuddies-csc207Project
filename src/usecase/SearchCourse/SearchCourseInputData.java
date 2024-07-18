@@ -1,9 +1,9 @@
 package usecase.SearchCourse;
 
-public class CourseSearchInputData {
+public class SearchCourseInputData {
     private String query;
 
-    public CourseSearchInputData(String query) {
+    public SearchCourseInputData(String query) {
         this.query = query;
     }
 
