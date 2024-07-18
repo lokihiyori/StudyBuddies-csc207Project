@@ -6,12 +6,12 @@ import java.util.List;
 public class Message {
     private String content;
     private LocalDateTime timestamp;
-    private Users sender;
+    private CommonUser sender;
     private GroupChat receiver;
     private String courseId;
-    private List<Users> members;
+    private List<CommonUser> members;
 
-    public Message(String content, Users sender,
+    public Message(String content, CommonUser sender,
                    GroupChat receiver, LocalDateTime timestamp,
                    String courseId) {
         this.content = content;
@@ -28,7 +28,7 @@ public class Message {
     public LocalDateTime getdate() {
         return timestamp;
     }
-    public Users getSender() {
+    public CommonUser getSender() {
         return sender;
     }
 
@@ -40,7 +40,7 @@ public class Message {
         return courseId;
     }
 
-    public List<Users> getMembers() {
+    public List<CommonUser> getMembers() {
         return members;
     }
 

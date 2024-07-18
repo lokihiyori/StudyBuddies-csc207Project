@@ -5,9 +5,9 @@ import data_access.CourseListDAO;
 import interface_adapter.SearchCourse.SearchCourseController;
 import interface_adapter.SearchCourse.SearchCoursePresenter;
 import interface_adapter.SearchCourse.SearchCourseViewModel;
-import usecase.SearchCourse.SearchCourseInputBoundary;
-import usecase.SearchCourse.SearchCourseOutputBoundary;
-import usecase.SearchCourse.SearchCourseInteractor;
+import use_case.SearchCourse.SearchCourseInputBoundary;
+import use_case.SearchCourse.SearchCourseOutputBoundary;
+import use_case.SearchCourse.SearchCourseInteractor;
 
 import java.util.Scanner;
 
