@@ -2,14 +2,11 @@ package data_access;
 
 import entity.User;
 import use_case.Signup.SignupUserDataAccessInterface;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface {
-
     private final Map<String, User> users = new HashMap<>();
-
     /**
      * @param identifier the user's username
      * @return whether the user exists
@@ -18,7 +15,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     public boolean existsByName(String identifier) {
         return users.containsKey(identifier);
     }
-
     /**
      * @param user the data to save
      */
