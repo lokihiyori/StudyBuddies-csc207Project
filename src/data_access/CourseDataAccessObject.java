@@ -1,7 +1,8 @@
 package data_access;
 
 import entity.Course;
-import usecase.CreateCourse.CreateCourseDataAccessInterface;
+import entity.GroupChat;
+import use_case.CreateCourse.CreateCourseDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
