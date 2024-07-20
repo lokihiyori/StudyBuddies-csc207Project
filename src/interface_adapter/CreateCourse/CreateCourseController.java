@@ -1,5 +1,6 @@
 package interface_adapter.CreateCourse;
 
+import entity.GroupChat;
 import use_case.CreateCourse.CreateCourseInputBoundary;
 import use_case.CreateCourse.CreateCourseInputData;
 
@@ -11,7 +12,8 @@ public class CreateCourseController {
     }
 
     public void executeCreateCourse(String name, String code) {
-        CreateCourseInputData inputData = new CreateCourseInputData(name, code);
+        GroupChat groupChat = new GroupChat(code);
+        CreateCourseInputData inputData = new CreateCourseInputData(name, code, groupChat);
         createCourseInteractor.execute(inputData);
     }
 }

@@ -19,7 +19,6 @@ public class CreateCoursePresenter implements CreateCourseOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        createCourseViewModel.setError(error);
-        createCourseViewModel.firePropertyChanged();
+        System.out.println("Error: " + error);
     }
 }
