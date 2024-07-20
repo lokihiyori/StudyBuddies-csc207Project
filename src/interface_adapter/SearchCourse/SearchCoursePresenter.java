@@ -1,7 +1,7 @@
 package interface_adapter.SearchCourse;
 
-import usecase.SearchCourse.SearchCourseOutputBoundary;
-import usecase.SearchCourse.SearchCourseOutputData;
+import use_case.SearchCourse.SearchCourseOutputBoundary;
+import use_case.SearchCourse.SearchCourseOutputData;
 
 public class SearchCoursePresenter implements SearchCourseOutputBoundary {
 

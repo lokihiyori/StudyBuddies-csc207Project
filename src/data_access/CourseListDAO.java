@@ -2,7 +2,7 @@ package data_access;
 
 import entity.Course;
 
-import usecase.SearchCourse.CourseRepository;
+import use_case.SearchCourse.CourseRepository;
 
 import java.util.ArrayList;
 import java.util.List;
