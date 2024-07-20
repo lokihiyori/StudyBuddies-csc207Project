@@ -1,7 +1,7 @@
 package interface_adapter.CreateCourse;
 
-import usecase.CreateCourse.CreateCourseOutputBoundary;
-import usecase.CreateCourse.CreateCourseOutputData;
+import use_case.CreateCourse.CreateCourseOutputBoundary;
+import use_case.CreateCourse.CreateCourseOutputData;
 
 public class CreateCoursePresenter implements CreateCourseOutputBoundary {
     private final CreateCourseViewModel createCourseViewModel;

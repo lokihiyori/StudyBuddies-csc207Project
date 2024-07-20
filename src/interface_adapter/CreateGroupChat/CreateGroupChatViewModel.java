@@ -1,30 +1,27 @@
 package interface_adapter.CreateGroupChat;
 
-import interface_adapter.ViewModel;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class CreateGroupChatViewModel extends ViewModel{
+public class CreateGroupChatViewModel{
     private CreateGroupChatState state = new CreateGroupChatState();
-
-    public CreateGroupChatViewModel() {
-        super("create group chat");
-    }
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void setState(CreateGroupChatState state) {
+        CreateGroupChatState oldState = this.state;
         this.state = state;
-    }
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    @Override
-    public void firePropertyChanged() {support.firePropertyChange("state", null, this.state);
+        support.firePropertyChange("state", oldState, this.state);
     }
 
-    @Override
+    public CreateGroupChatState getState() {
+        return state;
+    }
+
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-    public CreateGroupChatState getState() {
-        return state;
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 }

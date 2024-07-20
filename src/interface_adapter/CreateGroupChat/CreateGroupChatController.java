@@ -1,7 +1,7 @@
 package interface_adapter.CreateGroupChat;
 
-import usecase.CreateGroupChat.CreateGroupChatInputBoundary;
-import usecase.CreateGroupChat.CreateGroupChatInputData;
+import use_case.CreateGroupChat.CreateGroupChatInputBoundary;
+import use_case.CreateGroupChat.CreateGroupChatInputData;
 
 public class CreateGroupChatController {
     final CreateGroupChatInputBoundary createGroupChatucInteractor;

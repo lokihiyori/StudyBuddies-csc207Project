@@ -1,7 +1,7 @@
 package interface_adapter.CreateCourse;
 
-import usecase.CreateCourse.CreateCourseInputBoundary;
-import usecase.CreateCourse.CreateCourseInputData;
+import use_case.CreateCourse.CreateCourseInputBoundary;
+import use_case.CreateCourse.CreateCourseInputData;
 
 public class CreateCourseController {
     private final CreateCourseInputBoundary createCourseInteractor;

@@ -1,4 +1,4 @@
-package usecase.CreateGroupChat;
+package use_case.CreateGroupChat;
 
 public interface CreateGroupChatOutputBoundary {
     void prepareSuccessView(CreateGroupChatOutputData createGroupChatOutputData);

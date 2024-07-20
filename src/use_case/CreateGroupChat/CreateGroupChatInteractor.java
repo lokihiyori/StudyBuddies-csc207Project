@@ -1,9 +1,9 @@
-package usecase.CreateGroupChat;
+package use_case.CreateGroupChat;
 
 import entity.GroupChat;
 import entity.GroupChatFactory;
 
-public class CreateGroupChatInteractor implements CreateGroupChatInputBoundary{
+public class CreateGroupChatInteractor implements CreateGroupChatInputBoundary {
     final CreateGroupChatOutputBoundary createGroupChatPresenter;
     final CreateGroupChatDataAccessInterface groupChatDataAccessObject;
     final GroupChatFactory groupChatFactory;
