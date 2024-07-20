@@ -1,18 +1,22 @@
-package interface_adapter.signup;
+package interface_adapter.SignUp;
 
-import use_case.Signup.SignupInputBoundary;
-import use_case.Signup.SignupInputData;
 
-public class SignupController {
+import entity.GroupChat;
+import usecase.SignUp.SignUpInputBoundary;
+import usecase.SignUp.SignUpInputData;
 
-    final SignupInputBoundary userSignupUseCaseInteractor;
-    public SignupController(SignupInputBoundary userSignupUseCaseInteractor) {
+import java.util.List;
+
+public class SignUpController {
+
+    final SignUpInputBoundary userSignupUseCaseInteractor;
+    public SignUpController(SignUpInputBoundary userSignupUseCaseInteractor) {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
     }
 
-    public void execute(String username, String password1, String password2) {
-        SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2);
+    public void execute(String name, String username, String password, String repeatPassword, String email, List<String> courses, List<GroupChat> groupChatList) {
+        SignUpInputData signupInputData = new SignUpInputData(
+                name, username, password, repeatPassword, email, courses, groupChatList);
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }
