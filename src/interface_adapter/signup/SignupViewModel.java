@@ -1,10 +1,11 @@
-package interface_adapter.signup;
+package interface_adapter.SignUp;
+
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class SignupViewModel extends ViewModel {
+public class SignUpViewModel extends ViewModel {
 
     public final String TITLE_LABEL = "Sign Up View";
     public final String USERNAME_LABEL = "Choose username";
@@ -14,13 +15,13 @@ public class SignupViewModel extends ViewModel {
     public final String SIGNUP_BUTTON_LABEL = "Sign up";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private SignupState state = new SignupState();
+    private SignUpState state = new SignUpState();
 
-    public SignupViewModel() {
+    public SignUpViewModel() {
         super("sign up");
     }
 
-    public void setState(SignupState state) {
+    public void setState(SignUpState state) {
         this.state = state;
     }
 
@@ -36,7 +37,7 @@ public class SignupViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public SignupState getState() {
+    public SignUpState getState() {
         return state;
     }
 }
