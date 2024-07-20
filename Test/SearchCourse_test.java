@@ -32,9 +32,9 @@ public class SearchCourse_test {
         GroupChat gc3 = new GroupChat("PHY131");
 
         // Adding some sample courses to the repository
-        courseListDAO.addCourse(new Course("Software Design", "CSC207", gc1));
-        courseListDAO.addCourse(new Course("Calculus I", "MAT141", gc2));
-        courseListDAO.addCourse(new Course("Physics I", "PHY131", gc3));
+        courseListDAO.addCourse(new Course("SOFTWARE DESIGN", "CSC207", gc1));
+        courseListDAO.addCourse(new Course("CALCULUS I", "MAT141", gc2));
+        courseListDAO.addCourse(new Course("PHYSICS I", "PHY131", gc3));
     }
 
     @Test
@@ -42,17 +42,17 @@ public class SearchCourse_test {
         controller.handleInput("CSC207");
         assertNotNull(viewModel.getCourse());
         assertEquals("CSC207", viewModel.getCourse().getCode());
-        assertEquals("Software Design", viewModel.getCourse().getName());
-        assertEquals("Course found by code: Course name: Software Design, Course code: CSC207", viewModel.getMessage());
+        assertEquals("SOFTWARE DESIGN", viewModel.getCourse().getName());
+        assertEquals("Course found by code: Course name: SOFTWARE DESIGN, Course code: CSC207", viewModel.getMessage());
     }
 
     @Test
     public void testSearchCourseByName_Found() {
-        controller.handleInput("Software Design");
+        controller.handleInput("SOFTWARE DESIGN");
         assertNotNull(viewModel.getCourse());
         assertEquals("CSC207", viewModel.getCourse().getCode());
-        assertEquals("Software Design", viewModel.getCourse().getName());
-        assertEquals("Course found by Name: Course name: Software Design, Course code: CSC207", viewModel.getMessage());
+        assertEquals("SOFTWARE DESIGN", viewModel.getCourse().getName());
+        assertEquals("Course found by Name: Course name: SOFTWARE DESIGN, Course code: CSC207", viewModel.getMessage());
     }
 
     @Test
