@@ -33,7 +33,7 @@ public class CourseListDAO implements CourseRepository {
     @Override
     public Course findCourseByName(String courseName) {
         for (Course course : courses) {
-            if (course.getName().equalsIgnoreCase(courseName)) {
+            if (course.getName().equalsIgnoreCase(courseName.toUpperCase())) {
                 return course;
             }
         }
