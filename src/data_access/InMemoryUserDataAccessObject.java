@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface {
+
     private final Map<String, User> users = new HashMap<>();
     /**
      * @param identifier the user's username

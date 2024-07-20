@@ -1,6 +1,6 @@
 package view;
 
-import interface_adapter.signup.SignupViewModel;
+import interface_adapter.signup.SignUpViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewModel;
 
@@ -10,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.Map.Entry;
+
 
 public class ViewManager implements PropertyChangeListener {
     private final CardLayout cardLayout;

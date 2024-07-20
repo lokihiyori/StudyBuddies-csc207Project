@@ -61,6 +61,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 LoginState currentState = loginViewModel.getState();
                 currentState.setUsername(usernameInputField.getText());
                 loginViewModel.setState(currentState);
+
             }
 
             @Override

@@ -10,6 +10,7 @@ public class GroupChat {
     private Dictionary<CommonUser, String> MessageHistory;
     public GroupChat(String Code){
         this.code = Code;
+
         this.GroupMembers = new ArrayList<>();
         this.MessageHistory = new Dictionary<CommonUser, String>() {
             @Override
