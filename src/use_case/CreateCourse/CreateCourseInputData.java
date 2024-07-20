@@ -1,4 +1,4 @@
-package usecase.CreateCourse;
+package use_case.CreateCourse;
 
 public class CreateCourseInputData {
     final private String code;

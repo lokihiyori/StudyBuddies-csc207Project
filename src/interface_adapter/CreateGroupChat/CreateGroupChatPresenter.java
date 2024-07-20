@@ -1,7 +1,7 @@
 package interface_adapter.CreateGroupChat;
 
-import usecase.CreateGroupChat.CreateGroupChatOutputBoundary;
-import usecase.CreateGroupChat.CreateGroupChatOutputData;
+import use_case.CreateGroupChat.CreateGroupChatOutputBoundary;
+import use_case.CreateGroupChat.CreateGroupChatOutputData;
 
 public class CreateGroupChatPresenter implements CreateGroupChatOutputBoundary {
     private final CreateGroupChatViewModel createGroupChatViewModel;
@@ -10,11 +10,9 @@ public class CreateGroupChatPresenter implements CreateGroupChatOutputBoundary {
     }
     @Override
     public void prepareSuccessView(CreateGroupChatOutputData createGroupChatOutputData) {
-        // On success, switch to the logged in view.
-        CreateGroupChatState createGroupChatState = createGroupChatViewModel.getState();
-        createGroupChatState.setCode(createGroupChatOutputData.getCode());
-        this.createGroupChatViewModel.setState(createGroupChatState);
-        this.createGroupChatViewModel.firePropertyChanged();
+        CreateGroupChatState state = new CreateGroupChatState();
+        state.setCode(createGroupChatOutputData.getCode());
+        createGroupChatViewModel.setState(state);
     }
 
     @Override

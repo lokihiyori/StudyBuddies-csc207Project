@@ -3,7 +3,7 @@ package data_access;
 import entity.GroupChat;
 import entity.GroupChatFactory;
 import entity.User;
-import usecase.CreateGroupChat.CreateGroupChatDataAccessInterface;
+import use_case.CreateGroupChat.CreateGroupChatDataAccessInterface;
 
 import java.io.File;
 import java.io.FileWriter;
