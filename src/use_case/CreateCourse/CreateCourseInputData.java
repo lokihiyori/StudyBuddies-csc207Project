@@ -7,7 +7,7 @@ public class CreateCourseInputData {
     final private String name;
     final private GroupChat groupChat;
 
-    public CreateCourseInputData(String code, String name, GroupChat groupChat) {
+    public CreateCourseInputData(String name, String code, GroupChat groupChat) {
         this.code = code;
         this.name = name;
         this.groupChat = groupChat;
