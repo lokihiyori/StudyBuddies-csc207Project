@@ -38,17 +38,11 @@ public class CreateGroupChatView extends JFrame implements PropertyChangeListene
         codeTextField = new JTextField();
         inputPanel.add(codeTextField);
 
-        inputPanel.add(new JLabel("User:"));
-        usersListTextArea = new JTextArea();
-        inputPanel.add(usersListTextArea);
-
         JButton createButton = new JButton("Create Group Chat");
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String code = codeTextField.getText();
-                // Here, you would typically get the users list from the text area
-                // For simplicity, let's assume it's just a single string
                 controller.executeCreateGroupChat(code);
             }
         });
@@ -66,7 +60,11 @@ public class CreateGroupChatView extends JFrame implements PropertyChangeListene
         if ("state".equals(evt.getPropertyName())) {
             CreateGroupChatState state = viewModel.getState();
             // Update the UI based on the new state
-            statusLabel.setText("Status: Group chat created with code " + state.getCode());
+            if (state.getCode() != null) {
+                statusLabel.setText("Status: Group chat created with code " + state.getCode());
+            } else {
+                statusLabel.setText("Status: Failed to create group chat.");
+            }
         }
 
     }
