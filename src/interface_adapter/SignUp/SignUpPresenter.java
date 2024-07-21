@@ -1,12 +1,12 @@
 package interface_adapter.SignUp;
 
-import interface_adapter.LoginState;
-import interface_adapter.LoginViewModel;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.ViewManagerModel;
-import usecase.SignUp.SignUpOutputBoundary;
-import usecase.SignUp.SignUpOutputData;
+import use_case.Signup.SignupOutputBoundary;
+import use_case.Signup.SignupOutputData;
 
-public class SignUpPresenter implements SignUpOutputBoundary {
+public class SignUpPresenter implements SignupOutputBoundary {
 
     private final SignUpViewModel signupViewModel;
     private final LoginViewModel loginViewModel;
@@ -21,15 +21,15 @@ public class SignUpPresenter implements SignUpOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(SignUpOutputData response) {
+    public void prepareSuccessView(SignupOutputData response) {
         // On success, switch to the login view.
 
         SignUpState signupState = signupViewModel.getState();
         LoginState loginState = loginViewModel.getState();
         loginState.setUsername(response.getUsername());
         this.loginViewModel.setState(loginState);
-//        loginViewModel.firePropertyChanged();
-//        viewManagerModel.setActiveView(loginViewModel.getViewName());
+        loginViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
