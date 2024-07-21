@@ -4,14 +4,16 @@ import use_case.Login.LoginInputBoundary;
 import use_case.Login.LoginInputData;
 
 public class LoginController {
-    private final LoginInputBoundary loginInputBoundary;
+    private final LoginInputBoundary loginUseCaseInteractor;
 
-    public LoginController(LoginInputBoundary loginInputBoundary) {
-        this.loginInputBoundary = loginInputBoundary;
+    public LoginController(LoginInputBoundary loginUseCaseInteractor) {
+        this.loginUseCaseInteractor = loginUseCaseInteractor ;
     }
 
-    public void login(String username, String password) {
-        LoginInputData inputData = new LoginInputData(username, password);
-        loginInputBoundary.login(inputData);
+    public void execute(String username, String password) {
+        LoginInputData loginInputData = new LoginInputData(
+                username, password);
+
+        loginUseCaseInteractor.execute(loginInputData);
     }
 }
