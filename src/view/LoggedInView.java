@@ -12,6 +12,16 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 
+import entity.Course;
+import entity.GroupChat;
+import data_access.CourseListDAO;
+import interface_adapter.SearchCourse.SearchCourseController;
+import interface_adapter.SearchCourse.SearchCoursePresenter;
+import interface_adapter.SearchCourse.SearchCourseViewModel;
+import use_case.SearchCourse.SearchCourseInputBoundary;
+import use_case.SearchCourse.SearchCourseOutputBoundary;
+import use_case.SearchCourse.SearchCourseInteractor;
+
 public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "logged in";
 
@@ -49,10 +59,28 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void actionPerformed(ActionEvent evt) {
+
+        CourseListDAO courseList = new CourseListDAO();
+        SearchCourseViewModel searchCourseViewModel = new SearchCourseViewModel();
+        SearchCourseOutputBoundary presenter = new SearchCoursePresenter(searchCourseViewModel);
+        SearchCourseInputBoundary searchCourseInteractor = new SearchCourseInteractor(courseList, presenter);
+        SearchCourseController searchCourseController = new SearchCourseController(searchCourseInteractor);
+
+        //initialize some courses
+        GroupChat gc1 = new GroupChat("CSC207");
+        GroupChat gc2 = new GroupChat("MAT141");
+        GroupChat gc3 = new GroupChat("PHY131");
+
+        // Adding some sample courses to the repository
+        courseList.addCourse(new Course("SOFTWARE DESIGN", "CSC207", gc1));
+        courseList.addCourse(new Course("CALCULUS I", "MAT141", gc2));
+        courseList.addCourse(new Course("PHYSICS I", "PHY131", gc3));
+
+
         if (evt.getSource() == searchCourseButton) {
             System.out.println("Navigating to Course Search");
             // Adjust this to manage within current GUI framework
-            JPanel courseSearchPanel = new CourseSearchView(viewModel); // Assuming CourseSearchView is a JPanel
+            JPanel courseSearchPanel = new CourseSearchView(viewModel, searchCourseViewModel, searchCourseController); // Assuming CourseSearchView is a JPanel
             JOptionPane.showMessageDialog(this, courseSearchPanel, "Course Search", JOptionPane.PLAIN_MESSAGE);
         } else if (evt.getSource() == registeredCoursesButton) {
             System.out.println("Navigating to Registered Courses");

@@ -17,8 +17,8 @@ public class Course {
      * @param groupchat the group chat identifier for the course
      */
     public Course(String name, String code, GroupChat groupchat) {
-        this.name = name;
-        this.code = code;
+        this.name = name.toUpperCase();
+        this.code = code.toUpperCase();
         GroupChat gc = new GroupChat(code);
         this.groupchat = gc;
     }
