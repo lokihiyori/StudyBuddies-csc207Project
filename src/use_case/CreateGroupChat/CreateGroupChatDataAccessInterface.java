@@ -1,4 +1,4 @@
-package usecase.CreateGroupChat;
+package use_case.CreateGroupChat;
 
 import entity.GroupChat;
 

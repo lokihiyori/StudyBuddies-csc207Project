@@ -1,6 +1,6 @@
 package view;
 
-import interface_adapter.signup.SignUpViewModel;
+import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewModel;
 

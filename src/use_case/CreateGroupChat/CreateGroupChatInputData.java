@@ -1,6 +1,6 @@
-package usecase.CreateGroupChat;
+package use_case.CreateGroupChat;
 
-import entity.Users;
+import entity.CommonUser;
 
 import java.util.List;
 

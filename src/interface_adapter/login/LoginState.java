@@ -1,5 +1,4 @@
 package interface_adapter.login;
-
 public class LoginState {
     private String username = "";
     private String usernameError = null;
@@ -13,9 +12,8 @@ public class LoginState {
         passwordError = copy.passwordError;
     }
 
-    // Because of the previous copy constructor, the default constructor must be explicit.
+    // Getter for the username
     public LoginState() {}
-
 
     public String getUsername() {
         return username;
@@ -49,3 +47,4 @@ public class LoginState {
         this.passwordError = passwordError;
     }
 }
+

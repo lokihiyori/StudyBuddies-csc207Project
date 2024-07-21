@@ -3,11 +3,13 @@ package data_access;
 import entity.GroupChat;
 import entity.User;
 import entity.UserFactoryInterface;
+import use_case.Signup.SignupUserDataAccessInterface;
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class UserDataAccessObject implements UserDataAccessInterface {
+public class UserDataAccessObject implements SignupUserDataAccessInterface {
 
     private final File csvFile;
 

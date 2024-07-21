@@ -6,8 +6,8 @@ import interface_adapter.SearchCourse.SearchCoursePresenter;
 import interface_adapter.SearchCourse.SearchCourseViewModel;
 import org.junit.Before;
 import org.junit.Test;
-import usecase.SearchCourse.SearchCourseInputBoundary;
-import usecase.SearchCourse.SearchCourseInteractor;
+import use_case.SearchCourse.SearchCourseInputBoundary;
+import use_case.SearchCourse.SearchCourseInteractor;
 
 import static org.junit.Assert.*;
 

@@ -2,6 +2,7 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
+import use_case.Login.LoginUserDataAccessInterface;
 import use_case.Signup.SignupUserDataAccessInterface;
 
 import java.io.*;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
 
     private final File csvFile;
 
@@ -79,7 +80,9 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface {
         }
     }
 
-
+    public User get(String username) {
+        return accounts.get(username);
+    }
     /**
      * Return whether a user exists with username identifier.
      * @param identifier the username to check.

@@ -1,12 +1,12 @@
 package interface_adapter.CreateGroupChat;
 
-import entity.Users;
+import entity.CommonUser;
 
 import java.util.List;
 
 public class CreateGroupChatState {
     private String code;
-    private List<Users> usersList;
+    private List<CommonUser> usersList;
     public CreateGroupChatState(CreateGroupChatState copy){
         code =copy.code;
         usersList = copy.usersList;
@@ -21,11 +21,11 @@ public class CreateGroupChatState {
         this.code = code;
     }
 
-    public List<Users> getUsersList() {
+    public List<CommonUser> getUsersList() {
         return usersList;
     }
 
-    public void setUsersList(List<Users> usersList) {
+    public void setUsersList(List<CommonUser> usersList) {
         this.usersList = usersList;
     }
 }

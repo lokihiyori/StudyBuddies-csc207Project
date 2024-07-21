@@ -1,4 +1,4 @@
-package usecase.CreateCourse;
+package use_case.CreateCourse;
 
 import entity.Course;
 

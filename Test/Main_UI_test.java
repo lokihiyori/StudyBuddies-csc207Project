@@ -1,4 +1,4 @@
-import view.Main_UI;
+import view.LoggedInView;
 
 import javax.swing.*;
 
@@ -7,7 +7,7 @@ public class Main_UI_test {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Main_UI welcomeUI = new Main_UI();
+                LoggedInView welcomeUI = new LoggedInView();
                 welcomeUI.setVisible(true);
             }
         });
