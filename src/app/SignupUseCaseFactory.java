@@ -1,7 +1,5 @@
 package app;
-import interface_adapter.login.*;
-import interface_adapter.signup.*;
-import interface_adapter.*;
+import interface_adapter.SignUp.*;
 
 import data_access.FileUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
@@ -22,10 +20,10 @@ public class SignupUseCaseFactory {
     /** Prevent instantiation. */
     private SignupUseCaseFactory() {}
 
-    public static SignupView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, FileUserDataAccessObject userDataAccessObject) {
+    public static SignupView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignUpViewModel signupViewModel, FileUserDataAccessObject userDataAccessObject) {
 
         try {
-            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
+            SignUpController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
             return new SignupView(signupController, signupViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -34,17 +32,17 @@ public class SignupUseCaseFactory {
         return null;
     }
 
-    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel,
-                                                            LoginViewModel loginViewModel,FileUserDataAccessObject userDataAccessObject ) throws IOException {
+    private static SignUpController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignUpViewModel signupViewModel,
+                                                            LoginViewModel loginViewModel, FileUserDataAccessObject userDataAccessObject ) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
-        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        SignupOutputBoundary signupOutputBoundary = new SignUpPresenter(viewManagerModel, signupViewModel, loginViewModel);
 
         UserFactory userFactory = new CommonUserFactory();
 
         SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 (SignupUserDataAccessInterface) userDataAccessObject, signupOutputBoundary, userFactory);
 
-        return new SignupController(userSignupInteractor);
+        return new SignUpController(userSignupInteractor);
     }
 }

@@ -6,8 +6,9 @@ import entity.UserFactoryInterface;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import use_case.Signup.SignupUserDataAccessInterface;
 
-public class UserDataAccessObject implements UserDataAccessInterface {
+public class UserDataAccessObject implements SignupUserDataAccessInterface {
 
     private final File csvFile;
 

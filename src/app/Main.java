@@ -3,7 +3,7 @@ package app;
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.signup.SignupViewModel;
+import interface_adapter.SignUp.SignUpViewModel;
 import interface_adapter.ViewManagerModel;
 import view.LoginView;
 import view.SignupView;
@@ -32,7 +32,7 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         LoginViewModel loginViewModel = new LoginViewModel();
-        SignupViewModel signupViewModel = new SignupViewModel();
+        SignUpViewModel signupViewModel = new SignUpViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
