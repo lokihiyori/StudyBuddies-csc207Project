@@ -1,12 +1,14 @@
 package entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface User {
 
     String getName();
 
-    String getUsername();
+
+    LocalDateTime getCreationTime();
 
     String getPassword();
 
@@ -16,5 +18,6 @@ public interface User {
 
     User get(String users);
     List<GroupChat> getGroupChatList();
+
 }
 

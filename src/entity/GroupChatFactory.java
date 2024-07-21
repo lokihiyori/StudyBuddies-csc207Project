@@ -3,6 +3,6 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface GroupChatFactory {
-    GroupChat create(String code);
+public class GroupChatFactory {
+    public GroupChat create(String code){ return new GroupChat(code);};
 }

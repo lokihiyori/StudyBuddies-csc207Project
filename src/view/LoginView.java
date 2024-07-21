@@ -1,57 +1,131 @@
 package view;
 
-import interface_adapter.LoginController;
-import interface_adapter.LoginState;
-import interface_adapter.LoginViewModel;
-import session.SessionManager;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class LoginView extends JFrame {
-    private final LoginController loginController;
+public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
 
-    public LoginView(LoginController loginController, LoginViewModel loginViewModel) {
-        this.loginController = loginController;
+    /**
+     * The username chosen by the user
+     */
+    final JTextField usernameInputField = new JTextField(15);
+    private final JLabel usernameErrorField = new JLabel();
+    /**
+     * The password
+     */
+    final JPasswordField passwordInputField = new JPasswordField(15);
+    private final JLabel passwordErrorField = new JLabel();
+
+    final JButton logIn;
+    final JButton cancel;
+    private final LoginController loginController;
+
+    /**
+     * A window with a title and a JButton.
+     */
+    public LoginView(LoginViewModel loginViewModel, LoginController controller) {
+        this.loginController = controller;
         this.loginViewModel = loginViewModel;
-        setupUI();
-    }
+        this.loginViewModel.addPropertyChangeListener(this);
 
-    private void setupUI() {
-        setTitle("Login");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        JLabel title = new JLabel("Login Screen");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        LabelTextPanel usernameInfo = new LabelTextPanel(
+                new JLabel("Username"), usernameInputField);
+        LabelTextPanel passwordInfo = new LabelTextPanel(
+                new JLabel("Password"), passwordInputField);
 
-        LabelTextPanel usernamePanel = new LabelTextPanel("Username:");
-        LabelTextPanel passwordPanel = new LabelTextPanel("Password:");
+        JPanel buttons = new JPanel();
+        logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
+        buttons.add(logIn);
+        cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
+        buttons.add(cancel);
 
-        JButton loginButton = new JButton("Login");
-        loginButton.addActionListener(new ActionListener() {
+        logIn.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logIn)) {
+                            LoginState currentState = loginViewModel.getState();
 
-            public void actionPerformed(ActionEvent e) {
-                String username = usernamePanel.getText();
-                String password = passwordPanel.getText();
-                loginController.login(username, password);
-
-                LoginState state = loginViewModel.getState();
-                JOptionPane.showMessageDialog(LoginView.this, state.getMessage(), state.getStatus(), JOptionPane.INFORMATION_MESSAGE);
-
-                if (SessionManager.isLoggedIn()) {
-                    System.out.println("Logged in user: " + SessionManager.getLoggedInUser().getUsername());
+                            loginController.execute(
+                                    currentState.getUsername(),
+                                    currentState.getPassword()
+                            );
+                        }
+                    }
                 }
+        );
+        cancel.addActionListener(this);
+
+        usernameInputField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                LoginState currentState = loginViewModel.getState();
+                currentState.setUsername(usernameInputField.getText());
+                loginViewModel.setState(currentState);
+
             }
+
+            @Override
+            public void keyPressed(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
         });
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        panel.add(usernamePanel);
-        panel.add(passwordPanel);
-        panel.add(loginButton);
+        passwordInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        LoginState currentState = loginViewModel.getState();
+                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+                        loginViewModel.setState(currentState);
+                    }
 
-        add(panel);
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
+
+        this.add(title);
+        this.add(usernameInfo);
+        this.add(usernameErrorField);
+        this.add(passwordInfo);
+        this.add(passwordErrorField);
+        this.add(buttons);
     }
+
+    public void actionPerformed(ActionEvent evt) {
+        System.out.println("Click " + evt.getActionCommand());
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        LoginState state = (LoginState) evt.getNewValue();
+        setFields(state);
+    }
+
+    private void setFields(LoginState state) {
+        usernameInputField.setText(state.getUsername());
+    }
+
 }

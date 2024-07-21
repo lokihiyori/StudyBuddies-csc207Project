@@ -6,12 +6,13 @@ import java.util.Enumeration;
 
 public class GroupChat {
     private String code;
-    private ArrayList<Users> GroupMembers;
-    private Dictionary<Users, String> MessageHistory;
-    public GroupChat(String code){
-        this.code = code;
+    private ArrayList<CommonUser> GroupMembers;
+    private Dictionary<CommonUser, String> MessageHistory;
+    public GroupChat(String Code){
+        this.code = Code;
+
         this.GroupMembers = new ArrayList<>();
-        this.MessageHistory = new Dictionary<Users, String>() {
+        this.MessageHistory = new Dictionary<CommonUser, String>() {
             @Override
             public int size() {
                 return 0;
@@ -23,7 +24,7 @@ public class GroupChat {
             }
 
             @Override
-            public Enumeration<Users> keys() {
+            public Enumeration<CommonUser> keys() {
                 return null;
             }
 
@@ -38,7 +39,7 @@ public class GroupChat {
             }
 
             @Override
-            public String put(Users key, String value) {
+            public String put(CommonUser key, String value) {
                 return null;
             }
 
@@ -53,11 +54,11 @@ public class GroupChat {
         this.code = code;
     }
 
-    public void setGroupMembers(ArrayList<Users> groupMembers) {
+    public void setGroupMembers(ArrayList<CommonUser> groupMembers) {
         GroupMembers = groupMembers;
     }
 
-    public void setMessageHistory(Dictionary<Users, String> messageHistory) {
+    public void setMessageHistory(Dictionary<CommonUser, String> messageHistory) {
         MessageHistory = messageHistory;
     }
 
@@ -65,11 +66,11 @@ public class GroupChat {
         return code;
     }
 
-    public ArrayList<Users> getGroupMembers() {
+    public ArrayList<CommonUser> getGroupMembers() {
         return GroupMembers;
     }
 
-    public Dictionary<Users, String> getMessageHistory() {
+    public Dictionary<CommonUser, String> getMessageHistory() {
         return MessageHistory;
     }
 }

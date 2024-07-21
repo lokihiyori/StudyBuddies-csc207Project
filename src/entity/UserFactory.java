@@ -1,16 +1,9 @@
 package entity;
-import java.util.List;
 
-public class UserFactory implements UserFactoryInterface {
-    /**
-     * Requires: password is valid.
-     * @param name
-     * @param password
-     * @return
-     */
+import java.time.LocalDateTime;
 
-    @Override
-    public User createUser(String name, String password, String username, String email, List<String> courses, List<GroupChat> groupChatList) {
-        return new Users(name, password, username, email, courses, groupChatList);
-    }
+public interface UserFactory {
+    /** Requires: password is valid. */
+    User create(String name, String password, LocalDateTime ltd);
+
 }

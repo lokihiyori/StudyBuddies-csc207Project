@@ -1,7 +1,7 @@
 package interface_adapter.SearchCourse;
 
-import usecase.SearchCourse.SearchCourseInputData;
-import usecase.SearchCourse.SearchCourseInputBoundary;
+import use_case.SearchCourse.SearchCourseInputData;
+import use_case.SearchCourse.SearchCourseInputBoundary;
 
 public class SearchCourseController {
 
