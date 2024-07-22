@@ -18,6 +18,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
 
+    private final LoginController loginController;
+
     /**
      * The username chosen by the user
      */
@@ -31,7 +33,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     final JButton logIn;
     final JButton cancel;
-    private final LoginController loginController;
 
     /**
      * A window with a title and a JButton.
@@ -69,7 +70,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     }
                 }
         );
-        cancel.addActionListener(this);
+        cancel.addActionListener(e -> handleCancel());;
 
         usernameInputField.addKeyListener(new KeyListener() {
             @Override
@@ -113,6 +114,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(passwordErrorField);
         this.add(buttons);
     }
+    private void handleCancel() {
+        loginController.executeCancel();}
 
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
