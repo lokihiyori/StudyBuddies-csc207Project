@@ -32,3 +32,4 @@ This software would allow students to create an account with a profile that disp
     
    We have finished implementing UIs for go to your courses so it temporarily displays a default lists.
 4. You can manully create more courses and user profiles in src/app/CreateCourseMain and src/app/UserProfileMain.
+5. The LeaveGroupChat Use Case is finished implementing but has conflict on the out package so it is temperarily placed on stefan's branch and it will be integrated in phase 2.
