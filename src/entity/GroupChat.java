@@ -5,7 +5,7 @@ import java.util.Dictionary;
 import java.util.Enumeration;
 
 public class GroupChat {
-    private String code;
+    private static String code;
     private ArrayList<CommonUser> GroupMembers;
     private Dictionary<CommonUser, String> MessageHistory;
     public GroupChat(String Code){
@@ -62,7 +62,7 @@ public class GroupChat {
         MessageHistory = messageHistory;
     }
 
-    public String getCode() {
+    public static String getCode() {
         return code;
     }
 
