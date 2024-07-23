@@ -7,14 +7,11 @@ public interface User {
 
     String getName();
 
-
     LocalDateTime getCreationTime();
 
     String getPassword();
 
     String getEmail();
-
-    List<String> getCourses();
 
     User get(String users);
     List<GroupChat> getGroupChatList();

@@ -8,10 +8,7 @@ public class CreateCourseState {
         this.name = name;
         this.code = code;
     }
-
-    public CreateCourseState() {
-
-    }
+    public CreateCourseState(){}
 
     public String getName() {
         return name;
