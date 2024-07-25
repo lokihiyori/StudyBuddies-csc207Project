@@ -11,6 +11,7 @@ import interface_adapter.SearchCourse.SearchCourseController;
 import interface_adapter.SearchCourse.SearchCoursePresenter;
 import interface_adapter.SearchCourse.SearchCourseViewModel;
 import data_access.CourseListDAO;
+import data_access.CourseDataAccessObject;
 import use_case.SearchCourse.SearchCourseInteractor;
 import use_case.SearchCourse.SearchCourseInputBoundary;
 import use_case.SearchCourse.SearchCourseOutputBoundary;
@@ -149,7 +150,8 @@ public class CourseSearchView extends JPanel implements ActionListener {
     public static void main(String[] args) {
 
         GroupChatViewModel groupChatViewModel = new GroupChatViewModel(); // Create an instance of GroupChatViewModel
-        CourseListDAO courseList = new CourseListDAO();
+        //CourseListDAO courseList = new CourseListDAO();
+        CourseDataAccessObject courseList = new CourseDataAccessObject();
         SearchCourseViewModel searchCourseViewModel = new SearchCourseViewModel();
         SearchCourseOutputBoundary presenter = new SearchCoursePresenter(searchCourseViewModel);
         SearchCourseInputBoundary searchCourseInteractor = new SearchCourseInteractor(courseList, presenter);

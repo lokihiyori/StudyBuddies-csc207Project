@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
 import entity.Course;
 import entity.GroupChat;
 import data_access.CourseListDAO;
+import data_access.CourseDataAccessObject;
 import interface_adapter.SearchCourse.SearchCourseController;
 import interface_adapter.SearchCourse.SearchCoursePresenter;
 import interface_adapter.SearchCourse.SearchCourseViewModel;
@@ -60,7 +61,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void actionPerformed(ActionEvent evt) {
 
-        CourseListDAO courseList = new CourseListDAO();
+        //CourseListDAO courseList = new CourseListDAO();
+        CourseDataAccessObject courseList = new CourseDataAccessObject();
         SearchCourseViewModel searchCourseViewModel = new SearchCourseViewModel();
         SearchCourseOutputBoundary presenter = new SearchCoursePresenter(searchCourseViewModel);
         SearchCourseInputBoundary searchCourseInteractor = new SearchCourseInteractor(courseList, presenter);
