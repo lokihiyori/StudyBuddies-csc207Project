@@ -2,19 +2,30 @@ package data_access;
 
 import entity.*;
 import use_case.CreateCourse.CreateCourseDataAccessInterface;
+import use_case.SearchCourse.CourseRepository;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
-public class CourseDataAccessObject implements CreateCourseDataAccessInterface {
+import entity.Course;
+import use_case.SearchCourse.CourseRepository;
+
+public class CourseDataAccessObject implements CreateCourseDataAccessInterface, CourseRepository {
     private final File csvFile;
     private final Map<String, Course> courseMap = new HashMap<>();
     private final CourseFactory courseFactory;
     private final GroupChatFactory groupChatFactory;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
+
+    private List<Course> courses;
+
+    public CourseDataAccessObject() {
+        this.csvFile = null;
+        this.courseFactory = null;
+        this.groupChatFactory = null;
+        this.courses = new ArrayList<>();
+    }
 
     public CourseDataAccessObject(String csvPath, CourseFactory courseFactory, GroupChatFactory groupChatFactory) throws IOException {
         this.courseFactory = courseFactory;
@@ -80,4 +91,29 @@ public class CourseDataAccessObject implements CreateCourseDataAccessInterface {
             throw new RuntimeException(e);
         }
     }
+
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
+    @Override
+    public Course findCourseByCode(String courseCode) {
+        for (Course course : courses) {
+            if (course.getCode().equals(courseCode.toUpperCase())) {
+                return course;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Course findCourseByName(String courseName) {
+        for (Course course : courses) {
+            if (course.getName().equalsIgnoreCase(courseName.toUpperCase())) {
+                return course;
+            }
+        }
+        return null;
+    }
+
     }
