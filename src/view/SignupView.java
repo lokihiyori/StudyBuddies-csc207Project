@@ -20,6 +20,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     private final SignUpViewModel signupViewModel;
     private final JTextField usernameInputField = new JTextField(15);
+    private final JTextField emailInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final SignUpController signupController;
@@ -38,6 +39,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel(signupViewModel.USERNAME_LABEL), usernameInputField);
+        LabelTextPanel emailInfo = new LabelTextPanel(
+                new JLabel(signupViewModel.EMAIL_LABEL), emailInputField);
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel(signupViewModel.PASSWORD_LABEL), passwordInputField);
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
@@ -54,7 +57,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
-                            signupController.execute( signupViewModel.getState().getUsername(),
+                            signupController.execute( signupViewModel.getState().getUsername(),signupViewModel.getState().getEmail(),
                                     String.valueOf( signupViewModel.getState().getPassword()),
                                     String.valueOf(signupViewModel.getState().getRepeatPassword()));}
 
@@ -120,10 +123,30 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     public void keyReleased(KeyEvent e) {
                     }
                 });
+
+        emailInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignUpState currentState = signupViewModel.getState();
+                        currentState.setEmail(emailInputField.getText() + e.getKeyChar());
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(usernameInfo);
+        this.add(emailInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
         this.add(buttons);

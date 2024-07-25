@@ -27,7 +27,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         csvFile = new File(csvPath);
         headers.put("username", 0);
         headers.put("password", 1);
-        headers.put("creation_time", 2);
+        headers.put("email", 2);
+        headers.put("creation_time", 3);
 
         if (csvFile.length() == 0) {
             save();
@@ -37,16 +38,17 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 String header = reader.readLine();
 
                 // TODO clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("username,password,creation_time");
+                assert header.equals("username,password,email,creation_time");
 
                 String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
+                    String email = String.valueOf(col[headers.get("email")]);
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    User user = userFactory.create(username, password, ldt);
+                    User user = userFactory.create(username, password, email, ldt);
                     accounts.put(username, user);
                 }
             }
@@ -67,8 +69,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             writer.newLine();
 
             for (User user : accounts.values()) {
-                String line = "%s,%s,%s".formatted(
-                        user.getName(), user.getPassword(), user.getCreationTime());
+                String line = "%s,%s,%s,%s".formatted(
+                        user.getName(), user.getPassword(), user.getEmail(), user.getCreationTime());
                 writer.write(line);
                 writer.newLine();
             }

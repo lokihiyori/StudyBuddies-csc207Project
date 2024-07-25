@@ -9,15 +9,13 @@ public class CommonUser implements User{
     private final LocalDateTime creationTime;
     private final String password;
     private final String email;
-    private final List<String> courses;
     private final List<GroupChat> groupChatList;
 
-    public CommonUser(String name, String password, LocalDateTime creationTime) {
+    public CommonUser(String name, String password, String email, LocalDateTime creationTime) {
         this.name = name;
         this.password = password;
         this.creationTime = creationTime;
-        this.email = "";
-        this.courses = new ArrayList<>();
+        this.email = email;
         this.groupChatList = new ArrayList<>();;
     }
 
@@ -36,10 +34,6 @@ public class CommonUser implements User{
         return email;
     }
 
-    @Override
-    public List<String> getCourses() {
-        return courses;
-    }
 
     @Override
     public User get(String users) {
