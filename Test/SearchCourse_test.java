@@ -1,4 +1,5 @@
-import data_access.CourseListDAO;
+//import data_access.CourseListDAO;
+import data_access.CourseDataAccessObject;
 import entity.Course;
 import entity.GroupChat;
 import interface_adapter.SearchCourse.SearchCourseController;
@@ -12,7 +13,7 @@ import use_case.SearchCourse.SearchCourseInteractor;
 import static org.junit.Assert.*;
 
 public class SearchCourse_test {
-    private CourseListDAO courseListDAO;
+    private CourseDataAccessObject courseListDAO;
     private SearchCourseViewModel viewModel;
     private SearchCoursePresenter presenter;
     private SearchCourseInputBoundary searchCourseInteractor;
@@ -20,7 +21,7 @@ public class SearchCourse_test {
 
     @Before
     public void setUp() {
-        courseListDAO = new CourseListDAO();
+        courseListDAO = new CourseDataAccessObject();
         viewModel = new SearchCourseViewModel();
         presenter = new SearchCoursePresenter(viewModel);
         searchCourseInteractor = new SearchCourseInteractor(courseListDAO, presenter);
