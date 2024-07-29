@@ -1,3 +1,5 @@
+package UseCaseInteractorsTest;
+
 import entity.GroupChat;
 import entity.GroupChatFactory;
 import interface_adapter.CreateGroupChat.CreateGroupChatPresenter;
