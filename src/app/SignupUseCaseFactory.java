@@ -4,6 +4,9 @@ import interface_adapter.SignUp.*;
 import data_access.FileUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
+import use_case.LoginSignup.LoginSignupInputBoundary;
+import use_case.LoginSignup.LoginSignupInteractor;
+import use_case.LoginSignup.LoginSignupOutputBoundary;
 import use_case.Signup.SignupUserDataAccessInterface;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -42,7 +45,9 @@ public class SignupUseCaseFactory {
 
         SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 (SignupUserDataAccessInterface) userDataAccessObject, signupOutputBoundary, userFactory);
+        LoginSignupOutputBoundary loginSignupOutputBoundary = new SignUpPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        LoginSignupInputBoundary loginSignupInteractor = new LoginSignupInteractor(loginSignupOutputBoundary, userDataAccessObject);
 
-        return new SignUpController(userSignupInteractor);
+        return new SignUpController(userSignupInteractor, loginSignupInteractor);
     }
 }
