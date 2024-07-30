@@ -26,7 +26,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final SignUpController signupController;
 
     private final JButton signUp;
-    private final JButton cancel;
+    private final JButton login;
 
     public SignupView(SignUpController controller, SignUpViewModel signupViewModel) {
 
@@ -49,8 +49,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JPanel buttons = new JPanel();
         signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
-        cancel = new JButton(signupViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
+        login = new JButton(signupViewModel.LOGIN_BUTTON_LABEL);
+        buttons.add(login);
 
         signUp.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -63,7 +63,27 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
                     }
                 });
-        cancel.addActionListener(this);
+        login.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(login)) {
+                            SignUpState currentState = signupViewModel.getState();
+                            try {
+                                signupController.executeLogin(currentState.getUsername());
+                            }catch (NullPointerException exception) {
+                                signupController.execute(
+                                        currentState.getUsername(),
+                                        currentState.getPassword(),
+                                        currentState.getRepeatPassword(),
+                                        currentState.getEmail()
+                                );
+                            }
+                        }
+                    }
+                }
+        );
+
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the usernameInputField.
