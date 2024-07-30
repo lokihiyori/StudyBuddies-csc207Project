@@ -1,50 +1,33 @@
 package interface_adapter.logged_In;
 
-import interface_adapter.ViewModel;
+import entity.CommonUser;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoggedInViewModel extends ViewModel {
-    public static final String CREATE_EVENT_BUTTON_LABEL = "Create Event";
-    public final String TITLE_LABEL = "Logged In View";
-
-    private LoggedInState state = new LoggedInState();
-
-    public static final String LOGOUT_BUTTON_LABEL = "Log out";
-
-    private String loggedInUser;
+public class LoggedInViewModel {
+    private final PropertyChangeSupport support;
+    private CommonUser currentUser;
 
     public LoggedInViewModel() {
-        super("logged in");
+        support = new PropertyChangeSupport(this);
     }
 
-    public void setState(LoggedInState state) {
-        this.state = state;
+    public void setCurrentUser(CommonUser currentUser) {
+        CommonUser oldUser = this.currentUser;
+        this.currentUser = currentUser;
+        support.firePropertyChange("currentUser", oldUser, currentUser);
     }
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    // This is what the Login Presenter will call to let the ViewModel know
-    // to alert the View
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
+    public CommonUser getCurrentUser() {
+        return currentUser;
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
     }
 
-    public LoggedInState getState() {
-        return state;
-    }
-
-
-    public String getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    public void setLoggedInUser(String loggedInUser) {
-        this.loggedInUser = loggedInUser;
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
     }
 }
