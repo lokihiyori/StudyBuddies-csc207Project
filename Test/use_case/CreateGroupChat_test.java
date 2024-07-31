@@ -1,4 +1,4 @@
-package UseCaseInteractorsTest;
+package use_case;
 
 import entity.GroupChat;
 import entity.GroupChatFactory;
