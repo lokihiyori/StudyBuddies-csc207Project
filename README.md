@@ -28,7 +28,7 @@ This software would allow students to create an account with a profile that disp
        instance, query like “software design” or “Software Design” can both find the group
        chat of CSC207.\
  b) To test CreateGroupChat and CreateCourse, you need to go to **src/app/CreateGroupChatMain.java** and **src/app/CreateCourseMain.java**. For use case CreateGroupChat, you will get a UI to enter the course code and if the groupchat has been created before, you will get a message showing the groupchat has been created before. Else if it has not been created, it will show that the groupchat was successfully created.
-    These two use cases can also be tested in test file **Test/CreateCourse_Test.java** and **Test/CreateGroupChat_test.java**. At this stage, these two use cases haven't been linked to the other use cases.
+    These two use cases can also be tested in test file **Test/UseCaseInteractorsTest/CreateCourse_Test.java** and **Test/UseCaseInteractorsTest/CreateGroupChat_test.java**. At this stage, these two use cases haven't been linked to the other use cases.
     
    We have finished implementing UIs for go to your courses so it temporarily displays a default lists.
 4. You can manully create more courses and user profiles in src/app/CreateCourseMain and src/app/UserProfileMain.

@@ -1,3 +1,4 @@
+package use_case;
 
 import data_access.CourseDataAccessObject;
 import entity.Course;
