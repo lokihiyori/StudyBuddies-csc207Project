@@ -20,21 +20,53 @@ import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserProfileMain {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Initialize the CourseRepository
-            CourseRepository courseRepository;
-            try {
-                CourseFactory courseFactory = new CourseFactory();
-                GroupChatFactory groupChatFactory = new GroupChatFactory();
-                courseRepository = new CourseDataAccessObject("path/to/courses.csv", courseFactory, groupChatFactory);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
+//            CourseRepository courseRepository;
+//            try {
+//                CourseFactory courseFactory = new CourseFactory();
+//                GroupChatFactory groupChatFactory = new GroupChatFactory();
+//                courseRepository = new CourseDataAccessObject("path/to/courses.csv", courseFactory, groupChatFactory);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                return;
+//            }
+            CourseRepository courseRepository = new CourseRepository() {
+                private final Map<String, Course> courseMap = new HashMap<>();
+
+                {
+                    // Add some default courses
+                    courseMap.put("CS101", new Course("Intro to Computer Science", "CS101", null));
+                    courseMap.put("MATH201", new Course("Calculus II", "MATH201", null));
+                }
+
+                /**
+                 * @param course
+                 */
+                @Override
+                public void addCourse(Course course) {
+
+                }
+
+                @Override
+                public Course findCourseByCode(String code) {
+                    return courseMap.get(code);
+                }
+
+                @Override
+                public Course findCourseByName(String name) {
+                    return courseMap.values().stream()
+                            .filter(course -> course.getName().equalsIgnoreCase(name))
+                            .findFirst()
+                            .orElse(null);
+                }
+            };
 
             // Initialize User Profile Components
             UserProfileViewModel viewModel = new UserProfileViewModel();
@@ -45,10 +77,10 @@ public class UserProfileMain {
 
             // Initialize UserProfileState and UserProfileViewModel
             UserProfileState state = new UserProfileState();
-            state.setName("Initial Name");
-            state.setEmail("Initial Email");
+            state.setName("John");
+            state.setEmail("Doe");
             state.setCreationTime(LocalDateTime.now().toString());
-            state.setCourseCodes(Arrays.asList("CS101", "MATH201"));
+            state.setCourseCodes(Arrays.asList("CSC207", "CSC236", "MAT237"));
 
             // Create and initialize UserProfileView
             UserprofileView view = new UserprofileView(controller, state);

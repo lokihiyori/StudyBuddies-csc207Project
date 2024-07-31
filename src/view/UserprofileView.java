@@ -32,6 +32,10 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
         this.userProfileState = userProfileState;
         userProfileState.addPropertyChangeListener(this);
 
+        nameField.setText(userProfileState.getName());
+        emailField.setText(userProfileState.getEmail());
+        courseField.setText(String.join(", ", userProfileState.getCourseCodes()));
+
         JLabel titleLabel = new JLabel("User Profile");
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -41,7 +45,7 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
         inputPanel.add(nameField);
         inputPanel.add(new JLabel("Email:"));
         inputPanel.add(emailField);
-        inputPanel.add(new JLabel("Courses (comma-separated):"));
+        inputPanel.add(new JLabel("Courses"));
         inputPanel.add(courseField);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -60,8 +64,9 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
             nameField.setText((String) evt.getNewValue());
         } else if ("email".equals(evt.getPropertyName())) {
             emailField.setText((String) evt.getNewValue());
+        } else if ("creationTime".equals(evt.getPropertyName())) {
+            // Handle creation time if necessary
         } else if ("courseCodes".equals(evt.getPropertyName())) {
-            // Ensure the type cast is to java.util.List
             List<String> courseCodes = (List<String>) evt.getNewValue();
             courseField.setText(String.join(", ", courseCodes));
         }
