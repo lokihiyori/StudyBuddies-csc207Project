@@ -7,6 +7,7 @@ import use_case.UserProfile.UserProfileOutputData;
 public class UserProfilePresenter implements UserProfileOutputBoundary {
     private final UserProfileViewModel viewModel;
 
+    // Constructor that requires a UserProfileViewModel parameter
     public UserProfilePresenter(UserProfileViewModel viewModel) {
         this.viewModel = viewModel;
     }
