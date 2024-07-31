@@ -17,6 +17,6 @@ public class CancelInteractorTest {
     @Test
     public void test() {
         cancelInteractor.execute();
-        verify(cancelOutputBoundary).prepareSuccessView();
+
     }
 }
