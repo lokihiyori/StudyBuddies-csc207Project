@@ -39,6 +39,7 @@ public class UserProfileMain {
             // Initialize User Profile Components
             UserProfileViewModel viewModel = new UserProfileViewModel();
             UserProfileOutputBoundary presenter = new UserProfilePresenter(viewModel);
+            // Ensure the constructor matches the required arguments
             UserProfileInteractor interactor = new UserProfileInteractor(presenter, courseRepository);
             UserProfileController controller = new UserProfileController(interactor);
 

@@ -19,14 +19,13 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class UserprofileView extends JPanel implements ActionListener, PropertyChangeListener {
+public class UserprofileView extends JPanel implements PropertyChangeListener {
     private final UserProfileController userProfileController;
     private final UserProfileState userProfileState;
 
     private final JTextField nameField = new JTextField(15);
     private final JTextField emailField = new JTextField(15);
     private final JTextField courseField = new JTextField(15);
-    private final JButton createProfileButton = new JButton("Create Profile");
 
     public UserprofileView(UserProfileController userProfileController, UserProfileState userProfileState) {
         this.userProfileController = userProfileController;
@@ -45,23 +44,14 @@ public class UserprofileView extends JPanel implements ActionListener, PropertyC
         inputPanel.add(new JLabel("Courses (comma-separated):"));
         inputPanel.add(courseField);
 
-        createProfileButton.addActionListener(this);
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(titleLabel);
         this.add(inputPanel);
-        this.add(createProfileButton);
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == createProfileButton) {
-            String name = nameField.getText();
-            String email = emailField.getText();
-            String courses = courseField.getText();
-            List<String> courseCodes = List.of(courses.split(",\\s*"));
-            userProfileController.createUserProfile(name, "", email, LocalDateTime.now(), courseCodes);
-        }
+        // Set fields to be non-editable since we assume the profile is pre-existing
+        nameField.setEditable(false);
+        emailField.setEditable(false);
+        courseField.setEditable(false);
     }
 
     @Override
@@ -70,8 +60,6 @@ public class UserprofileView extends JPanel implements ActionListener, PropertyC
             nameField.setText((String) evt.getNewValue());
         } else if ("email".equals(evt.getPropertyName())) {
             emailField.setText((String) evt.getNewValue());
-        } else if ("creationTime".equals(evt.getPropertyName())) {
-            // Handle creation time if necessary
         } else if ("courseCodes".equals(evt.getPropertyName())) {
             // Ensure the type cast is to java.util.List
             List<String> courseCodes = (List<String>) evt.getNewValue();
