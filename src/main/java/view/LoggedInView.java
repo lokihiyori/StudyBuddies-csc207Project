@@ -1,9 +1,5 @@
 package view;
 
-import interface_adapter.GroupChatViewModel;
-import interface_adapter.logged_In.LoggedInState;
-import interface_adapter.logged_In.LoggedInViewModel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,15 +7,16 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-
-import entity.Course;
-import entity.GroupChat;
 import data_access.CourseDataAccessObject;
+import entity.CommonUser;
+import entity.GroupChat;
+import interface_adapter.GroupChatViewModel;
 import interface_adapter.SearchCourse.SearchCourseController;
 import interface_adapter.SearchCourse.SearchCoursePresenter;
 import interface_adapter.SearchCourse.SearchCourseViewModel;
-import use_case.SearchCourse.SearchCourseInputBoundary;
-import use_case.SearchCourse.SearchCourseOutputBoundary;
+import interface_adapter.logged_In.LoggedInState;
+import interface_adapter.logged_In.LoggedInViewModel;
+import interface_adapter.RegisteredCoursesViewModel;
 import use_case.SearchCourse.SearchCourseInteractor;
 
 public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -59,33 +56,22 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-
-        //CourseListDAO courseList = new CourseListDAO();
-        CourseDataAccessObject courseList = new CourseDataAccessObject();
-        SearchCourseViewModel searchCourseViewModel = new SearchCourseViewModel();
-        SearchCourseOutputBoundary presenter = new SearchCoursePresenter(searchCourseViewModel);
-        SearchCourseInputBoundary searchCourseInteractor = new SearchCourseInteractor(courseList, presenter);
-        SearchCourseController searchCourseController = new SearchCourseController(searchCourseInteractor);
-
-        //initialize some courses
-        GroupChat gc1 = new GroupChat("CSC207");
-        GroupChat gc2 = new GroupChat("MAT141");
-        GroupChat gc3 = new GroupChat("PHY131");
-
-        // Adding some sample courses to the repository
-        courseList.addCourse(new Course("SOFTWARE DESIGN", "CSC207", gc1));
-        courseList.addCourse(new Course("CALCULUS I", "MAT141", gc2));
-        courseList.addCourse(new Course("PHYSICS I", "PHY131", gc3));
-
-
         if (evt.getSource() == searchCourseButton) {
             System.out.println("Navigating to Course Search");
             // Adjust this to manage within current GUI framework
-            JPanel courseSearchPanel = new CourseSearchView(viewModel, searchCourseViewModel, searchCourseController); // Assuming CourseSearchView is a JPanel
+            JPanel courseSearchPanel = new CourseSearchView(viewModel, new SearchCourseViewModel(), new SearchCourseController(new SearchCourseInteractor(new CourseDataAccessObject(), new SearchCoursePresenter(new SearchCourseViewModel())))); // Assuming CourseSearchView is a JPanel
             JOptionPane.showMessageDialog(this, courseSearchPanel, "Course Search", JOptionPane.PLAIN_MESSAGE);
         } else if (evt.getSource() == registeredCoursesButton) {
             System.out.println("Navigating to Registered Courses");
-            JPanel registeredCoursesPanel = new RegisteredCoursesView(); // Assuming RegisteredCoursesView is a JPanel
+
+            // Retrieve the current user from the loggedInViewModel
+            CommonUser currentUser = loggedInViewModel.getCurrentUser();
+
+            // Create the ViewModel using the current user
+            RegisteredCoursesViewModel registeredCoursesViewModel = new RegisteredCoursesViewModel(currentUser);
+
+            // Create and display the RegisteredCoursesView
+            JPanel registeredCoursesPanel = new RegisteredCoursesView(registeredCoursesViewModel);
             JOptionPane.showMessageDialog(this, registeredCoursesPanel, "Registered Courses", JOptionPane.PLAIN_MESSAGE);
         }
     }

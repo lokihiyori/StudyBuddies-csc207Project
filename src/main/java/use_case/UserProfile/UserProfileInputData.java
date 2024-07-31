@@ -8,12 +8,14 @@ public class UserProfileInputData {
     private final String password;
     private final String email;
     private final LocalDateTime creationTime;
+    private final List<String> courseCodes;
 
-    public UserProfileInputData(String name, String password, String email, LocalDateTime creationTime) {
+    public UserProfileInputData(String name, String password, String email, LocalDateTime creationTime,List<String> courseCodes) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.creationTime = creationTime;
+        this.courseCodes = courseCodes;
     }
 
     public String getName() {
@@ -30,5 +32,9 @@ public class UserProfileInputData {
 
     public LocalDateTime getCreationTime() {
         return creationTime;
+    }
+
+    public List<String> getCourseCodes() {
+        return courseCodes;
     }
 }
