@@ -3,7 +3,6 @@ package app;
 import interface_adapter.LeaveGroupChat.LeaveGroupChatController;
 import interface_adapter.LeaveGroupChat.LeaveGroupChatPresenter;
 import interface_adapter.LeaveGroupChat.LeaveGroupChatViewModel;
-import use_case.LeaveGroupChat.GroupChatDataAccess;
 import use_case.LeaveGroupChat.LeaveGroupChatDataAccessInterface;
 import use_case.LeaveGroupChat.LeaveGroupChatInputBoundary;
 import use_case.LeaveGroupChat.LeaveGroupChatInteractor;
