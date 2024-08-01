@@ -52,7 +52,7 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
         this.add(titleLabel);
         this.add(inputPanel);
 
-        // Set fields to be non-editable since we assume the profile is pre-existing
+       // Set fields to be non-editable since we assume the profile is pre-existing
         nameField.setEditable(false);
         emailField.setEditable(false);
         courseField.setEditable(false);
