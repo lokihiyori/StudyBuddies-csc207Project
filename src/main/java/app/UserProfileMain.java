@@ -1,7 +1,6 @@
 package app;
 
 import data_access.CourseDataAccessObject;
-import data_access.CourseListDAO;
 import entity.Course;
 import entity.CourseFactory;
 import entity.GroupChat;
