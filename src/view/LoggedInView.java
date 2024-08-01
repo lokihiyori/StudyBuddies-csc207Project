@@ -34,11 +34,13 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
         searchCourseButton = new JButton("Go to Search Courses");
         registeredCoursesButton = new JButton("Go to Your Courses");
+        setPreferredSize(new Dimension(400, 400));
 
         // Set layout manager
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
+
 
         // Add search course button
         gbc.gridx = 0;
@@ -49,7 +51,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         gbc.gridx = 1;
         gbc.gridy = 0;
         add(registeredCoursesButton, gbc);
-
         searchCourseButton.addActionListener(this);
         registeredCoursesButton.addActionListener(this);
     }

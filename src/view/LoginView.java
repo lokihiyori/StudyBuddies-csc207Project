@@ -43,6 +43,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Login Screen");
+        title.setFont(new Font("Arial", Font.BOLD, 36));
+        title.setForeground(new Color(4, 91, 205));  // Text color
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
@@ -52,8 +54,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         JPanel buttons = new JPanel();
         logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
+        logIn.setBackground(new Color(14, 216, 85));
+        logIn.setForeground(Color.WHITE);
+        logIn.setFont(new Font("Arial", Font.PLAIN, 16));
         buttons.add(logIn);
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
+        cancel.setBackground(new Color(39, 174, 96));
+        cancel.setForeground(Color.WHITE);
+        cancel.setFont(new Font("Arial", Font.PLAIN, 16));
         buttons.add(cancel);
 
         logIn.addActionListener(
@@ -106,7 +114,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     public void keyReleased(KeyEvent e) {
                     }
                 });
-
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setPreferredSize(new Dimension(450, 500));
+        this.add(Box.createVerticalStrut(35));
         this.add(title);
         this.add(usernameInfo);
         this.add(usernameErrorField);

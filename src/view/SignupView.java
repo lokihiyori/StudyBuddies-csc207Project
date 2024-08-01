@@ -19,10 +19,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public final String viewName = "sign up";
 
     private final SignUpViewModel signupViewModel;
-    private final JTextField usernameInputField = new JTextField(15);
-    private final JTextField emailInputField = new JTextField(15);
-    private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    private final JTextField usernameInputField = new JTextField(20);
+    private final JTextField emailInputField = new JTextField(20);
+    private final JPasswordField passwordInputField = new JPasswordField(20);
+    private final JPasswordField repeatPasswordInputField = new JPasswordField(20);
     private final SignUpController signupController;
 
     private final JButton signUp;
@@ -35,21 +35,33 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         signupViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
+        title.setFont(new Font("Arial", Font.BOLD, 36));
+        title.setForeground(new Color(4, 91, 205));  // Text color
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel(signupViewModel.USERNAME_LABEL), usernameInputField);
+        usernameInfo.setFont(new Font("Arial", Font.PLAIN, 20));
         LabelTextPanel emailInfo = new LabelTextPanel(
                 new JLabel(signupViewModel.EMAIL_LABEL), emailInputField);
+        usernameInfo.setFont(new Font("Arial", Font.PLAIN, 20));
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel(signupViewModel.PASSWORD_LABEL), passwordInputField);
+        usernameInfo.setFont(new Font("Arial", Font.PLAIN, 20));
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
                 new JLabel(signupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
+        usernameInfo.setFont(new Font("Arial", Font.PLAIN, 20));
 
         JPanel buttons = new JPanel();
         signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
+        signUp.setBackground(new Color(39, 174, 96));
+        signUp.setForeground(Color.WHITE);
+        signUp.setFont(new Font("Arial", Font.PLAIN, 16));
         buttons.add(signUp);
         login = new JButton(signupViewModel.LOGIN_BUTTON_LABEL);
+        login.setBackground(new Color(192, 57, 43));
+        login.setForeground(Color.WHITE);
+        login.setFont(new Font("Arial", Font.PLAIN, 16));
         buttons.add(login);
 
         signUp.addActionListener(
@@ -163,8 +175,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 });
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        this.setPreferredSize(new Dimension(450, 500));
         this.add(title);
+        this.add(Box.createVerticalStrut(35));
         this.add(usernameInfo);
         this.add(emailInfo);
         this.add(passwordInfo);

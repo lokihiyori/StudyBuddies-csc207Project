@@ -22,7 +22,7 @@ public class Main {
         // various cards, and the layout, and stitch them together.
 
         // The main application window.
-        JFrame application = new JFrame("Sign Up");
+        JFrame application = new JFrame("Welcome To StudyBuddies");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
