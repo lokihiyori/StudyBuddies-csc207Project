@@ -27,6 +27,12 @@ public class GroupChatClient {
         frame.add(new JScrollPane(chatArea), BorderLayout.CENTER);
 
         inputField = new JTextField();
+
+        // Set the preferred size with a larger height
+        inputField.setPreferredSize(new Dimension(400, 50));
+        // Add a titled border to the input field
+        inputField.setBorder(BorderFactory.createTitledBorder("Type your message here"));
+
         frame.add(inputField, BorderLayout.SOUTH);
 
         inputField.addActionListener(new ActionListener() {
