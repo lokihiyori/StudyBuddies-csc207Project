@@ -2,16 +2,31 @@ package use_case.SearchCourse;
 
 import entity.Course;
 
+/**
+ * Interactor for searching courses.
+ * Implements the SearchCourseInputBoundary interface to handle course search logic.
+ */
 public class SearchCourseInteractor implements SearchCourseInputBoundary {
 
     private CourseRepository courseRepository;
     private SearchCourseOutputBoundary outputBoundary;
 
+    /**
+     * Constructs a SearchCourseInteractor with the specified course repository and output boundary.
+     *
+     * @param courseRepository the repository to search courses in
+     * @param outputBoundary   the output boundary to present search results
+     */
     public SearchCourseInteractor(CourseRepository courseRepository, SearchCourseOutputBoundary outputBoundary) {
         this.courseRepository = courseRepository;
         this.outputBoundary = outputBoundary;
     }
 
+    /**
+     * Searches for a course based on the provided input data.
+     *
+     * @param inputData the input data containing the search query
+     */
     @Override
     public void searchCourse(SearchCourseInputData inputData) {
         String query = inputData.getQuery();
