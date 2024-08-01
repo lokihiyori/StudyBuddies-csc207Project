@@ -23,9 +23,9 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
     private final UserProfileController userProfileController;
     private final UserProfileState userProfileState;
 
-    private final JTextField nameField = new JTextField(15);
-    private final JTextField emailField = new JTextField(15);
-    private final JTextField courseField = new JTextField(15);
+    private final JTextField nameField = new JTextField(20);
+    private final JTextField emailField = new JTextField(20);
+    private final JTextField courseField = new JTextField(20);
 
     public UserprofileView(UserProfileController userProfileController, UserProfileState userProfileState) {
         this.userProfileController = userProfileController;
@@ -33,10 +33,18 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
         userProfileState.addPropertyChangeListener(this);
 
         nameField.setText(userProfileState.getName());
+        nameField.setText(userProfileState.getName());
+        nameField.setEditable(false); // Make name field uneditable
+
         emailField.setText(userProfileState.getEmail());
+        emailField.setEditable(false); // Make email field uneditable
+
         courseField.setText(String.join(", ", userProfileState.getCourseCodes()));
+        courseField.setEditable(false); // Make course field uneditable
 
         JLabel titleLabel = new JLabel("User Profile");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        titleLabel.setForeground(new Color(4, 91, 205));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel inputPanel = new JPanel();
@@ -50,12 +58,14 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(titleLabel);
+        this.add(Box.createVerticalStrut(20));
         this.add(inputPanel);
+    }
 
-       // Set fields to be non-editable since we assume the profile is pre-existing
-        nameField.setEditable(false);
-        emailField.setEditable(false);
-        courseField.setEditable(false);
+    private JLabel createLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.PLAIN, 20));
+        return label;
     }
 
     @Override
