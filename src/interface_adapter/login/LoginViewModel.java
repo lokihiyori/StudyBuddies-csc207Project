@@ -35,6 +35,7 @@ public class LoginViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
+
     public LoginState getState() {
         return state;
     }

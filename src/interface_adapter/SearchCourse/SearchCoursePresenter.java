@@ -4,8 +4,7 @@ import use_case.SearchCourse.SearchCourseOutputBoundary;
 import use_case.SearchCourse.SearchCourseOutputData;
 
 public class SearchCoursePresenter implements SearchCourseOutputBoundary {
-
-    private SearchCourseViewModel viewModel;
+    private final SearchCourseViewModel viewModel;
 
     public SearchCoursePresenter(SearchCourseViewModel viewModel) {
         this.viewModel = viewModel;
@@ -17,4 +16,8 @@ public class SearchCoursePresenter implements SearchCourseOutputBoundary {
         viewModel.setMessage(outputData.getMessage());
     }
 
+    @Override
+    public void showError(String message) {
+        viewModel.setError(message);
+    }
 }

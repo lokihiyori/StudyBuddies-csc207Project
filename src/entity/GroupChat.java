@@ -66,11 +66,11 @@ public class GroupChat {
         return code;
     }
 
-    public ArrayList<CommonUser> getGroupMembers() {
-        return GroupMembers;
+    public CharSequence getGroupMembers() {
+        return (CharSequence) GroupMembers;
     }
 
-    public Dictionary<CommonUser, String> getMessageHistory() {
-        return MessageHistory;
+    public CharSequence getMessageHistory() {
+        return (CharSequence) MessageHistory;
     }
 }

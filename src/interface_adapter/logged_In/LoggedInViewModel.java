@@ -15,6 +15,7 @@ public class LoggedInViewModel extends ViewModel {
     //private final PropertyChangeSupport support;
     private CommonUser currentUser;
     private String loggedInUser;
+    private String message;
 
     public LoggedInViewModel()  {
         super("logged in");
@@ -48,6 +49,14 @@ public class LoggedInViewModel extends ViewModel {
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void setMessage(String s) {
+        String oldMessage = this.message;
+        this.message = message;
+        support.firePropertyChange("message", oldMessage, message);
+        
     }
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {

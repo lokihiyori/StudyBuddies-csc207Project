@@ -44,12 +44,15 @@ public class GroupChatViewModel {
     public void removePropertyChangeListener(PropertyChangeListener pcl) {
         support.removePropertyChangeListener(pcl);
     }
-    //must be implemented
+
     public boolean isCourseInDatabase(String course) {
-        return false;
+        return courses.contains(course);
     }
-    //must be implemented
+
     public boolean isGroupChatCreated(String course) {
-        return false;
+        return groupChats.contains(course);
     }
-}
+
+    public void showError(String message) {
+        support.firePropertyChange("error", null, message);
+    }}

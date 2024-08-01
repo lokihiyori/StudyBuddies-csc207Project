@@ -17,6 +17,7 @@ public class SignUpViewModel extends ViewModel {
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
     private SignUpState state = new SignUpState();
+    private String message;
 
     public SignUpViewModel() {
         super("sign up");
@@ -36,6 +37,13 @@ public class SignUpViewModel extends ViewModel {
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void setMessage(String s) {
+        String oldMessage = this.message;
+        this.message = message;
+        support.firePropertyChange("message", oldMessage, message);
     }
 
     public SignUpState getState() {

@@ -2,11 +2,13 @@ package app;
 
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
+import entity.GroupChatFactory;
 import interface_adapter.GroupChatViewModel;
 import interface_adapter.logged_In.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.SignUp.SignUpViewModel;
 import interface_adapter.ViewManagerModel;
+import use_case.CreateGroupChat.CreateGroupChatDataAccessInterface;
 import view.LoggedInView;
 import view.LoginView;
 import view.SignupView;
@@ -17,7 +19,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static <GroupChatDataAccessObject> void main(String[] args) {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
 
@@ -51,8 +53,18 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject, signupViewModel);
         views.add(loginView, loginView.viewName);
 
+        // Initialize GroupChatDataAccessObject
+        //GroupChatDataAccessObject groupChatDataAccessObject = new GroupChatDataAccessObject("path/to/csv");
+        CreateGroupChatDataAccessInterface groupChatDataAccessObject;
+        try {
+
+            // Initialize GroupChatDataAccessObject with file path and GroupChatFactory
+            groupChatDataAccessObject = new GroupChatDataAccessObject("./groupchats.csv", new GroupChatFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         GroupChatViewModel viewModel = new GroupChatViewModel();
-        LoggedInView loggedInView= new LoggedInView(viewModel, loggedInViewModel);
+        LoggedInView loggedInView= new LoggedInView(viewModel, groupChatDataAccessObject, viewModel, loggedInViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
