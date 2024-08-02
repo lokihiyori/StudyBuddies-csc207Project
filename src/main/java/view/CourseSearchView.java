@@ -34,7 +34,7 @@ public class CourseSearchView extends JPanel implements ActionListener {
         this.searchCourseViewModel = searchCourseViewModel;
         this.searchCourseController = searchCourseController;
 
-        JLabel title = new JLabel("Course Search by Code or Name");
+        JLabel title = new JLabel("Course Search by Code");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         courseSearchField = new JTextField(20);
