@@ -6,9 +6,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * The GroupChatPort class provides methods for saving and retrieving group chat details from a CSV file.
+ */
 public class GroupChatPort {
     private static final String CSV_FILE = "groupchatPort.csv";
 
+    /**
+     * Saves the group chat details to the CSV file.
+     *
+     * @param groupChatCode the group chat code
+     * @param port the port number
+     * @param host the host address
+     */
     public static void saveGroupChatDetails(String groupChatCode, int port, String host) {
         try (FileWriter fileWriter = new FileWriter(CSV_FILE, true);
              PrintWriter printWriter = new PrintWriter(fileWriter)) {
@@ -17,6 +27,12 @@ public class GroupChatPort {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Retrieves the largest port number from the CSV file.
+     *
+     * @return the largest port number, or -1 if no port number is found
+     */
     public static int getLargestPortNumber() {
         int largestPort = -1;
 
@@ -38,6 +54,12 @@ public class GroupChatPort {
         return largestPort;
     }
 
+    /**
+     * Retrieves the port number associated with the specified course code from the CSV file.
+     *
+     * @param courseCode the course code
+     * @return the port number, or -1 if the course code is not found
+     */
     public static int getPortByCourseCode(String courseCode) {
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;
@@ -58,6 +80,11 @@ public class GroupChatPort {
         return -1; // Return -1 if the course code is not found
     }
 
+    /**
+     * Retrieves the host address from the first line of the CSV file.
+     *
+     * @return the host address, or null if the host address is not found
+     */
     public static String getHostFromFirstLine() {
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
             String line = br.readLine();
@@ -74,6 +101,11 @@ public class GroupChatPort {
         return null; // Return null if the host address is not found
     }
 
+    /**
+     * Main method for testing and initialize csv file with host number.
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         // actual IP address of the server machine (Yujing's laptop)
         String host = "100.66.6.84";
