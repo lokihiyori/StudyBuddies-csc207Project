@@ -8,7 +8,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'CalendarQuickstart'
+mainClassName = 'SimpleGoogleCalendarEventCreator'
 sourceCompatibility = 15
 targetCompatibility = 15
 version = '1.0'
@@ -21,6 +21,8 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:2.0.0'
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.34.1'
     implementation 'com.google.apis:google-api-services-calendar:v3-rev20220715-2.0.0'
+    implementation 'com.google.code.gson:gson:2.8.8'
+
 }
 
 group 'SocketIO'
@@ -33,4 +35,5 @@ dependencies {
 
 application {
     mainClassName = 'SocketIO.GroupChatServer' // Change this to run the client if needed
+    mainClassName = 'SimpleGoogleCalendarEventCreator'
 }
