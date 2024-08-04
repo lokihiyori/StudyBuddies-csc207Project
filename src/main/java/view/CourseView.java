@@ -6,6 +6,11 @@ import interface_adapter.GoToCourse.CourseViewController;
 import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.SignUp.SignUpState;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,8 +22,10 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     private final CourseViewModel courseViewModel;
     private final CourseViewController courseViewController;
     public final String viewName = "CourseView";
-
+    private JComboBox<String> courseComboBox;
     private JLabel usernameLabel;
+    private JButton profileButton;
+    private JButton joinGroupChatsButton;
     private JButton logOutButton;
 
     public CourseView(CourseViewModel courseViewModel, CourseViewController courseViewController){
@@ -44,8 +51,20 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         centerPanel.add(usernameLabel);
         add(centerPanel, BorderLayout.CENTER);
 
+        List<String> courseNames = readCoursesFromFile("courses.csv");
+        courseComboBox = new JComboBox<>(courseNames.toArray(new String[0]));
+        centerPanel.add(courseComboBox);
+
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setOpaque(false);  // Make the button panel transparent
+        profileButton = new JButton("Profile");
+        profileButton.setBackground(new Color(153, 255, 153));
+        profileButton.addActionListener(e -> handleProfileAction());
+        buttonPanel.add(profileButton);
+        joinGroupChatsButton = new JButton("Join Group Chats");
+        joinGroupChatsButton.setBackground(new Color(255, 113, 4));
+        joinGroupChatsButton.addActionListener(e -> handleJoinGroupChatsAction());
+        buttonPanel.add(joinGroupChatsButton);
         logOutButton = new JButton("Log Out");
         logOutButton.setBackground(new Color(192, 57, 43));
         logOutButton.setForeground(Color.WHITE);
@@ -65,6 +84,13 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         courseViewController.excuteLogOut();
     }
 
+    private void handleProfileAction() {
+        // Implement the action for the Profile button
+    }
+
+    private void handleJoinGroupChatsAction() {
+        // Implement the action for the Join Group Chats button
+    }
 
     private void updateUsernameLabel() {
         CourseState state = courseViewModel.getState();
@@ -74,6 +100,22 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         if ("state".equals(evt.getPropertyName())) {
             updateUsernameLabel();
         }
+    }
+
+    public List<String> readCoursesFromFile(String filePath) {
+        List<String> courses = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            // Skip the header line
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                courses.add(values[0]);  // Assuming the course name is the first element
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return courses;
     }
    }
 
