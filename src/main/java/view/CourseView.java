@@ -23,10 +23,13 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     private final CourseViewController courseViewController;
     public final String viewName = "CourseView";
     private JComboBox<String> courseComboBox;
+    private JComboBox<String> eventComboBox;
     private JLabel usernameLabel;
     private JButton profileButton;
     private JButton joinGroupChatsButton;
     private JButton logOutButton;
+    private JButton createEventButton;
+    private JButton addCalendarButton;
 
     public CourseView(CourseViewModel courseViewModel, CourseViewController courseViewController){
         this.courseViewModel = courseViewModel;
@@ -46,7 +49,7 @@ public class CourseView extends JPanel implements PropertyChangeListener {
 
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         centerPanel.setOpaque(false);  // Make the center panel transparent
-        usernameLabel = new JLabel("Currently logged in: ");
+        usernameLabel = new JLabel("Welcome: ");
         usernameLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         centerPanel.add(usernameLabel);
         add(centerPanel, BorderLayout.CENTER);
@@ -54,6 +57,16 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         List<String> courseNames = readCoursesFromFile("courses.csv");
         courseComboBox = new JComboBox<>(courseNames.toArray(new String[0]));
         centerPanel.add(courseComboBox);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        eventComboBox = new JComboBox<>();
+        eventComboBox.setFont(new Font("Arial", Font.BOLD, 18));
+        eventComboBox.addItem("Choose your Event");
+        centerPanel.add(eventComboBox);
+
+        addCalendarButton = new JButton("Add Calendar");
+        addCalendarButton.addActionListener(e -> handleAddCalendarAction());
+        centerPanel.add(addCalendarButton);
+        add(centerPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setOpaque(false);  // Make the button panel transparent
@@ -61,10 +74,14 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         profileButton.setBackground(new Color(153, 255, 153));
         profileButton.addActionListener(e -> handleProfileAction());
         buttonPanel.add(profileButton);
-        joinGroupChatsButton = new JButton("Join Group Chats");
+        joinGroupChatsButton = new JButton("Group Chat");
         joinGroupChatsButton.setBackground(new Color(255, 113, 4));
         joinGroupChatsButton.addActionListener(e -> handleJoinGroupChatsAction());
         buttonPanel.add(joinGroupChatsButton);
+        createEventButton = new JButton("CreateEvent");
+        createEventButton.setBackground(new Color(255, 255, 0));
+        createEventButton.addActionListener(e -> handleJoinGroupChatsAction());
+        buttonPanel.add(createEventButton);
         logOutButton = new JButton("Log Out");
         logOutButton.setBackground(new Color(192, 57, 43));
         logOutButton.setForeground(Color.WHITE);
@@ -86,6 +103,10 @@ public class CourseView extends JPanel implements PropertyChangeListener {
 
     private void handleProfileAction() {
         // Implement the action for the Profile button
+    }
+
+    private void handleAddCalendarAction() {
+        // Implement the action for the Add Calendar button
     }
 
     private void handleJoinGroupChatsAction() {
