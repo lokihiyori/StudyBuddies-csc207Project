@@ -148,12 +148,13 @@ public class CourseSearchView extends JPanel implements ActionListener {
                 // Start the server in a separate thread
                 // get the port number
                 int port = GroupChatPort.getPortByCourseCode(courseCode);
+                String host = GroupChatPort.getHostFromFirstLine();
                 //int port = 3001;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         GroupChatServer server = new GroupChatServer();
-                        server.startServer(port);
+                        server.startServer(port, host);
                     }
                 }).start();
 
@@ -167,7 +168,7 @@ public class CourseSearchView extends JPanel implements ActionListener {
                 // Start the client
                 GroupChatClient groupChatClient = new GroupChatClient();
 
-                groupChatClient.startChat(courseCode, port);
+                groupChatClient.startChat(courseCode, host, port);
 
 
 
@@ -213,7 +214,8 @@ public class CourseSearchView extends JPanel implements ActionListener {
 
                 //assoicate this new groupchat with a unique port number and save to file
                 int newPort = GroupChatPort.getLargestPortNumber() + 1;
-                GroupChatPort.saveGroupChatDetails(newCourseCode, newPort);
+                String host = GroupChatPort.getHostFromFirstLine();
+                GroupChatPort.saveGroupChatDetails(newCourseCode, newPort, host);
 
                 resultLabel.setText("Group chat for " + newCourseName + newCourseCode + " has been created.");
             } else {
