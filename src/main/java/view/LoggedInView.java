@@ -17,6 +17,8 @@ import interface_adapter.SearchCourse.SearchCourseViewModel;
 import interface_adapter.logged_In.LoggedInState;
 import interface_adapter.logged_In.LoggedInViewModel;
 import interface_adapter.RegisteredCoursesViewModel;
+import interface_adapter.logged_In.LoggedIncontroller;
+import interface_adapter.login.LoginState;
 import use_case.SearchCourse.SearchCourseInteractor;
 
 public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -26,11 +28,13 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private final JButton registeredCoursesButton;
     private final GroupChatViewModel viewModel;
     private final LoggedInViewModel loggedInViewModel;
+    private final LoggedIncontroller loggedIncontroller;
 
-    public LoggedInView(GroupChatViewModel viewModel, LoggedInViewModel loggedInViewModel) {
+    public LoggedInView(GroupChatViewModel viewModel, LoggedInViewModel loggedInViewModel, LoggedIncontroller loggedIncontroller) {
         this.viewModel = viewModel;
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
+        this.loggedIncontroller = loggedIncontroller;
 
         searchCourseButton = new JButton("Go to Search Courses");
         registeredCoursesButton = new JButton("Go to Your Courses");
@@ -51,7 +55,17 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         add(registeredCoursesButton, gbc);
 
         searchCourseButton.addActionListener(this);
-        registeredCoursesButton.addActionListener(this);
+        registeredCoursesButton.addActionListener(
+            new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(registeredCoursesButton)) {
+                    LoggedInState currentState = loggedInViewModel.getState();
+                    loggedIncontroller.executeGoToCourse(
+                            currentState.getUsername()
+                    );
+                }
+            }
+            });
     }
 
     @Override
@@ -61,18 +75,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             // Adjust this to manage within current GUI framework
             JPanel courseSearchPanel = new CourseSearchView(viewModel, new SearchCourseViewModel(), new SearchCourseController(new SearchCourseInteractor(new CourseDataAccessObject(), new SearchCoursePresenter(new SearchCourseViewModel())))); // Assuming CourseSearchView is a JPanel
             JOptionPane.showMessageDialog(this, courseSearchPanel, "Course Search", JOptionPane.PLAIN_MESSAGE);
-        } else if (evt.getSource() == registeredCoursesButton) {
-            System.out.println("Navigating to Registered Courses");
-
-            // Retrieve the current user from the loggedInViewModel
-            CommonUser currentUser = loggedInViewModel.getCurrentUser();
-
-            // Create the ViewModel using the current user
-            RegisteredCoursesViewModel registeredCoursesViewModel = new RegisteredCoursesViewModel(currentUser);
-
-            // Create and display the RegisteredCoursesView
-            JPanel registeredCoursesPanel = new RegisteredCoursesView(registeredCoursesViewModel);
-            JOptionPane.showMessageDialog(this, registeredCoursesPanel, "Registered Courses", JOptionPane.PLAIN_MESSAGE);
+//         }else if (evt.getSource() == registeredCoursesButton) {
+//            System.out.println("Navigating to Registered Courses");
+//
+//            // Retrieve the current user from the loggedInViewModel
+//            LoggedInState currentState = loggedInViewModel.getState();
+//
+//            loggedIncontroller.executeGoToCourse(
+//                    currentState.getUsername()
+            ;
         }
     }
 
