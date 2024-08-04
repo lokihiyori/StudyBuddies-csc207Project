@@ -159,9 +159,6 @@ public class CourseSearchView extends JPanel implements ActionListener {
 
                 // Start the client
                 GroupChatClient groupChatClient = new GroupChatClient();
-                groupChatClient.startChat(courseCode);
-
-
 
 
 

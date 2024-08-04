@@ -3,6 +3,7 @@ package app;
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
+import interface_adapter.LoginSignup.LoginSignupViewModel;
 import interface_adapter.SignUp.SignUpViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_In.LoggedInViewModel;
@@ -31,10 +32,11 @@ public class LoginUseCaseFactory {
             LoginViewModel loginViewModel,
             LoggedInViewModel loggedInViewModel,
             FileUserDataAccessObject userDataAccessObject,
-            SignUpViewModel signUpViewModel) {
+            SignUpViewModel signUpViewModel,
+            LoginSignupViewModel loginSignupViewModel) {
 
         try {
-            LoginController loginController = createLoginUseCase(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject, signUpViewModel);
+            LoginController loginController = createLoginUseCase(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject, signUpViewModel, loginSignupViewModel);
             return new LoginView(loginViewModel, loginController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -48,16 +50,16 @@ public class LoginUseCaseFactory {
             LoginViewModel loginViewModel,
             LoggedInViewModel loggedInViewModel,
             FileUserDataAccessObject userDataAccessObject,
-            SignUpViewModel signUpViewModel) throws IOException {
+            SignUpViewModel signUpViewModel, LoginSignupViewModel loginSignupViewModel) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
-        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel, signUpViewModel);
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel, signUpViewModel, loginSignupViewModel);
 
         UserFactory userFactory = new CommonUserFactory();
         LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
         CancelOutputBoundary cancelOutputBoundary = new LoginPresenter(viewManagerModel
-                , loggedInViewModel, loginViewModel, signUpViewModel);
+                , loggedInViewModel, loginViewModel, signUpViewModel, loginSignupViewModel);
         CancelInputBoundary cancelInputBoundary = new CancelInteractor(cancelOutputBoundary);
         return new LoginController(loginInteractor, cancelInputBoundary);
     }
