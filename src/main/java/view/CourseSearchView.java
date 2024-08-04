@@ -24,6 +24,8 @@ import interface_adapter.CreateCourse.CreateCoursePresenter;
 import interface_adapter.CreateCourse.CreateCourseViewModel;
 import use_case.CreateCourse.CreateCourseInteractor;
 
+import SocketIO.GroupChatPort;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -47,10 +49,12 @@ public class CourseSearchView extends JPanel implements ActionListener {
         this.searchCourseViewModel = searchCourseViewModel;
         this.searchCourseController = searchCourseController;
 
-        JLabel title = new JLabel("Course Search by Code");
+        JLabel title = new JLabel("Course Search by Code or Name");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        courseSearchField = new JTextField(20);
+        courseSearchField = new JTextField();
+        //courseSearchField.setSize(1000, 500);
+        courseSearchField.setPreferredSize(new Dimension(400, 30));
         searchButton = new JButton("Search");
         resultLabel = new JLabel("");
 
@@ -66,7 +70,7 @@ public class CourseSearchView extends JPanel implements ActionListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(new LabelTextPanel(new JLabel("Course"), courseSearchField));
+        this.add(new LabelTextPanel(new JLabel("Course: "), courseSearchField));
         this.add(buttons);
         this.add(resultLabel);
     }
@@ -142,11 +146,14 @@ public class CourseSearchView extends JPanel implements ActionListener {
 
                 //join group chat !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 // Start the server in a separate thread
+                // get the port number
+                int port = GroupChatPort.getPortByCourseCode(courseCode);
+                //int port = 3001;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         GroupChatServer server = new GroupChatServer();
-                        server.startServer();
+                        server.startServer(port);
                     }
                 }).start();
 
@@ -159,7 +166,7 @@ public class CourseSearchView extends JPanel implements ActionListener {
 
                 // Start the client
                 GroupChatClient groupChatClient = new GroupChatClient();
-                groupChatClient.startChat(courseCode);
+                groupChatClient.startChat(courseCode, port);
 
 
 
@@ -203,6 +210,11 @@ public class CourseSearchView extends JPanel implements ActionListener {
                 controller.executeCreateCourse(newCourseName, newCourseCode);
 
                 groupChatViewModel.createGroupChat(course);
+
+                //assoicate this new groupchat with a unique port number and save to file
+                int newPort = GroupChatPort.getLargestPortNumber() + 1;
+                GroupChatPort.saveGroupChatDetails(newCourseCode, newPort);
+
                 resultLabel.setText("Group chat for " + newCourseName + newCourseCode + " has been created.");
             } else {
                 resultLabel.setText("You chose not to create a group chat.");
