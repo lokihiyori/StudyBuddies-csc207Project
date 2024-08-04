@@ -47,23 +47,29 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         topPanel.add(title);
         add(topPanel, BorderLayout.NORTH);
 
-        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setOpaque(false);  // Make the center panel transparent
         usernameLabel = new JLabel("Welcome: ");
         usernameLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         centerPanel.add(usernameLabel);
         add(centerPanel, BorderLayout.CENTER);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         List<String> courseNames = readCoursesFromFile("courses.csv");
         courseComboBox = new JComboBox<>(courseNames.toArray(new String[0]));
+        courseComboBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, courseComboBox.getPreferredSize().height));
         centerPanel.add(courseComboBox);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         eventComboBox = new JComboBox<>();
         eventComboBox.setFont(new Font("Arial", Font.BOLD, 18));
         eventComboBox.addItem("Choose your Event");
+        eventComboBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, eventComboBox.getPreferredSize().height));
         centerPanel.add(eventComboBox);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         addCalendarButton = new JButton("Add Calendar");
+        addCalendarButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         addCalendarButton.addActionListener(e -> handleAddCalendarAction());
         centerPanel.add(addCalendarButton);
         add(centerPanel, BorderLayout.CENTER);
