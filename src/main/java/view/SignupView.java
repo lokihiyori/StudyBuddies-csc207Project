@@ -86,9 +86,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                             }catch (NullPointerException exception) {
                                 signupController.execute(
                                         currentState.getUsername(),
+                                        currentState.getEmail(),
                                         currentState.getPassword(),
-                                        currentState.getRepeatPassword(),
-                                        currentState.getEmail()
+                                        currentState.getRepeatPassword()
                                 );
                             }
                         }
