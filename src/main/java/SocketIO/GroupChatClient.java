@@ -121,7 +121,7 @@ public class GroupChatClient {
 
     public void startChat(String frameTitle, String host, int port) {
         // Set up the GUI
-        JFrame frame = new JFrame(frameTitle);
+        JFrame frame = new JFrame("Group chat of " + frameTitle);
         frame.setSize(400, 600); // Increased size to accommodate the new search field
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());

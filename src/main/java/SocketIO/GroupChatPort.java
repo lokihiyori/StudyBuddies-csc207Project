@@ -75,6 +75,7 @@ public class GroupChatPort {
     }
 
     public static void main(String[] args) {
+        // actual IP address of the server machine (Yujing's laptop)
         String host = "100.66.6.84";
         int port = 4000;
         GroupChatPort.saveGroupChatDetails("CSC207", port, host);
