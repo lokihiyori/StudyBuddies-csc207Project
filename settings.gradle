@@ -7,4 +7,8 @@
  */
 
 rootProject.name = 'StudyBuddies-csc207Project'
+include 'src:Test:Java'
+findProject(':src:Test:Java')?.name = 'Java'
+include 'src:Test:Java'
+findProject(':src:Test:Java')?.name = 'java'
 

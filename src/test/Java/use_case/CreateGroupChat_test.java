@@ -10,6 +10,7 @@ import use_case.CreateGroupChat.CreateGroupChatDataAccessInterface;
 import use_case.CreateGroupChat.CreateGroupChatInputData;
 import use_case.CreateGroupChat.CreateGroupChatInteractor;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class CreateGroupChat_test {
     }
 
     @Test
-    void testCreateGroupChatSuccess() {
+    void testCreateGroupChatSuccess() throws IOException {
         CreateGroupChatInputData inputData = new CreateGroupChatInputData("CSC207");
         interactor.execute(inputData);
 
@@ -41,7 +42,7 @@ public class CreateGroupChat_test {
     }
 
     @Test
-    void testCreateGroupChatAlreadyExists() {
+    void testCreateGroupChatAlreadyExists() throws IOException {
         // First create a group chat
         dataAccessObject.saveGroupChat(new GroupChat("CSC207"));
 
