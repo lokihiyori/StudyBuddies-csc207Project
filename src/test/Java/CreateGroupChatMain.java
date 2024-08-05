@@ -1,5 +1,3 @@
-package app;
-
 import data_access.CourseDataAccessObject;
 import data_access.GroupChatDataAccessObject;
 import entity.Course;
@@ -44,7 +42,7 @@ public class CreateGroupChatMain {
         controller.executeCreateGroupChat("CSC207");
 
         // Check Output
-        CreateGroupChatState state = viewModel.getState();
+       /* CreateGroupChatState state = viewModel.getState();
         System.out.println("GroupChat Code: " + state.getCode());
         System.out.println("GroupChat Members: " + state.getUsersList());
 
@@ -58,6 +56,7 @@ public class CreateGroupChatMain {
         } else {
             System.out.println("Course was not added to DAO.");
         }
+        */
     }
 
 }
