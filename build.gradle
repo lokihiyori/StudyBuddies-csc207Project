@@ -5,37 +5,37 @@
  * Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.9/samples
  * This project uses @Incubating APIs which are subject to change.
  */
-apply plugin: 'java'
-apply plugin: 'application'
+plugins {
+    id 'java'
+    id 'application'
+}
 
-mainClassName = 'SimpleGoogleCalendarEventCreator'
-sourceCompatibility = 15
-targetCompatibility = 15
+group = 'SocketIO'
 version = '1.0'
+
+mainClassName = 'SocketIO.GroupChatServer' // Default main class name. Change as needed.
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    // Google APIs and OAuth client
     implementation 'com.google.api-client:google-api-client:2.0.0'
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.34.1'
     implementation 'com.google.apis:google-api-services-calendar:v3-rev20220715-2.0.0'
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'com.github.lgooddatepicker:LGoodDatePicker:11.2.0'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
-}
-
-group 'SocketIO'
-
-dependencies {
+    // Socket.IO and Netty dependencies
     implementation 'io.socket:socket.io-client:1.0.0'
     implementation 'com.corundumstudio.socketio:netty-socketio:1.7.18'
     implementation 'org.slf4j:slf4j-simple:1.7.32'
+
+    // Testing framework
     testImplementation 'junit:junit:4.13.1'
 }
 
-application {
-    mainClassName = 'SocketIO.GroupChatServer' // Change this to run the client if needed
-    mainClassName = 'SimpleGoogleCalendarEventCreator'
-}
+sourceCompatibility = 15
+targetCompatibility = 15

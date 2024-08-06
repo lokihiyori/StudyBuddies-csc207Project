@@ -7,5 +7,4 @@ public interface makeEventOutputBoundary {
     void prepareMakeEventFailView(String error);
 
 
-    void prepareSuccessView(CancelOutputData user);
 }

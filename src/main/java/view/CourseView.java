@@ -1,14 +1,22 @@
 package view;
 
+import data_access.FileUserDataAccessObject;
 import entity.Course;
+import interface_adapter.CreateEvent.CreateEventController;
+import interface_adapter.CreateEvent.CreateEventViewModel;
 import interface_adapter.GoToCourse.CourseState;
 import interface_adapter.GoToCourse.CourseViewController;
 import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.SignUp.SignUpState;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_In.LoggedInViewModel;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -24,6 +32,7 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     public final String viewName = "CourseView";
     private JComboBox<String> courseComboBox;
     private JComboBox<String> eventComboBox;
+    private JList<String> eventsList;
     private JLabel usernameLabel;
     private JButton profileButton;
     private JButton joinGroupChatsButton;
@@ -86,7 +95,7 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         buttonPanel.add(joinGroupChatsButton);
         createEventButton = new JButton("CreateEvent");
         createEventButton.setBackground(new Color(255, 255, 0));
-        createEventButton.addActionListener(e -> handleJoinGroupChatsAction());
+        createEventButton.addActionListener(e -> handleCreateEventAction());
         buttonPanel.add(createEventButton);
         logOutButton = new JButton("Log Out");
         logOutButton.setBackground(new Color(192, 57, 43));
@@ -102,9 +111,12 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         logOutButton.addActionListener(e -> handleLogOut());
     }
 
+    private void handleJoinGroupChatsAction() {
+    }
+
 
     private void handleLogOut() {
-        courseViewController.excuteLogOut();
+        courseViewController.executeLogOut();
     }
 
     private void handleProfileAction() {
@@ -115,8 +127,10 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         // Implement the action for the Add Calendar button
     }
 
-    private void handleJoinGroupChatsAction() {
-        // Implement the action for the Join Group Chats button
+    private void handleCreateEventAction()  {
+        CourseState courseState = courseViewModel.getState();
+        courseViewController.executeCreateEvent(courseState.getUsername());
+//        updateEventsList();
     }
 
     private void updateUsernameLabel() {
@@ -133,16 +147,39 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         List<String> courses = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            // Skip the header line
             br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                courses.add(values[0]);  // Assuming the course name is the first element
+                courses.add(values[0]);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return courses;
     }
-   }
+//    private void updateEventsList() {
+//        try {
+//            List<String> events = loadEventsFromCsvFile("events.csv");
+//            eventsList.setListData(events.toArray(new String[0]));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    private List<String> loadEventsFromCsvFile(String fileName) throws IOException {
+        List<String> events = new ArrayList<>();
+        Path path = Paths.get(fileName);
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Assuming the first column in CSV contains the event name
+                String[] data = line.split(",");
+                if (data.length > 0) {
+                    events.add(data[0]);  // Add the first column (event name) to the list
+                }
+            }
+        }
+        return events;
+
+}}
 

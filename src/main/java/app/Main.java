@@ -1,7 +1,10 @@
 package app;
 
+import data_access.FileEventDataAccessObject;
 import data_access.FileUserDataAccessObject;
+import entity.CommonCalendarEventFactory;
 import entity.CommonUserFactory;
+import interface_adapter.CreateEvent.CreateEventViewModel;
 import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.GroupChatViewModel;
 import interface_adapter.LoginSignup.LoginSignupViewModel;
@@ -38,10 +41,17 @@ public class Main {
         SignUpViewModel signupViewModel = new SignUpViewModel();
         LoginSignupViewModel loginSignupViewModel = new LoginSignupViewModel();
         GroupChatViewModel viewModel = new GroupChatViewModel();
+        CreateEventViewModel createEventViewModel = new CreateEventViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
             userDataAccessObject = new FileUserDataAccessObject("./user.csv", new CommonUserFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        FileEventDataAccessObject eventDataAccessObject;
+        try {
+            eventDataAccessObject = new FileEventDataAccessObject("./events.csv", new CommonUserFactory(), new CommonCalendarEventFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -51,11 +61,12 @@ public class Main {
         views.add(signupView, signupView.viewName);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject, signupViewModel, loginSignupViewModel);
         views.add(loginView, loginView.viewName);
-        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loggedInViewModel, courseViewModel, userDataAccessObject);
+        LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loggedInViewModel, courseViewModel, createEventViewModel,userDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
-        CourseView courseView = GoToCourseUseCaseFactory.create(viewManagerModel, courseViewModel, loggedInViewModel, userDataAccessObject);
+        CourseView courseView = GoToCourseUseCaseFactory.create(viewManagerModel, courseViewModel, loggedInViewModel, createEventViewModel, userDataAccessObject, eventDataAccessObject);
         views.add(courseView, courseView.viewName);
-
+        CreateEventView createEventView = CreateEventUseCaseFactory.create(viewManagerModel, createEventViewModel, courseViewModel, eventDataAccessObject, userDataAccessObject, application);
+        views.add(createEventView, createEventView.viewName);
 
 
         viewManagerModel.setActiveView(signupView.viewName);

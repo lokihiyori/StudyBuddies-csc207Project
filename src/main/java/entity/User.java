@@ -10,6 +10,7 @@ public interface User {
     LocalDateTime getCreationTime();
 
     String getPassword();
+    List<String> getJoinedEvents();
 
     String getEmail();
 
