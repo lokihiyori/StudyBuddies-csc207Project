@@ -2,6 +2,7 @@ package interface_adapter.SearchCourse;
 
 import entity.Course;
 
+
 /**
  * ViewModel for storing and presenting course search results.
  */
@@ -51,4 +52,6 @@ public class SearchCourseViewModel {
     }
 
 
+
 }
+

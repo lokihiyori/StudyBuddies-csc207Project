@@ -114,6 +114,30 @@ public class CreateEventView extends JPanel implements ActionListener, PropertyC
         eventEndTimeLabel.setFont(new Font("Arial", Font.BOLD, 18));
         eventEndTimeLabel.setForeground(Color.BLACK);
 
+        create.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(create)) {
+                            CreateEventState currentState = createEventViewModel.getState();
+
+                            createEventController.executeMakeEvent(
+                                    currentState.getUsername(),
+                                    currentState.getDiscription(),
+                                    currentState.getPlace(),
+                                    currentState.getDate(),
+                                    currentState.getEndDate(),
+                                    currentState.getTime(),
+                                    currentState.getEndTime(),
+                                    currentState.getSporttype(),
+                                    currentState.getEventType(),
+                                    currentState.getMaxplayers()
+                            );
+                            createEventViewModel.notifyEventAdded();
+                        }
+                    }
+                }
+        );
+
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -173,6 +197,23 @@ public class CreateEventView extends JPanel implements ActionListener, PropertyC
                         createEventViewModel.setState(currentState);
                     }
 
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
+        eventPlaceInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        CreateEventState currentState = createEventViewModel.getState();
+                        String text = eventPlaceInputField.getText() + e.getKeyChar();
+                        currentState.setPlace(text);
+                        createEventViewModel.setState(currentState);
+                    }
                     @Override
                     public void keyPressed(KeyEvent e) {
                     }

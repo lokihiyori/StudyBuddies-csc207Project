@@ -4,6 +4,7 @@ import SocketIO.GroupChatClient;
 import SocketIO.GroupChatPort;
 import SocketIO.GroupChatServer;
 import entity.Course;
+import interface_adapter.CreateEvent.CreateEventViewModel;
 import interface_adapter.GoToCourse.CourseState;
 import interface_adapter.GoToCourse.CourseViewController;
 import interface_adapter.GoToCourse.CourseViewModel;
@@ -23,6 +24,7 @@ import java.beans.PropertyChangeListener;
 public class CourseView extends JPanel implements PropertyChangeListener {
 
     private final CourseViewModel courseViewModel;
+    private final CreateEventViewModel createEventViewModel;
     private final CourseViewController courseViewController;
     public final String viewName = "CourseView";
     private JComboBox<String> courseComboBox;
@@ -34,10 +36,12 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     private JButton createEventButton;
     private JButton addCalendarButton;
 
-    public CourseView(CourseViewModel courseViewModel, CourseViewController courseViewController){
+    public CourseView(CourseViewModel courseViewModel, CourseViewController courseViewController, CreateEventViewModel createEventViewModel){
         this.courseViewModel = courseViewModel;
         this.courseViewModel.addPropertyChangeListener(this);
         this.courseViewController = courseViewController;
+        this.createEventViewModel = createEventViewModel;
+        createEventViewModel.addPropertyChangeListener(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         setBackground(new Color(204, 255, 255));  // Set the entire panel's background color
@@ -65,8 +69,11 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         centerPanel.add(courseComboBox);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         eventComboBox = new JComboBox<>();
+        List<String> eventNames = readEventsFromFile("events.csv");
         eventComboBox.setFont(new Font("Arial", Font.BOLD, 18));
         eventComboBox.addItem("Choose your Event");
+        for (String eventName : eventNames) {
+            eventComboBox.addItem(eventName);}
         eventComboBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, eventComboBox.getPreferredSize().height));
         centerPanel.add(eventComboBox);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -202,13 +209,14 @@ public class CourseView extends JPanel implements PropertyChangeListener {
 
     }
 
-
     private void updateUsernameLabel() {
         CourseState state = courseViewModel.getState();
         usernameLabel.setText("Currently logged in: " + state.getUsername());
     }
     public void propertyChange(PropertyChangeEvent evt) {
-        if ("state".equals(evt.getPropertyName())) {
+        if ("eventsUpdated".equals(evt.getPropertyName())) {
+            updateEventComboBox();  // Method to update the events combo box
+        } else if ("state".equals(evt.getPropertyName())) {
             updateUsernameLabel();
         }
     }
@@ -227,5 +235,32 @@ public class CourseView extends JPanel implements PropertyChangeListener {
             e.printStackTrace();
         }
         return courses;
+    }
+
+    public List<String> readEventsFromFile(String filePath) {
+        List<String> events = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            // Skip the header line
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (values.length > 0) {
+                    events.add(values[0].trim());  // Assuming the event name is the first element
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+    private void updateEventComboBox() {
+        eventComboBox.removeAllItems();  // Clear existing items
+        List<String> eventNames = readEventsFromFile("events.csv");  // Re-read the events from file
+        eventComboBox.addItem("Choose your Event");
+        for (String eventName : eventNames) {
+            eventComboBox.addItem(eventName);
+        }
     }
 }
