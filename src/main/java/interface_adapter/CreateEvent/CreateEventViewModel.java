@@ -11,15 +11,22 @@ public class CreateEventViewModel extends ViewModel {
     public static final String EVENT_PLACE_LABEL = "Choose event place";
     public static final String EVENT_DATE_LABEL = "Choose event date";
     public static final String EVENT_TIME_LABEL = "Choose event time";
+    public static final String EVENT_TYPE_LABEL = "Choose event type";
     public static final String CREATE_EVENT_LABEL = "create";
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
 
     private CreateEventState state = new CreateEventState();
-    public CreateEventViewModel() {super("createEventView");}
-
+    public CreateEventViewModel() {super("CreateEventView");}
 
     public void setState(CreateEventState state) {
+        CreateEventState oldState = this.state;
         this.state = state;
+        support.firePropertyChange("state", oldState, state);
+    }
+
+    // Specific method to notify about the event list update
+    public void notifyEventAdded() {
+        support.firePropertyChange("eventsUpdated", false, true);
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);

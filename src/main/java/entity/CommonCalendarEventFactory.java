@@ -6,15 +6,16 @@ import java.util.ArrayList;
 
 public class CommonCalendarEventFactory implements CalendarEventFactory{
     @Override
-    public CalendarEvent create(String name, LocalDate date, LocalDate endDate, LocalTime time, LocalTime endTime, String organizer, String location) {
+    public CalendarEvent create(String name, LocalDate date, LocalDate endDate, LocalTime time, LocalTime endTime, String organizer, int maxAttendance, String evenType, String location) {
         return new CommonCalendarEvent(organizer,
                 name,
                 date,
-                time,
-                location,
-                "",
-                new ArrayList<>(),
                 endDate,
-                endTime);
+                time,
+                endTime,
+                location,
+                maxAttendance,
+                evenType
+                );
     }
 }

@@ -1,28 +1,33 @@
 package interface_adapter.CreateEvent;
 
+import interface_adapter.GoToCourse.CourseState;
+import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_In.LoggedInState;
-import interface_adapter.logged_In.LoggedInViewModel;
-
 import use_case.Cancel.CancelOutputBoundary;
 import use_case.Cancel.CancelOutputData;
+import use_case.CreateEvent.CreateEventOutputBoundary;
+import use_case.CreateEvent.CreateEventOutputData;
 import use_case.MakeEvent.makeEventOutputBoundary;
 
+import javax.swing.text.View;
+
 public class  createEventPresenter implements makeEventOutputBoundary, CancelOutputBoundary {
-    private final LoggedInViewModel loggedInViewModel;
+    private final CourseViewModel courseViewModel;
     private ViewManagerModel viewManagerModel;
-    public createEventPresenter(ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel){
+
+    public createEventPresenter(ViewManagerModel viewManagerModel,
+                                CourseViewModel courseViewModel){
         this.viewManagerModel = viewManagerModel;
-        this.loggedInViewModel = loggedInViewModel;
+        this.courseViewModel = courseViewModel;
     }
-    @Override
+
     public void prepareMakeEventSuccessView() {
-        LoggedInState loggedInState = loggedInViewModel.getState();
-        this.loggedInViewModel.setState(loggedInState);
+        CourseState courseState = courseViewModel.getState();
+        this.courseViewModel.setState(courseState);
 
-        loggedInViewModel.firePropertyChanged();
+        courseViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+        viewManagerModel.setActiveView(courseViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
@@ -30,19 +35,14 @@ public class  createEventPresenter implements makeEventOutputBoundary, CancelOut
     public void prepareMakeEventFailView(String error) {
 
     }
-
-
-    @Override
-    public void prepareSuccessView(CancelOutputData user) {
-        LoggedInState loggedInState = loggedInViewModel.getState();
-        this.loggedInViewModel.setState(loggedInState);
-        loggedInViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+    public void prepareSuccessView() {
+        CourseState courseState = courseViewModel.getState();
+        this.courseViewModel.setState(courseState);
+        courseViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(courseViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
-    @Override
-    public void prepareSuccessView() {
 
-    }
 }
+

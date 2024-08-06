@@ -3,6 +3,7 @@ package data_access;
 import entity.User;
 import entity.UserFactory;
 import use_case.Login.LoginUserDataAccessInterface;
+import use_case.MakeEvent.makeEventUserDataAccessInterface;
 import use_case.Signup.SignupUserDataAccessInterface;
 
 import java.io.*;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, makeEventUserDataAccessInterface {
 
     private final File csvFile;
 
@@ -96,4 +97,14 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         return accounts.containsKey(identifier);
     }
 
-}
+    @Override
+    public void addEvent(String eventname, String username) {
+        if (existsByName(username)) {
+            User registeredUser = accounts.get(username);
+            registeredUser.getJoinedEvents().add(eventname);
+            this.save();
+        }
+    }
+
+    }
+

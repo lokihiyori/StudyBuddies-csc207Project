@@ -8,6 +8,7 @@ public class CommonUser implements User{
     private final String name;
     private final LocalDateTime creationTime;
     private final String password;
+    private List<String> events;
     private final String email;
     private final List<GroupChat> groupChatList;
 
@@ -15,6 +16,7 @@ public class CommonUser implements User{
         this.name = name;
         this.password = password;
         this.creationTime = creationTime;
+        this.events = new ArrayList<>();
         this.email = email;
         this.groupChatList = new ArrayList<>();;
     }
@@ -34,6 +36,7 @@ public class CommonUser implements User{
         return email;
     }
 
+    public List<String>  getJoinedEvents(){return this.events;}
 
     @Override
     public User get(String users) {

@@ -1,6 +1,7 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import interface_adapter.CreateEvent.CreateEventViewModel;
 import interface_adapter.GoToCourse.CoursePresenter;
 import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.GroupChatViewModel;
@@ -18,16 +19,16 @@ public class LoggedInUseCaseFactory {
     }
 
     public static LoggedInView create(ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel,
-                                      CourseViewModel courseViewModel, FileUserDataAccessObject userDataAccessObject){
+                                      CourseViewModel courseViewModel, CreateEventViewModel createEventViewModel, FileUserDataAccessObject userDataAccessObject){
         LoggedIncontroller loggedIncontroller =
-                createLoggedInUseCase(viewManagerModel, loggedInViewModel, courseViewModel, userDataAccessObject);
+                createLoggedInUseCase(viewManagerModel, loggedInViewModel, courseViewModel, createEventViewModel, userDataAccessObject);
         return new LoggedInView(new GroupChatViewModel(), loggedInViewModel,loggedIncontroller);
     }
 
     private static LoggedIncontroller createLoggedInUseCase(
-            ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel, CourseViewModel courseViewModel,
+            ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel, CourseViewModel courseViewModel, CreateEventViewModel createEventViewModel,
             FileUserDataAccessObject fileUserDataAccessObject){
-        GoToCourseOutputBoundary goToCourseOutputBoundary = new CoursePresenter(viewManagerModel, courseViewModel, loggedInViewModel);
+        GoToCourseOutputBoundary goToCourseOutputBoundary = new CoursePresenter(viewManagerModel, courseViewModel, createEventViewModel, loggedInViewModel);
         GoToCourseInputBoundary goToCourseInteractor = new GoToCourseInteractor(goToCourseOutputBoundary, fileUserDataAccessObject);
         return new LoggedIncontroller(goToCourseInteractor);
     }
