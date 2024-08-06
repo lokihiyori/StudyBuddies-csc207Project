@@ -27,15 +27,20 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'com.github.lgooddatepicker:LGoodDatePicker:11.2.0'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-
-    // Socket.IO and Netty dependencies
+     
+     // Socket.IO and Netty dependencies
     implementation 'io.socket:socket.io-client:1.0.0'
     implementation 'com.corundumstudio.socketio:netty-socketio:1.7.18'
     implementation 'org.slf4j:slf4j-simple:1.7.32'
 
-    // Testing framework
+     // Testing framework
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testImplementation 'junit:junit:4.13.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
 }
 
 sourceCompatibility = 15
 targetCompatibility = 15
+

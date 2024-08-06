@@ -1,5 +1,3 @@
-package app;
-
 import data_access.CourseDataAccessObject;
 import entity.Course;
 import entity.CourseFactory;

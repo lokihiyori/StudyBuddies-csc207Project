@@ -1,7 +1,9 @@
 package view;
 
 import SocketIO.GroupChatClient;
+import SocketIO.GroupChatMember;
 import SocketIO.GroupChatServer;
+import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.GroupChatViewModel;
 
 import javax.swing.*;
@@ -48,6 +50,7 @@ public class CourseSearchView extends JPanel implements ActionListener {
         this.groupChatViewModel = groupChatViewModel;
         this.searchCourseViewModel = searchCourseViewModel;
         this.searchCourseController = searchCourseController;
+        //this.courseViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Course Search by Code or Name");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -117,19 +120,6 @@ public class CourseSearchView extends JPanel implements ActionListener {
                     e.printStackTrace();
                 }
 
-
-                /*
-                if (searchCourseViewModel.getCourse() != null){
-                    courseFound = true;
-                    resultLabel.setText("Course is Found.");
-                }
-                else{
-                    courseFound = false;
-                    resultLabel.setText("Course is not Found.");
-                }
-
-                 */
-                //boolean courseFound = viewModel.searchForCourse(course);
                 handleCourseSearchResult(course, courseFound, courseCode);
             }
         }
@@ -144,9 +134,26 @@ public class CourseSearchView extends JPanel implements ActionListener {
             if (joinGroupChat == JOptionPane.YES_OPTION) {
 
 
-                //join group chat !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+                //join group chat
                 // Start the server in a separate thread
                 // get the port number
+                //update the user to the groupMember
+
+
+
+                //GroupChatMember groupChatMember = new GroupChatMember();
+                //String username = courseViewModel.getState().getUsername();
+                //String name = CourseView.getUserName();
+                //System.out.println("username is " + name);
+                //groupChatMember.addMember(courseCode, name);
+
+                
+
+
+
                 int port = GroupChatPort.getPortByCourseCode(courseCode);
                 String host = GroupChatPort.getHostFromFirstLine();
                 //int port = 3001;
@@ -240,6 +247,7 @@ public class CourseSearchView extends JPanel implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
+        CourseViewModel courseViewModel = new CourseViewModel();
 
         CourseSearchView courseSearchView = new CourseSearchView(groupChatViewModel,
                 searchCourseViewModel,

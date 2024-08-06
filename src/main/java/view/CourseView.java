@@ -1,22 +1,17 @@
 package view;
-
 import data_access.FileUserDataAccessObject;
+import SocketIO.GroupChatClient;
+import SocketIO.GroupChatPort;
+import SocketIO.GroupChatServer;
 import entity.Course;
-import interface_adapter.CreateEvent.CreateEventController;
-import interface_adapter.CreateEvent.CreateEventViewModel;
 import interface_adapter.GoToCourse.CourseState;
 import interface_adapter.GoToCourse.CourseViewController;
 import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.SignUp.SignUpState;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_In.LoggedInViewModel;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -32,7 +27,6 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     public final String viewName = "CourseView";
     private JComboBox<String> courseComboBox;
     private JComboBox<String> eventComboBox;
-    private JList<String> eventsList;
     private JLabel usernameLabel;
     private JButton profileButton;
     private JButton joinGroupChatsButton;
@@ -111,12 +105,9 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         logOutButton.addActionListener(e -> handleLogOut());
     }
 
-    private void handleJoinGroupChatsAction() {
-    }
-
 
     private void handleLogOut() {
-        courseViewController.executeLogOut();
+        courseViewController.excuteLogOut();
     }
 
     private void handleProfileAction() {
@@ -126,12 +117,91 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     private void handleAddCalendarAction() {
         // Implement the action for the Add Calendar button
     }
-
     private void handleCreateEventAction()  {
         CourseState courseState = courseViewModel.getState();
         courseViewController.executeCreateEvent(courseState.getUsername());
 //        updateEventsList();
     }
+
+    private void handleJoinGroupChatsAction() {
+        // Implement the action for the Join Group Chats button
+        List<String> courseNames = readCoursesFromFile("courses.csv");
+        JDialog courseDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Join Group Chat", true);
+        courseDialog.setLayout(new BorderLayout());
+        courseDialog.setSize(300, 400);
+
+        JList<String> courseList = new JList<>(courseNames.toArray(new String[0]));
+        courseList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        courseDialog.add(new JScrollPane(courseList), BorderLayout.CENTER);
+
+        JButton joinButton = new JButton("Join");
+        joinButton.addActionListener(e -> {
+            //selectedCourse is the course name
+            String selectedCourse = courseList.getSelectedValue();
+            String courseCode = null;
+
+
+            String filePath = "courses.csv";
+            String line;
+            String csvSplitBy = ",";
+
+            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                // Skip the header
+                br.readLine();
+                while ((line = br.readLine()) != null) {
+                    String[] courseCheck = line.split(csvSplitBy);
+                    if (courseCheck[0].trim().equalsIgnoreCase(selectedCourse)) {
+                        courseCode = courseCheck[1];
+                        break;
+                    }
+
+                }
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+
+
+            if (courseCode != null) {
+                joinGroupChat(courseCode);
+                courseDialog.dispose();
+            } else {
+                JOptionPane.showMessageDialog(courseDialog, "Please select a course to join.");
+            }
+        });
+        courseDialog.add(joinButton, BorderLayout.SOUTH);
+
+        courseDialog.setVisible(true);
+    }
+    
+
+    private void joinGroupChat(String courseCode) {
+        // Implement the logic to join the group chat for the selected course
+        int port = GroupChatPort.getPortByCourseCode(courseCode);
+        String host = GroupChatPort.getHostFromFirstLine();
+        //int port = 3001;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GroupChatServer server = new GroupChatServer();
+                server.startServer(port, host);
+            }
+        }).start();
+
+        // Give the server a moment to start up
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Start the client
+        GroupChatClient groupChatClient = new GroupChatClient();
+
+        groupChatClient.startChat(courseCode, host, port);
+
+
+    }
+
 
     private void updateUsernameLabel() {
         CourseState state = courseViewModel.getState();
@@ -147,39 +217,15 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         List<String> courses = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
+            // Skip the header line
             br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                courses.add(values[0]);
+                courses.add(values[0]);  // Assuming the course name is the first element
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return courses;
     }
-//    private void updateEventsList() {
-//        try {
-//            List<String> events = loadEventsFromCsvFile("events.csv");
-//            eventsList.setListData(events.toArray(new String[0]));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    private List<String> loadEventsFromCsvFile(String fileName) throws IOException {
-        List<String> events = new ArrayList<>();
-        Path path = Paths.get(fileName);
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Assuming the first column in CSV contains the event name
-                String[] data = line.split(",");
-                if (data.length > 0) {
-                    events.add(data[0]);  // Add the first column (event name) to the list
-                }
-            }
-        }
-        return events;
-
-}}
-
+}
