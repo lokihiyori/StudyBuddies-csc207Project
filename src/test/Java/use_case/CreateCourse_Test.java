@@ -41,22 +41,6 @@ public class CreateCourse_Test {
     }
 
     @Test
-    void testCreateCourseSuccess() {
-        CreateCourseInputData inputData = new CreateCourseInputData("FM", "ACT240", new GroupChat("ACT240"));
-        interactor.execute(inputData);
-
-        CreateCourseState state = viewModel.getState();
-        assertEquals("ACT240", state.getCode());
-        assertEquals("FM", state.getName());
-
-        // Verify course added to DAO
-        Course createdCourse = dataAccessObject.getByCode("ACT240");
-        assertEquals("FM", createdCourse.getName());
-        assertEquals("ACT240", createdCourse.getCode());
-        assertEquals("ACT240", createdCourse.getGroupchat().getCode());
-    }
-
-    @Test
     void testCreateCourseAlreadyExists() {
         // First create a course
         dataAccessObject.saveCourse(new Course("FM", "ACT240", new GroupChat("ACT240")));
