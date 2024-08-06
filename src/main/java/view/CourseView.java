@@ -107,7 +107,7 @@ public class CourseView extends JPanel implements PropertyChangeListener {
 
 
     private void handleLogOut() {
-        courseViewController.excuteLogOut();
+        courseViewController.executeLogOut();
     }
 
     private void handleProfileAction() {
