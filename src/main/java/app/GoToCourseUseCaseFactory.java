@@ -41,7 +41,7 @@ public class GoToCourseUseCaseFactory {
             FileEventDataAccessObject fileEventDataAccessObject
     ) {
         CourseViewController courseViewController = goToCourseUseCase(viewManagerModel, courseViewModel, loggedInViewModel, createEventViewModel, userDataAccessObject, fileEventDataAccessObject);
-        return new CourseView(courseViewModel, courseViewController);
+        return new CourseView(courseViewModel, courseViewController, createEventViewModel);
     }
 
     private static CourseViewController goToCourseUseCase(ViewManagerModel viewManagerModel,

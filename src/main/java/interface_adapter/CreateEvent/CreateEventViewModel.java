@@ -18,9 +18,15 @@ public class CreateEventViewModel extends ViewModel {
     private CreateEventState state = new CreateEventState();
     public CreateEventViewModel() {super("CreateEventView");}
 
-
     public void setState(CreateEventState state) {
+        CreateEventState oldState = this.state;
         this.state = state;
+        support.firePropertyChange("state", oldState, state);
+    }
+
+    // Specific method to notify about the event list update
+    public void notifyEventAdded() {
+        support.firePropertyChange("eventsUpdated", false, true);
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
