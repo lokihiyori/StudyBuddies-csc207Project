@@ -21,13 +21,15 @@ import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 public class CreateEventView extends JPanel implements ActionListener, PropertyChangeListener {
 
     JLabel username;
     Window container;
 
-    public final String viewName = "createEventView";
+    public final String viewName = "CreateEventView";
     private final CreateEventViewModel createEventViewModel;
     private final CreateEventController createEventController;
     final JTextField eventPlaceInputField = new JTextField(25);
@@ -39,7 +41,7 @@ public class CreateEventView extends JPanel implements ActionListener, PropertyC
     final JTextField eventAttendanceInputField = new JTextField(25);
     final JButton create;
     final JButton cancel;
-    final JComboBox<String> eventTypeComboBox; // JComboBox for event level
+    final JComboBox<String> eventTypeComboBox;
 
     public CreateEventView(CreateEventViewModel createEventViewModel, CreateEventController createEventController, Window mainWindows){
         this.createEventController = createEventController;
@@ -223,7 +225,9 @@ public class CreateEventView extends JPanel implements ActionListener, PropertyC
         CreateEventState state = (CreateEventState) evt.getNewValue();
         username.setText(state.getUsername());
 
-
-
     }
 }
+
+
+
+

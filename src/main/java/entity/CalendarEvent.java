@@ -8,10 +8,11 @@ public interface CalendarEvent {
     String getName();
     LocalDate getDate();
     LocalTime getTime();
-
+    String eventType();
     String getLocation();
     String getOrganizer();
     String getEventDescription();
+    int getMaxAttendance();
     void setEventDescription(String description);
     ArrayList<String> getAttendance();
     void addAttendance(String user);

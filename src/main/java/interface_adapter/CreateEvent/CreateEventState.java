@@ -10,6 +10,8 @@ public class CreateEventState {
     private LocalDate endDate = LocalDate.now();
     private LocalTime time = LocalTime.now();
     private LocalTime endTime = LocalTime.now();
+    private String eventType = "";
+    private int maxplayers=0;
     private String sporttype = "";
     private String discription="";
 
@@ -21,6 +23,8 @@ public class CreateEventState {
         endDate = copy.endDate;
         time = copy.time;
         endTime = copy.endTime;
+        eventType = copy.eventType;
+        maxplayers = copy.maxplayers;
         sporttype = copy.sporttype;
         discription = copy.discription;
     }
@@ -41,16 +45,27 @@ public class CreateEventState {
     }
 
     public LocalDate getDate() {return date;}
+    public String getEventType() {
+        return eventType;
+    }
     public LocalTime getTime() {
         return time;
     }
-
+    public int getMaxplayers() {
+        return maxplayers;
+    }
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
     public void setDiscription(String discription) {
         this.discription = discription;
     }
 
     public void setPlace(String place) {
         this.place = place;
+    }
+    public void setMaxplayers(int maxplayers) {
+        this.maxplayers = maxplayers;
     }
 
     public void setSporttype(String sporttype) {

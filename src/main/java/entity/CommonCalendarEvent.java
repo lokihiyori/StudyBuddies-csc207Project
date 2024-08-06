@@ -9,20 +9,24 @@ public class CommonCalendarEvent implements CalendarEvent{
     private String eventName;
     private LocalDate eventDate;
     private LocalTime eventTime;
+    private int maxAttendance;
+    private String eventType;
     private String eventLocation;
     private String eventDescription;
     private ArrayList<String> attendance;
     private LocalDate eventEndDate;
     private LocalTime eventEndTime;
-    public CommonCalendarEvent(String organizer, String eventName, LocalDate eventDate, LocalTime eventTime, String eventLocation, String eventDescription, ArrayList<String> attendance, LocalDate eventEndDate, LocalTime eventEndTime){
+    public CommonCalendarEvent(String organizer, String eventName, LocalDate eventDate, LocalDate eventEndDate, LocalTime eventTime, LocalTime eventEndTime, String eventLocation, int maxAttendance, String eventType){
 
         this.organizer = organizer;
         this.eventName = eventName;
         this.eventDate = eventDate;
         this.eventTime = eventTime;
         this.eventLocation = eventLocation;
-        this.eventDescription = eventDescription;
-        this.attendance = attendance;
+        this.maxAttendance = maxAttendance;
+        this.eventType = eventType;
+        this.attendance = new ArrayList<>();
+        this.eventDescription = "";
         this.eventEndDate = eventEndDate;
         this.eventEndTime = eventEndTime;
     }
@@ -39,6 +43,11 @@ public class CommonCalendarEvent implements CalendarEvent{
     @Override
     public LocalTime getTime() {
         return eventTime;
+    }
+
+    @Override
+    public String eventType() {
+        return eventType;
     }
 
     @Override
@@ -64,6 +73,9 @@ public class CommonCalendarEvent implements CalendarEvent{
     @Override
     public ArrayList<String> getAttendance() {
         return attendance;
+    }
+    public int getMaxAttendance() {
+        return maxAttendance;
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class makeEventInputData {
+
     private final String organiserName;
     private final String eventName;
     private final String location;
@@ -12,10 +13,10 @@ public class makeEventInputData {
     private final LocalTime eventTime;
     private final LocalTime eventEndTime;
     private final String eventLabel;
-    private final String eventLevel;
+    private final String eventType;
     private final int eventMaxAttendance;
 
-    public makeEventInputData(String organiserName, String eventName, String location, LocalDate eventDate, LocalDate eventEndDate, LocalTime eventTime, LocalTime eventEndTime, String eventLabel, String eventLevel, int eventMaxAttendance) {
+    public makeEventInputData(String organiserName, String eventName, String location, LocalDate eventDate, LocalDate eventEndDate, LocalTime eventTime, LocalTime eventEndTime, String eventLabel, String eventType, int eventMaxAttendance) {
         this.organiserName = organiserName;
         this.eventName = eventName;
         this.location = location;
@@ -24,7 +25,7 @@ public class makeEventInputData {
         this.eventTime = eventTime;
         this.eventEndTime = eventEndTime;
         this.eventLabel = eventLabel;
-        this.eventLevel = eventLevel;
+        this.eventType = eventType;
         this.eventMaxAttendance = eventMaxAttendance;
     }
     public String getOrganiserName(){return organiserName;}
@@ -41,8 +42,8 @@ public class makeEventInputData {
     String getEventLabel() {
         return eventLabel;
     }
-    public String getEventLevel() {
-        return eventLevel;
+    public String getEventType() {
+        return eventType;
     }
     public int getEventMaxAttendance() {
         return eventMaxAttendance;

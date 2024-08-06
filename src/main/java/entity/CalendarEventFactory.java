@@ -6,5 +6,5 @@ import java.time.LocalTime;
 public interface CalendarEventFactory {
 
     CalendarEvent create(String name, LocalDate date, LocalDate endDate, LocalTime time, LocalTime endTime,
-                         String organizer, String location);
+                         String organizer, int maxAttendance, String eventType, String location);
 }
