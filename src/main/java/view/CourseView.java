@@ -1,8 +1,11 @@
 package view;
-import data_access.FileUserDataAccessObject;
+
+import GoogleCalendar.MyGoogleCalendarApi;
 import SocketIO.GroupChatClient;
 import SocketIO.GroupChatPort;
 import SocketIO.GroupChatServer;
+import entity.CalendarEvent;
+import entity.CommonCalendarEvent;
 import entity.Course;
 import interface_adapter.CreateEvent.CreateEventViewModel;
 import interface_adapter.GoToCourse.CourseState;
@@ -13,6 +16,10 @@ import interface_adapter.SignUp.SignUpState;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -78,7 +85,7 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         centerPanel.add(eventComboBox);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
-        addCalendarButton = new JButton("Add Calendar");
+        addCalendarButton = new JButton("My Event");
         addCalendarButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         addCalendarButton.addActionListener(e -> handleAddCalendarAction());
         centerPanel.add(addCalendarButton);
@@ -122,8 +129,64 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     }
 
     private void handleAddCalendarAction() {
-        // Implement the action for the Add Calendar button
+        String selectedEventName = (String) eventComboBox.getSelectedItem();
+        if (selectedEventName != null && !selectedEventName.equals("Choose your Event")) {
+            CommonCalendarEvent event = getEventDetails(selectedEventName);
+            if (event != null) {
+                JFrame frame = new JFrame("Event Details");
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setSize(400, 600);
+                frame.setContentPane(new EventDetailView(event));
+                frame.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Selected event details are not valid.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an event.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
+
+    private CommonCalendarEvent getEventDetails(String eventName) {
+        String filePath = "events.csv";
+        String line;
+        String csvSplitBy = ",";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            // Skip the header line
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(csvSplitBy);
+                if (values.length >= 11 && values[0].trim().equals(eventName)) {
+                    // Parse the event details from the CSV file
+                    String organizer = values[1].trim(); // Organizer
+                    LocalDate eventDate = LocalDate.parse(values[3].trim()); // Event Date
+                    LocalTime eventTime = LocalTime.parse(values[4].trim()); // Event Time
+                    String eventLocation = values[5].trim(); // Event Location
+
+                    // Event End Date and End Time are not used for this view
+                    // You can adjust the parsing if needed, but not necessary here
+                    LocalDate eventEndDate = LocalDate.parse(values[9].trim()); // Event End Date (not used here)
+                    LocalTime eventEndTime = LocalTime.parse(values[10].trim()); // Event End Time (not used here)
+
+                    return new CommonCalendarEvent(
+                            organizer,
+                            eventName,
+                            eventDate,
+                            eventEndDate,
+                            eventTime,
+                            eventEndTime,
+                            eventLocation,
+                            Integer.parseInt(values[6].trim()), // Max Attendance
+                            values[7].trim() // Event Type
+                    );
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private void handleCreateEventAction()  {
         CourseState courseState = courseViewModel.getState();
         courseViewController.executeCreateEvent(courseState.getUsername());
@@ -179,7 +242,8 @@ public class CourseView extends JPanel implements PropertyChangeListener {
 
         courseDialog.setVisible(true);
     }
-    
+
+
 
     private void joinGroupChat(String courseCode) {
         // Implement the logic to join the group chat for the selected course

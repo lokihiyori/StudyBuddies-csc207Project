@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class GoogleCalendarApi {
+public abstract class GoogleCalendarApi {
 
     private final Calendar service;
 
@@ -113,4 +113,6 @@ public class GoogleCalendarApi {
         //returns an authorized Credential object.
         return credential;
     }
+
+    protected abstract Calendar buildCalendarService(NetHttpTransport httpTransport, JsonFactory jsonFactory, Credential credential);
 }

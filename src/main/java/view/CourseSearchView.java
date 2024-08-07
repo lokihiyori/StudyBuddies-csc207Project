@@ -150,7 +150,21 @@ public class CourseSearchView extends JPanel implements ActionListener {
                 //System.out.println("username is " + name);
                 //groupChatMember.addMember(courseCode, name);
 
-                
+
+
+
+
+                //update the user to the groupMember
+
+
+
+                //GroupChatMember groupChatMember = new GroupChatMember();
+                //String username = courseViewModel.getState().getUsername();
+                //String name = CourseView.getUserName();
+                //System.out.println("username is " + name);
+                //groupChatMember.addMember(courseCode, name);
+
+
 
 
 

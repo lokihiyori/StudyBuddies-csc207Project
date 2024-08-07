@@ -5,15 +5,13 @@
  * Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.9/samples
  * This project uses @Incubating APIs which are subject to change.
  */
-plugins {
-    id 'java'
-    id 'application'
-}
+apply plugin: 'java'
+apply plugin: 'application'
 
-group = 'SocketIO'
+mainClassName = 'SimpleGoogleCalendarEventCreator'
+sourceCompatibility = 15
+targetCompatibility = 15
 version = '1.0'
-
-mainClassName = 'SocketIO.GroupChatServer' // Default main class name. Change as needed.
 
 repositories {
     mavenCentral()
@@ -27,8 +25,26 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'com.github.lgooddatepicker:LGoodDatePicker:11.2.0'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-     
-     // Socket.IO and Netty dependencies
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    // JUnit 5 dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    // Mockito dependencies
+    testImplementation 'org.mockito:mockito-core:3.11.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.11.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'org.mockito:mockito-core:4.11.0'
+}
+
+group 'SocketIO'
+
+dependencies {
     implementation 'io.socket:socket.io-client:1.0.0'
     implementation 'com.corundumstudio.socketio:netty-socketio:1.7.18'
     implementation 'org.slf4j:slf4j-simple:1.7.32'
@@ -41,6 +57,11 @@ dependencies {
 
 }
 
-sourceCompatibility = 15
-targetCompatibility = 15
+application {
+    mainClassName = 'SocketIO.GroupChatServer' // Change this to run the client if needed
+    mainClassName = 'SimpleGoogleCalendarEventCreator'
+}
 
+test {
+    useJUnitPlatform()
+}
