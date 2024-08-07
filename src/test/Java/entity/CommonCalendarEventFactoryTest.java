@@ -27,7 +27,7 @@ public class CommonCalendarEventFactoryTest {
         String organizer = "Organizer";
         String location = "Event Location";
 
-        CalendarEvent event = factory.create(name, date, endDate, time, endTime, organizer, location);
+        CalendarEvent event = factory.create(name, date, endDate, time, endTime, organizer,3, "event", location);
 
         assertEquals(name, event.getName());
         assertEquals(date, event.getDate());
