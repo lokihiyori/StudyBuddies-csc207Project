@@ -27,8 +27,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
         csvFile = new File(csvPath);
         headers.put("username", 0);
-        headers.put("password", 1);
-        headers.put("email", 2);
+        headers.put("email", 1);
+        headers.put("password", 2);
         headers.put("creation_time", 3);
 
         if (csvFile.length() == 0) {
@@ -39,17 +39,17 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 String header = reader.readLine();
 
                 // TODO clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("username,password,email,creation_time");
+                assert header.equals("username,email,password,creation_time");
 
                 String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
-                    String password = String.valueOf(col[headers.get("password")]);
                     String email = String.valueOf(col[headers.get("email")]);
+                    String password = String.valueOf(col[headers.get("password")]);
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    User user = userFactory.create(username, password, email, ldt);
+                    User user = userFactory.create(username, email, password, ldt);
                     accounts.put(username, user);
                 }
             }
@@ -71,7 +71,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
             for (User user : accounts.values()) {
                 String line = "%s,%s,%s,%s".formatted(
-                        user.getName(), user.getPassword(), user.getEmail(), user.getCreationTime());
+                        user.getName(), user.getEmail(), user.getPassword(), user.getCreationTime());
                 writer.write(line);
                 writer.newLine();
             }
@@ -106,5 +106,5 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         }
     }
 
-    }
+}
 
