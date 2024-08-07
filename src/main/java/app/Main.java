@@ -126,7 +126,6 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, loginSignupViewModel);
         views.add(signupView, signupView.viewName);
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject, signupViewModel, loginSignupViewModel);
@@ -137,7 +136,6 @@ public class Main {
         views.add(courseView, courseView.viewName);
         CreateEventView createEventView = CreateEventUseCaseFactory.create(viewManagerModel, createEventViewModel, courseViewModel, eventDataAccessObject, userDataAccessObject, application);
         views.add(createEventView, createEventView.viewName);
-
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
