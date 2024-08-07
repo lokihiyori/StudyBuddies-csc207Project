@@ -62,12 +62,6 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
         this.add(inputPanel);
     }
 
-    private JLabel createLabel(String text) {
-        JLabel label = new JLabel(text);
-        label.setFont(new Font("Arial", Font.PLAIN, 20));
-        return label;
-    }
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("name".equals(evt.getPropertyName())) {

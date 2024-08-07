@@ -1,28 +1,39 @@
 package view;
+import data_access.CourseDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import SocketIO.GroupChatClient;
 import SocketIO.GroupChatPort;
 import SocketIO.GroupChatServer;
-import entity.CommonCalendarEvent;
-import entity.Course;
+
+import entity.*;
+
 import interface_adapter.CreateEvent.CreateEventViewModel;
 import interface_adapter.GoToCourse.CourseState;
 import interface_adapter.GoToCourse.CourseViewController;
 import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.SignUp.SignUpState;
+import interface_adapter.UserProfile.UserProfileController;
+import interface_adapter.UserProfile.UserProfilePresenter;
+import interface_adapter.UserProfile.UserProfileState;
+import interface_adapter.UserProfile.UserProfileViewModel;
+import use_case.UserProfile.UserProfileInteractor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CourseView extends JPanel implements PropertyChangeListener {
 
@@ -121,7 +132,76 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     }
 
     private void handleProfileAction() {
-        // Implement the action for the Profile button
+        try {
+            // Initialize FileUserDataAccessObject
+            String userCsvPath = "user.csv"; // Ensure this path is correct
+            FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject(userCsvPath, new CommonUserFactory());
+
+            // Retrieve user data
+            User user = userDataAccessObject.get("ah"); // Replace with actual username
+            if (user == null) {
+                throw new RuntimeException("User not found.");
+            }
+
+            // Initialize CourseDataAccessObject
+            String courseCsvPath = "courses.csv"; // Ensure this path is correct
+            CourseFactory courseFactory = new CourseFactory(); // Ensure this class exists and is correctly implemented
+            GroupChatFactory groupChatFactory = new GroupChatFactory(); // Ensure this class exists and is correctly implemented
+            CourseDataAccessObject courseDataAccessObject = new CourseDataAccessObject(courseCsvPath, courseFactory, groupChatFactory);
+
+            // Initialize UserProfile components
+            UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+            UserProfilePresenter userProfilePresenter = new UserProfilePresenter(userProfileViewModel);
+            UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter, courseDataAccessObject);
+            UserProfileController userProfileController = new UserProfileController(userProfileInteractor);
+
+            // Initialize UserProfileState with actual user data
+            UserProfileState userProfileState = new UserProfileState();
+            userProfileState.setName(user.getName());
+            userProfileState.setEmail(user.getEmail());
+            userProfileState.setCreationTime(user.getCreationTime().toString());
+
+            // Retrieve all courses from dataAccessObject
+            Map<String, Course> courseMap = courseDataAccessObject.getCourseMap();
+            List<String> courseCodes = courseMap.values().stream()
+                    .map(Course::getCode)
+                    .collect(Collectors.toList());
+
+            userProfileState.setCourseCodes(courseCodes);
+
+            // Create and initialize UserprofileView
+            UserprofileView userprofileView = new UserprofileView(userProfileController, userProfileState);
+
+            // Create a new JFrame for the UserProfileView
+            JFrame userProfileFrame = new JFrame("User Profile");
+            userProfileFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            userProfileFrame.setSize(500, 300);
+            userProfileFrame.setContentPane(userprofileView);
+            userProfileFrame.setVisible(true);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading course data", "Error", JOptionPane.ERROR_MESSAGE);
+
+            // Default initialization in case of error
+            // Handle error by showing a default view or a placeholder view
+            UserProfileViewModel userProfileViewModel = new UserProfileViewModel();
+            UserProfilePresenter userProfilePresenter = new UserProfilePresenter(userProfileViewModel);
+            UserProfileInteractor userProfileInteractor = new UserProfileInteractor(userProfilePresenter, null); // Pass null or a mock object if needed
+            UserProfileController userProfileController = new UserProfileController(userProfileInteractor);
+            UserProfileState userProfileState = new UserProfileState();
+            userProfileState.setName("Error"); // Placeholder data
+            userProfileState.setEmail("error@example.com"); // Placeholder data
+            userProfileState.setCreationTime("Error"); // Placeholder data
+            userProfileState.setCourseCodes(Arrays.asList()); // Empty list for placeholder
+
+            UserprofileView userprofileView = new UserprofileView(userProfileController, userProfileState);
+
+            // Get the current JFrame and switch its content pane to UserprofileView
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            frame.setContentPane(userprofileView);
+            frame.revalidate(); // Refresh the frame to show the new view
+        }
     }
 
     private void handleAddCalendarAction() {
