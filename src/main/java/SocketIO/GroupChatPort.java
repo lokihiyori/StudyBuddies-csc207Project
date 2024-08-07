@@ -1,10 +1,21 @@
 package SocketIO;
 
+import data_access.CourseDataAccessObject;
+import data_access.CourseManager;
+import entity.CourseFactory;
+import entity.GroupChatFactory;
+import interface_adapter.CreateCourse.CreateCourseController;
+import interface_adapter.CreateCourse.CreateCoursePresenter;
+import interface_adapter.CreateCourse.CreateCourseViewModel;
+import use_case.CreateCourse.CreateCourseInteractor;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The GroupChatPort class provides methods for saving and retrieving group chat details from a CSV file.
@@ -108,9 +119,19 @@ public class GroupChatPort {
      */
     public static void main(String[] args) {
         // actual IP address of the server machine (Yujing's laptop)
-        String host = "100.66.8.171";
+        String host = "100.66.15.103";
         int port = 4000;
         GroupChatPort.saveGroupChatDetails("CSC207", port, host);
+
+
+        List<CourseManager> courses = new ArrayList<>();
+        courses.add(new CourseManager("SOFTWARE DESIGN", "CSC207", "CSC207"));
+
+        //courses.add(new CourseManager("PHYSICS I", "PHY131", "PHY131"));
+        // Write the courses to CSV
+        CourseManager.appendCoursesToCSV(courses);
+
+
 
     }
 

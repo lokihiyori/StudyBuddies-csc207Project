@@ -107,7 +107,7 @@ public class GroupChatMember {
         groupChatMember.addMember("CSC207", "Alice");
         groupChatMember.addMember("CSC207", "Bob");
         groupChatMember.addMember("PHY131", "Charlie");
-        groupChatMember.addMember("MAT141", "David");
+        //groupChatMember.addMember("MAT141", "David");
         groupChatMember.addMember("CSC207", "Amy");
         groupChatMember.addMember("CSC207", "Amy");
         System.out.println("Members of CSC207: " + groupChatMember.getMembersByCourseCode("CSC207"));
