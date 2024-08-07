@@ -3,6 +3,7 @@ package view;
 import SocketIO.GroupChatClient;
 import SocketIO.GroupChatMember;
 import SocketIO.GroupChatServer;
+import data_access.CourseManager;
 import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.GroupChatViewModel;
 
@@ -31,6 +32,8 @@ import SocketIO.GroupChatPort;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseSearchView extends JPanel implements ActionListener {
 
@@ -95,30 +98,48 @@ public class CourseSearchView extends JPanel implements ActionListener {
                 boolean courseFound = false;
                 String courseCode = null;
 
-                //check if the course exists in courses.csv
-                String filePath = "courses.csv";
-                String line;
-                String csvSplitBy = ",";
 
-                try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-                    // Skip the header
-                    br.readLine();
-                    while ((line = br.readLine()) != null) {
-                        String[] courseCheck = line.split(csvSplitBy);
-                        if (courseCheck[0].trim().equalsIgnoreCase(course.toUpperCase())) {
-                            courseFound = true;
-                            courseCode = courseCheck[1];
-                            break;
-                        } else if (courseCheck[1].trim().equalsIgnoreCase(course.toUpperCase())){
-                            courseFound = true;
-                            courseCode = course.toUpperCase();
-                            break;
-                        }
+                //String courseNameToCheck = "Introduction to Java";
+                boolean existsByName = CourseManager.courseExistsByName(course);
+                //System.out.println("Course with name '" + courseNameToCheck + "' exists: " + existsByName);
 
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                // Check if a course exists by code
+                //String courseCodeToCheck = "CS101";
+                boolean existsByCode = CourseManager.courseExistsByCode(course);
+
+                if (existsByName) {
+                    courseFound = true;
+                    courseCode = CourseManager.getCourseCodeByName(course);
                 }
+                else if (existsByCode) {
+                    courseFound = true;
+                    courseCode = course;
+                }
+
+                //check if the course exists in courses.csv
+//                String filePath = "courses.csv";
+//                String line;
+//                String csvSplitBy = ",";
+//
+//                try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+//                    // Skip the header
+//                    br.readLine();
+//                    while ((line = br.readLine()) != null) {
+//                        String[] courseCheck = line.split(csvSplitBy);
+//                        if (courseCheck[0].trim().equalsIgnoreCase(course.toUpperCase())) {
+//                            courseFound = true;
+//                            courseCode = courseCheck[1];
+//                            break;
+//                        } else if (courseCheck[1].trim().equalsIgnoreCase(course.toUpperCase())){
+//                            courseFound = true;
+//                            courseCode = course.toUpperCase();
+//                            break;
+//                        }
+//
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
                 handleCourseSearchResult(course, courseFound, courseCode);
             }
@@ -152,25 +173,10 @@ public class CourseSearchView extends JPanel implements ActionListener {
 
 
 
-
-
-                //update the user to the groupMember
-
-
-
-                //GroupChatMember groupChatMember = new GroupChatMember();
-                //String username = courseViewModel.getState().getUsername();
-                //String name = CourseView.getUserName();
-                //System.out.println("username is " + name);
-                //groupChatMember.addMember(courseCode, name);
-
-
-
-
-
+                courseCode = courseCode.toUpperCase();
                 int port = GroupChatPort.getPortByCourseCode(courseCode);
                 String host = GroupChatPort.getHostFromFirstLine();
-                //int port = 3001;
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -188,8 +194,31 @@ public class CourseSearchView extends JPanel implements ActionListener {
 
                 // Start the client
                 GroupChatClient groupChatClient = new GroupChatClient();
-
                 groupChatClient.startChat(courseCode, host, port);
+
+
+//                int port = GroupChatPort.getPortByCourseCode(courseCode);
+//                String host = GroupChatPort.getHostFromFirstLine();
+//                //int port = 3001;
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        GroupChatServer server = new GroupChatServer();
+//                        server.startServer(port, host);
+//                    }
+//                }).start();
+//
+//                // Give the server a moment to start up
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                // Start the client
+//                GroupChatClient groupChatClient = new GroupChatClient();
+//
+//                groupChatClient.startChat(courseCode, host, port);
 
 
 
@@ -210,28 +239,34 @@ public class CourseSearchView extends JPanel implements ActionListener {
                 //need to create a new course and add to the courses.csv
                 String newCourseName = JOptionPane.showInputDialog("Enter the new course name:").toUpperCase();
                 String newCourseCode = JOptionPane.showInputDialog("Enter the new course code:").toUpperCase();
+
+                List<CourseManager> courses = new ArrayList<>();
+                courses.add(new CourseManager(newCourseName, newCourseCode, newCourseCode));
+
+                CourseManager.appendCoursesToCSV(courses);
+
                 //String groupChat = newCourseCode;
 
-                String csvPath = "courses.csv";
-                CourseFactory courseFactory = new CourseFactory();
-                GroupChatFactory groupChatFactory = new GroupChatFactory();
-
-                // Initialize CourseDataAccessObject with required parameters
-                CourseDataAccessObject dataAccessObject;
-                try {
-                    dataAccessObject = new CourseDataAccessObject(csvPath, courseFactory, groupChatFactory);
-                } catch (IOException e) {
-                    System.err.println("Failed to initialize CourseDataAccessObject: " + e.getMessage());
-                    return;
-                }
-
-                CreateCourseViewModel viewModel = new CreateCourseViewModel();
-                CreateCoursePresenter presenter = new CreateCoursePresenter(viewModel);
-                CreateCourseInteractor interactor = new CreateCourseInteractor(presenter, dataAccessObject, groupChatFactory);
-                CreateCourseController controller = new CreateCourseController(interactor);
-                controller.executeCreateCourse(newCourseName, newCourseCode);
-
-                groupChatViewModel.createGroupChat(course);
+//                String csvPath = "courses.csv";
+//                CourseFactory courseFactory = new CourseFactory();
+//                GroupChatFactory groupChatFactory = new GroupChatFactory();
+//
+//                // Initialize CourseDataAccessObject with required parameters
+//                CourseDataAccessObject dataAccessObject;
+//                try {
+//                    dataAccessObject = new CourseDataAccessObject(csvPath, courseFactory, groupChatFactory);
+//                } catch (IOException e) {
+//                    System.err.println("Failed to initialize CourseDataAccessObject: " + e.getMessage());
+//                    return;
+//                }
+//
+//                CreateCourseViewModel viewModel = new CreateCourseViewModel();
+//                CreateCoursePresenter presenter = new CreateCoursePresenter(viewModel);
+//                CreateCourseInteractor interactor = new CreateCourseInteractor(presenter, dataAccessObject, groupChatFactory);
+//                CreateCourseController controller = new CreateCourseController(interactor);
+//                controller.executeCreateCourse(newCourseName, newCourseCode);
+//
+//                groupChatViewModel.createGroupChat(course);
 
                 //assoicate this new groupchat with a unique port number and save to file
                 int newPort = GroupChatPort.getLargestPortNumber() + 1;

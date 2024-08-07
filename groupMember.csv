@@ -1,6 +1,5 @@
-CSC207,PHY131,CSC209,MAT295,MAT141
-Alice,Charlie,Sarah,Sarah,David
-Bob,,,x,Sarah
-Amy,,,Anonymous,
-Sarah,,,,
-x,,,,
+CSC207,csc207,PHY131,phy131
+Alice,Sarah,Charlie,Sarah
+Bob,,Sarah,
+Amy,,,
+Sarah,,,
