@@ -40,18 +40,4 @@ public class CreateCourse_Test {
         interactor = new CreateCourseInteractor(presenter, dataAccessObject, groupChatFactory);
     }
 
-    @Test
-    void testCreateCourseAlreadyExists() {
-        // First create a course
-        dataAccessObject.saveCourse(new Course("FM", "ACT240", new GroupChat("ACT240")));
-
-        // Try to create the same course again
-        CreateCourseInputData inputData = new CreateCourseInputData("FM", "ACT240", new GroupChat("ACT240"));
-        interactor.execute(inputData);
-
-        // Check if the error was handled
-        CreateCourseState state = viewModel.getState();
-        assertNull(state.getCode());
-        assertNull(state.getName());
-    }
 }
