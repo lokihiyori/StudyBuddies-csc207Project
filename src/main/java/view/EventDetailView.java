@@ -5,8 +5,16 @@ import entity.CommonCalendarEvent;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * EventDetailView is a JPanel that displays the details of a given event.
+ */
 public class EventDetailView extends JPanel {
 
+    /**
+     * Constructs a new EventDetailView with the specified event details.
+     *
+     * @param event the CommonCalendarEvent instance containing event details
+     */
     public EventDetailView(CommonCalendarEvent event) {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -68,6 +76,10 @@ public class EventDetailView extends JPanel {
         add(backButton, BorderLayout.SOUTH);
     }
 
+    /**
+     * Handles the action for the back button.
+     * Closes the current window when the back button is clicked.
+     */
     private void handleBackAction() {
         Window window = SwingUtilities.getWindowAncestor(this);
         if (window != null) {

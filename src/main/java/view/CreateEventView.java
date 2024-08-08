@@ -20,10 +20,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 
+/**
+ * CreateEventView is a JPanel that provides a user interface for creating events.
+ */
 public class CreateEventView extends JPanel implements ActionListener, PropertyChangeListener {
 
     JLabel username;
@@ -43,6 +43,13 @@ public class CreateEventView extends JPanel implements ActionListener, PropertyC
     final JButton cancel;
     final JComboBox<String> eventTypeComboBox;
 
+    /**
+     * Constructs a new CreateEventView with the specified view model, controller, and container window.
+     *
+     * @param createEventViewModel   the CreateEventViewModel instance
+     * @param createEventController  the CreateEventController instance
+     * @param mainWindows            the container window
+     */
     public CreateEventView(CreateEventViewModel createEventViewModel, CreateEventController createEventController, Window mainWindows){
         this.createEventController = createEventController;
         this.createEventViewModel = createEventViewModel;
@@ -256,10 +263,21 @@ public class CreateEventView extends JPanel implements ActionListener, PropertyC
 
 
     }
+
+    /**
+     * Handles the action event.
+     *
+     * @param evt the ActionEvent object
+     */
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
     }
 
+    /**
+     * Handles property changes in the view model.
+     *
+     * @param evt the PropertyChangeEvent object
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         // Handle property changes
@@ -268,6 +286,11 @@ public class CreateEventView extends JPanel implements ActionListener, PropertyC
 
     }
 
+    /**
+     * Gets the CreateEventController associated with this view.
+     *
+     * @return the CreateEventController instance
+     */
     public CreateEventController getController() {
         return createEventController;
     }

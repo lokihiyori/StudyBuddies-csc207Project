@@ -1,10 +1,8 @@
 package view;
 
 import SocketIO.GroupChatClient;
-import SocketIO.GroupChatMember;
 import SocketIO.GroupChatServer;
 import data_access.CourseManager;
-import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.GroupChatViewModel;
 
 import javax.swing.*;
@@ -13,12 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import interface_adapter.SearchCourse.SearchCourseController;
-import interface_adapter.SearchCourse.SearchCoursePresenter;
 import interface_adapter.SearchCourse.SearchCourseViewModel;
-import data_access.CourseDataAccessObject;
-import use_case.SearchCourse.SearchCourseInteractor;
-import use_case.SearchCourse.SearchCourseInputBoundary;
-import use_case.SearchCourse.SearchCourseOutputBoundary;
 
 
 import SocketIO.GroupChatPort;
@@ -26,6 +19,10 @@ import SocketIO.GroupChatPort;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CourseSearchView is a JPanel that provides a user interface for searching courses
+ * by their code or name and allows the user to join or create group chats for the courses.
+ */
 public class CourseSearchView extends JPanel implements ActionListener {
 
     private final JTextField courseSearchField;
@@ -35,7 +32,13 @@ public class CourseSearchView extends JPanel implements ActionListener {
     private final SearchCourseViewModel searchCourseViewModel;
     private final SearchCourseController searchCourseController;
 
-
+    /**
+     * Constructs a new CourseSearchView with the specified view models and controller.
+     *
+     * @param groupChatViewModel     the GroupChatViewModel instance
+     * @param searchCourseViewModel  the SearchCourseViewModel instance
+     * @param searchCourseController the SearchCourseController instance
+     */
     public CourseSearchView(GroupChatViewModel groupChatViewModel,
                             SearchCourseViewModel searchCourseViewModel,
                             SearchCourseController searchCourseController) {
@@ -72,6 +75,11 @@ public class CourseSearchView extends JPanel implements ActionListener {
         this.add(resultLabel);
     }
 
+    /**
+     * Handles the action event when the search button is clicked.
+     *
+     * @param evt the ActionEvent object
+     */
     @Override
     public void actionPerformed(ActionEvent evt){
 
@@ -113,6 +121,13 @@ public class CourseSearchView extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Handles the result of the course search and prompts the user to join or create a group chat.
+     *
+     * @param course      the course name or code
+     * @param courseFound whether the course was found
+     * @param courseCode  the course code if found
+     */
     private void handleCourseSearchResult(String course, boolean courseFound, String courseCode) {
         if (courseFound) {
             int joinGroupChat = JOptionPane.showConfirmDialog(this,
