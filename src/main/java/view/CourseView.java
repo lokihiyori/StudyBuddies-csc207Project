@@ -138,7 +138,8 @@ public class CourseView extends JPanel implements PropertyChangeListener {
             FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject(userCsvPath, new CommonUserFactory());
 
             // Retrieve user data
-            User user = userDataAccessObject.get("ah"); // Replace with actual username
+            String username = courseViewModel.getState().getUsername();
+            User user = userDataAccessObject.get(username); // Replace with actual username
             if (user == null) {
                 throw new RuntimeException("User not found.");
             }

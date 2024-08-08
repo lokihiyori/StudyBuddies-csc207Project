@@ -28,7 +28,7 @@ public class FileUserDataAccessObjectTest {
 
     @Test
     public void testSaveUser() {
-        User user = commonUserFactory.create("testuser", "password123", "testuser@example.com", LocalDateTime.now());
+        User user = commonUserFactory.create("testuser", "testuser@example.com", "password123", LocalDateTime.now());
         dao.save(user);
 
         User retrievedUser = dao.get("testuser");
@@ -40,7 +40,7 @@ public class FileUserDataAccessObjectTest {
 
     @Test
     public void testExistsByName() {
-        User user = commonUserFactory.create("testuser", "password123", "testuser@example.com", LocalDateTime.now());
+        User user = commonUserFactory.create("testuser", "testuser@example.com", "password123", LocalDateTime.now());
         dao.save(user);
 
         assertTrue(dao.existsByName("testuser"));
@@ -49,7 +49,7 @@ public class FileUserDataAccessObjectTest {
 
     @Test
     public void testGet() {
-        User user = commonUserFactory.create("testuser", "password123", "testuser@example.com", LocalDateTime.now());
+        User user = commonUserFactory.create("testuser", "testuser@example.com", "password123", LocalDateTime.now());
         dao.save(user);
 
         User retrievedUser = dao.get("testuser");
