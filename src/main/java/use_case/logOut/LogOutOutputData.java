@@ -1,4 +1,4 @@
-package interface_adapter.logOut;
+package use_case.logOut;
 
 public class LogOutOutputData {
 

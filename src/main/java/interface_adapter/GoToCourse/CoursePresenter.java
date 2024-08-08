@@ -1,17 +1,15 @@
 package interface_adapter.GoToCourse;
 
-import entity.Course;
 import interface_adapter.CreateEvent.CreateEventState;
 import interface_adapter.CreateEvent.CreateEventViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logOut.LogoOutOutputBoundary;
+import use_case.logOut.LogoOutOutputBoundary;
 import interface_adapter.logged_In.LoggedInViewModel;
 import use_case.CreateEvent.CreateEventOutputBoundary;
 import use_case.CreateEvent.CreateEventOutputData;
 import use_case.GoToCourse.GoToCourseOutputBoundary;
 import use_case.GoToCourse.GoToCourseOutputData;
 
-import use_case.MakeEvent.makeEventOutputData;
 import use_case.joinEvent.joinEventOutputBoundary;
 import use_case.joinEvent.joinEventOutputData;
 
