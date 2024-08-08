@@ -269,8 +269,4 @@ public class GroupChatClient {
         chatArea.setCaretPosition(chatArea.getDocument().getLength());
     }
 
-    public static void main(String[] args) {
-        GroupChatClient client = new GroupChatClient();
-        client.startChat("Example Chat", "localhost", 4000);
-    }
 }
