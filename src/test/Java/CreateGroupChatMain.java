@@ -1,21 +1,11 @@
-import data_access.CourseDataAccessObject;
 import data_access.GroupChatDataAccessObject;
-import entity.Course;
-import entity.CourseFactory;
 import entity.GroupChat;
 import entity.GroupChatFactory;
-import interface_adapter.CreateCourse.CreateCourseController;
-import interface_adapter.CreateCourse.CreateCoursePresenter;
-import interface_adapter.CreateCourse.CreateCourseState;
-import interface_adapter.CreateCourse.CreateCourseViewModel;
 import interface_adapter.CreateGroupChat.CreateGroupChatController;
 import interface_adapter.CreateGroupChat.CreateGroupChatPresenter;
 import interface_adapter.CreateGroupChat.CreateGroupChatState;
 import interface_adapter.CreateGroupChat.CreateGroupChatViewModel;
-import use_case.CreateCourse.CreateCourseInteractor;
-import use_case.CreateGroupChat.CreateGroupChatDataAccessInterface;
 import use_case.CreateGroupChat.CreateGroupChatInteractor;
-import view.CreateGroupChatView;
 
 import java.io.IOException;
 
