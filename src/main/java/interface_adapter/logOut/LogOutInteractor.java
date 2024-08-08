@@ -1,4 +1,4 @@
-package use_case.logOut;
+package interface_adapter.logOut;
 
 
 public class LogOutInteractor implements LogOutInputBoundary {

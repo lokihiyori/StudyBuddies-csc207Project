@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CourseManagerTest {
 
-    private static final String TEMP_CSV_PATH = "courses.csv";
+    private static final String TEMP_CSV_PATH = "test_courses.csv";
 
     @BeforeEach
     void setUp() throws IOException {
@@ -23,6 +23,21 @@ class CourseManagerTest {
         Files.deleteIfExists(Paths.get(TEMP_CSV_PATH));
     }
 
+    @Test
+    void testAppendCoursesToCSV() {
+        List<CourseManager> courses = Arrays.asList(
+                new CourseManager("Course 1", "CODE1", "Group 1"),
+                new CourseManager("Course 2", "CODE2", "Group 2")
+        );
+
+        // Change the output file path to the temporary test file
+        CourseManager.appendCoursesToCSV(courses);
+
+        List<String> lines = readCsvFile(TEMP_CSV_PATH);
+        assertEquals("COURSE NAME,Course Code,Group Chat Name", lines.get(0));
+        assertEquals("COURSE 1,CODE1,Group 1", lines.get(1));
+        assertEquals("COURSE 2,CODE2,Group 2", lines.get(2));
+    }
 
     @Test
     void testCourseExistsByName() throws IOException {
