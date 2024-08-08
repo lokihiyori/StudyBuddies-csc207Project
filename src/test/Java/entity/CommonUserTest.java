@@ -18,7 +18,7 @@ public class CommonUserTest {
 
     @BeforeEach
     public void setUp() {
-        user = new CommonUser(name, password, email, creationTime);
+        user = new CommonUser(name, email, password, creationTime);
     }
 
     @Test
