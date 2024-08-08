@@ -2,32 +2,23 @@ package app;
 
 import data_access.FileEventDataAccessObject;
 import data_access.FileUserDataAccessObject;
-import entity.Course;
 import interface_adapter.CreateEvent.CreateEventViewModel;
-import interface_adapter.CreateEvent.createEventPresenter;
 import interface_adapter.GoToCourse.CoursePresenter;
 import interface_adapter.GoToCourse.CourseViewController;
 import interface_adapter.GoToCourse.CourseViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logOut.LogOutInputBoundary;
-import interface_adapter.logOut.LogOutInteractor;
 import interface_adapter.logged_In.LoggedInViewModel;
-import interface_adapter.logged_In.LoggedIncontroller;
-import use_case.CreateCourse.CreateCourseInputBoundary;
 import use_case.CreateEvent.CreateEventInputBoundary;
 import use_case.CreateEvent.CreateEventInteractor;
 import use_case.CreateEvent.CreateEventOutputBoundary;
 import use_case.GoToCourse.GoToCourseInputBoundary;
 import use_case.GoToCourse.GoToCourseInteractor;
-import use_case.MakeEvent.makeEventInputBoundary;
 
 
 import use_case.joinEvent.joinEventInputBoundary;
 import use_case.joinEvent.joinEventInteractor;
 import use_case.joinEvent.joinEventOutputBoundary;
 import view.CourseView;
-
-import java.io.IOException;
 
 public class GoToCourseUseCaseFactory {
     private GoToCourseUseCaseFactory(){}
