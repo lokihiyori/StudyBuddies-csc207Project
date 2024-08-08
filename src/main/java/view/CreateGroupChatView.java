@@ -12,6 +12,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
+/**
+ * CreateGroupChatView is a JFrame that provides a user interface for creating group chats.
+ */
 public class CreateGroupChatView extends JFrame implements PropertyChangeListener {
     private final CreateGroupChatViewModel viewModel;
     private final CreateGroupChatController controller;
@@ -20,6 +23,12 @@ public class CreateGroupChatView extends JFrame implements PropertyChangeListene
     private JTextArea usersListTextArea;
     private JLabel statusLabel;
 
+    /**
+     * Constructs a new CreateGroupChatView with the specified view model and controller.
+     *
+     * @param viewModel   the CreateGroupChatViewModel instance
+     * @param controller  the CreateGroupChatController instance
+     */
     public CreateGroupChatView(CreateGroupChatViewModel viewModel,CreateGroupChatController controller){
         this.viewModel = viewModel;
         this.controller = controller;
@@ -28,6 +37,9 @@ public class CreateGroupChatView extends JFrame implements PropertyChangeListene
         initializeUI();
     }
 
+    /**
+     * Initializes the user interface components.
+     */
     private void initializeUI() {
         setTitle("Create Group Chat");
         setSize(400, 300);
@@ -60,6 +72,11 @@ public class CreateGroupChatView extends JFrame implements PropertyChangeListene
         add(statusLabel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Handles property changes in the view model.
+     *
+     * @param evt the PropertyChangeEvent object
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("state".equals(evt.getPropertyName())) {

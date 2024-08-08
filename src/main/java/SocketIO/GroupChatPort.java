@@ -113,13 +113,13 @@ public class GroupChatPort {
     }
 
     /**
-     * Main method for testing and initialize csv file with host number.
+     * The main method to initialize and save group chat details and append courses to a CSV file.
      *
-     * @param args command line arguments
+     * @param args the command line arguments
      */
     public static void main(String[] args) {
         // actual IP address of the server machine (Yujing's laptop)
-        String host = "100.66.4.228";
+        String host = "10.0.0.46";
         int port = 4000;
         GroupChatPort.saveGroupChatDetails("CSC207", port, host);
 
@@ -127,7 +127,6 @@ public class GroupChatPort {
         List<CourseManager> courses = new ArrayList<>();
         courses.add(new CourseManager("SOFTWARE DESIGN", "CSC207", "CSC207"));
 
-        //courses.add(new CourseManager("PHYSICS I", "PHY131", "PHY131"));
         // Write the courses to CSV
         CourseManager.appendCoursesToCSV(courses);
 

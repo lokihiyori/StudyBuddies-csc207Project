@@ -4,7 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import interface_adapter.RegisteredCoursesViewModel;
 
+/**
+ * RegisteredCoursesView is a JPanel that displays the registered group chats for a user.
+ */
 public class RegisteredCoursesView extends JPanel {
+
+    /**
+     * Constructs a new RegisteredCoursesView with the specified view model.
+     *
+     * @param viewModel the RegisteredCoursesViewModel instance
+     */
     public RegisteredCoursesView(RegisteredCoursesViewModel viewModel) {
         JLabel title = new JLabel("Registered Group Chats");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);

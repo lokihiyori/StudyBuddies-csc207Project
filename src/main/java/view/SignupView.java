@@ -15,6 +15,9 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * SignupView is a JPanel that provides a user interface for user registration.
+ */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sign up";
 
@@ -28,6 +31,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton signUp;
     private final JButton login;
 
+    /**
+     * Constructs a new SignupView with the specified controller and view model.
+     *
+     * @param controller      the SignUpController instance
+     * @param signupViewModel the SignUpViewModel instance
+     */
     public SignupView(SignUpController controller, SignUpViewModel signupViewModel) {
 
         this.signupController = controller;
@@ -187,11 +196,18 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     /**
      * React to a button click that results in evt.
+     *
+     * @param evt the ActionEvent object
      */
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Cancel not implemented yet.");
     }
 
+    /**
+     * Handles property changes in the view model.
+     *
+     * @param evt the PropertyChangeEvent object
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SignUpState state = (SignUpState) evt.getNewValue();
@@ -200,6 +216,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         }
     }
 
+    /**
+     * Gets the SignUpController associated with this view.
+     *
+     * @return the SignUpController instance
+     */
     public SignUpController getController() {
         return signupController;
     }

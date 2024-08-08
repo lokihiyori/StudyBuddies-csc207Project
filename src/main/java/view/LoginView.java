@@ -13,6 +13,9 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * LoginView is a JPanel that provides a user interface for logging into the system.
+ */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "log in";
@@ -35,7 +38,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     final JButton cancel;
 
     /**
-     * A window with a title and a JButton.
+     * Constructs a new LoginView with the specified view model and controller.
+     *
+     * @param loginViewModel the LoginViewModel instance
+     * @param controller     the LoginController instance
      */
     public LoginView(LoginViewModel loginViewModel, LoginController controller) {
         this.loginController = controller;
@@ -125,23 +131,47 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(passwordErrorField);
         this.add(buttons);
     }
+
+    /**
+     * Handles the cancel action.
+     */
     private void handleCancel() {
         loginController.executeCancel();}
 
+    /**
+     * Handles action events.
+     *
+     * @param evt the ActionEvent object
+     */
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
     }
 
+    /**
+     * Handles property changes in the view model.
+     *
+     * @param evt the PropertyChangeEvent object
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState state = (LoginState) evt.getNewValue();
         setFields(state);
     }
 
+    /**
+     * Sets the fields in the view based on the current state.
+     *
+     * @param state the current LoginState
+     */
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());
     }
 
+    /**
+     * Gets the LoginController associated with this view.
+     *
+     * @return the LoginController instance
+     */
     public LoginController getController() {
         return loginController;
     }

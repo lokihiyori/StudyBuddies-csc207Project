@@ -35,6 +35,9 @@ import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * CourseView is a JPanel that provides a user interface for managing courses, events, and user profiles.
+ */
 public class CourseView extends JPanel implements PropertyChangeListener {
 
     private final CourseViewModel courseViewModel;
@@ -50,6 +53,13 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     private JButton createEventButton;
     private JButton addCalendarButton;
 
+    /**
+     * Constructs a new CourseView with the specified view models and controller.
+     *
+     * @param courseViewModel       the CourseViewModel instance
+     * @param courseViewController  the CourseViewController instance
+     * @param createEventViewModel  the CreateEventViewModel instance
+     */
     public CourseView(CourseViewModel courseViewModel, CourseViewController courseViewController, CreateEventViewModel createEventViewModel){
         this.courseViewModel = courseViewModel;
         this.courseViewModel.addPropertyChangeListener(this);
@@ -126,11 +136,16 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         logOutButton.addActionListener(e -> handleLogOut());
     }
 
-
+    /**
+     * Handles the log out action.
+     */
     private void handleLogOut() {
         courseViewController.executeLogOut();
     }
 
+    /**
+     * Handles the action for displaying the user's profile.
+     */
     private void handleProfileAction() {
         try {
             // Initialize FileUserDataAccessObject
@@ -185,6 +200,9 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         }
     }
 
+    /**
+     * Handles the action for adding an event to the calendar.
+     */
     private void handleAddCalendarAction() {
         String selectedEventName = (String) eventComboBox.getSelectedItem();
         if (selectedEventName != null && !selectedEventName.equals("Choose your Event")) {
@@ -202,6 +220,13 @@ public class CourseView extends JPanel implements PropertyChangeListener {
             JOptionPane.showMessageDialog(this, "Please select an event.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    /**
+     * Retrieves the details of an event from the events CSV file.
+     *
+     * @param eventName the name of the event
+     * @return a CommonCalendarEvent object containing the event details
+     */
     private CommonCalendarEvent getEventDetails(String eventName) {
         String filePath = "events.csv";
         String line;
@@ -242,12 +267,18 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         }
         return null;
     }
+
+    /**
+     * Handles the action for creating a new event.
+     */
     private void handleCreateEventAction()  {
         CourseState courseState = courseViewModel.getState();
         courseViewController.executeCreateEvent(courseState.getUsername());
     }
 
-
+    /**
+     * Handles the action for joining group chats.
+     */
     private void handleJoinGroupChatsAction() {
         // Implement the action for the Join Group Chats button
         List<String> courseNames = readCoursesFromFile("courses.csv");
@@ -293,6 +324,11 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         courseDialog.setVisible(true);
     }
 
+    /**
+     * Joins the group chat for the specified course code.
+     *
+     * @param courseCode the code of the course
+     */
     private void joinGroupChat(String courseCode) {
         // Implement the logic to join the group chat for the selected course
         int port = GroupChatPort.getPortByCourseCode(courseCode);
@@ -318,11 +354,19 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         groupChatClient.startChat(courseCode, host, port);
     }
 
-
+    /**
+     * Updates the username label with the currently logged-in user's name.
+     */
     private void updateUsernameLabel() {
         CourseState state = courseViewModel.getState();
         usernameLabel.setText("Currently logged in: " + state.getUsername());
     }
+
+    /**
+     * Handles property changes in the view models.
+     *
+     * @param evt the PropertyChangeEvent object
+     */
     public void propertyChange(PropertyChangeEvent evt) {
         if ("eventsUpdated".equals(evt.getPropertyName())) {
             updateEventComboBox();  // Method to update the events combo box
@@ -331,6 +375,12 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         }
     }
 
+    /**
+     * Reads the list of courses from the specified CSV file.
+     *
+     * @param filePath the path to the CSV file
+     * @return a list of course names
+     */
     public List<String> readCoursesFromFile(String filePath) {
         List<String> courses = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -347,6 +397,12 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         return courses;
     }
 
+    /**
+     * Reads the list of events from the specified CSV file.
+     *
+     * @param filePath the path to the CSV file
+     * @return a list of event names
+     */
     public List<String> readEventsFromFile(String filePath) {
         List<String> events = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -365,6 +421,9 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         return events;
     }
 
+    /**
+     * Updates the events combo box with the latest events from the CSV file.
+     */
     private void updateEventComboBox() {
         eventComboBox.removeAllItems();  // Clear existing items
         List<String> eventNames = readEventsFromFile("events.csv");  // Re-read the events from file
@@ -374,6 +433,11 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         }
     }
 
+    /**
+     * Gets the CourseViewController associated with this view.
+     *
+     * @return the CourseViewController instance
+     */
     public CourseViewController getController() {
         return courseViewController;
     }
