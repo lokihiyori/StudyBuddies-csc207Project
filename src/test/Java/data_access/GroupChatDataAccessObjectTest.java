@@ -53,6 +53,25 @@ public class GroupChatDataAccessObjectTest {
         assertEquals("GC101", retrievedGroupChat.getCode());
     }
 
+    @Test
+    public void testSaveMultipleGroupChats() throws IOException {
+        GroupChat groupChat1 = groupChatFactory.create("GC101");
+        GroupChat groupChat2 = groupChatFactory.create("GC102");
+        dao.saveGroupChat(groupChat1);
+        dao.saveGroupChat(groupChat2);
+
+        assertTrue(dao.existsByCode("GC101"));
+        assertTrue(dao.existsByCode("GC102"));
+
+        GroupChat retrievedGroupChat1 = dao.getGroupChat("GC101");
+        GroupChat retrievedGroupChat2 = dao.getGroupChat("GC102");
+
+        assertNotNull(retrievedGroupChat1);
+        assertNotNull(retrievedGroupChat2);
+        assertEquals("GC101", retrievedGroupChat1.getCode());
+        assertEquals("GC102", retrievedGroupChat2.getCode());
+    }
+
     // Clean up the test CSV file after tests
     @AfterEach
     public void tearDown() {

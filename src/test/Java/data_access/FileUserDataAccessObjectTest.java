@@ -2,7 +2,6 @@ package data_access;
 
 import entity.CommonUserFactory;
 import entity.User;
-import entity.UserFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,6 +59,33 @@ public class FileUserDataAccessObjectTest {
         assertEquals("testuser@example.com", retrievedUser.getEmail());
     }
 
+    @Test
+    public void testUpdateUser() {
+        User user = commonUserFactory.create("testuser", "testuser@example.com", "password123", LocalDateTime.now());
+        dao.save(user);
+
+        User updatedUser = commonUserFactory.create("testuser", "newemail@example.com", "newpassword123", LocalDateTime.now());
+        dao.save(updatedUser);
+
+        User retrievedUser = dao.get("testuser");
+        assertNotNull(retrievedUser);
+        assertEquals("newemail@example.com", retrievedUser.getEmail());
+        assertEquals("newpassword123", retrievedUser.getPassword());
+    }
+
+    @Test
+    public void testGetAllUsers() {
+        User user1 = commonUserFactory.create("testuser1", "testuser1@example.com", "password123", LocalDateTime.now());
+        User user2 = commonUserFactory.create("testuser2", "testuser2@example.com", "password123", LocalDateTime.now());
+        dao.save(user1);
+        dao.save(user2);
+
+        List<User> users = dao.getAllUsers();
+        assertEquals(2, users.size());
+        assertTrue(users.stream().anyMatch(u -> u.getName().equals("testuser1")));
+        assertTrue(users.stream().anyMatch(u -> u.getName().equals("testuser2")));
+    }
+
     // Clean up the test CSV file after tests
     @AfterEach
     public void tearDown() {
@@ -68,3 +95,4 @@ public class FileUserDataAccessObjectTest {
         }
     }
 }
+

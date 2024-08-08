@@ -1,71 +1,85 @@
 package data_access;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.io.*;
-import java.nio.file.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CourseManagerTest {
-
-    private static final String TEMP_CSV_PATH = "courses.csv";
+public class CourseManagerTest {
+    private final String testCsvPath = "courses.csv";  // This should match the path used in CourseManager
 
     @BeforeEach
-    void setUp() throws IOException {
-        // Create a temporary CSV file for testing
-        Files.createFile(Paths.get(TEMP_CSV_PATH));
-    }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        // Delete the temporary CSV file after each test
-        Files.deleteIfExists(Paths.get(TEMP_CSV_PATH));
-    }
-
-
-    @Test
-    void testCourseExistsByName() throws IOException {
-        writeSampleCsvFile();
-
-        assertTrue(CourseManager.courseExistsByName("COURSE 1"));
-        assertFalse(CourseManager.courseExistsByName("NONEXISTENT COURSE"));
+    public void setUp() throws IOException {
+        // Ensure the test CSV file is empty before each test
+        new FileWriter(testCsvPath, false).close();
     }
 
     @Test
-    void testCourseExistsByCode() throws IOException {
-        writeSampleCsvFile();
+    public void testAppendCoursesToCSV() {
+        List<CourseManager> courses = new ArrayList<>();
+        courses.add(new CourseManager("Test Course 1", "TC101", "GC101"));
+        courses.add(new CourseManager("Test Course 2", "TC102", "GC102"));
 
-        assertTrue(CourseManager.courseExistsByCode("CODE1"));
-        assertFalse(CourseManager.courseExistsByCode("NONEXISTENT"));
-    }
+        // Call the method to append courses
+        CourseManager.appendCoursesToCSV(courses);
 
-    @Test
-    void testGetCourseCodeByName() throws IOException {
-        writeSampleCsvFile();
+        try (BufferedReader reader = new BufferedReader(new FileReader(testCsvPath))) {
+            String header = reader.readLine();
+            assertEquals("Test Course 1,TC101,GC101", header);
 
-        assertEquals("CODE1", CourseManager.getCourseCodeByName("COURSE 1"));
-        assertNull(CourseManager.getCourseCodeByName("NONEXISTENT COURSE"));
-    }
+            String line1 = reader.readLine();
+            assertEquals("Test Course 2,TC102,GC102", line1);
 
-    private void writeSampleCsvFile() throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(TEMP_CSV_PATH))) {
-            writer.println("Course Name,Course Code,Group Chat Name");
-            writer.println("Course 1,CODE1,Group 1");
-            writer.println("Course 2,CODE2,Group 2");
+
+        } catch (IOException e) {
+            fail("Error reading test CSV file: " + e.getMessage());
         }
     }
 
-    private List<String> readCsvFile(String path) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            List<String> lines = new ArrayList<>();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
-            return lines;
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read CSV file", e);
+    @Test
+    public void testCourseExistsByName() {
+        List<CourseManager> courses = new ArrayList<>();
+        courses.add(new CourseManager("Test Course 1", "TC101", "GC101"));
+        CourseManager.appendCoursesToCSV(courses);
+
+        // Check if the course exists by name
+        assertTrue(CourseManager.courseExistsByName("Test Course 1"));
+        assertFalse(CourseManager.courseExistsByName("Nonexistent Course"));
+    }
+
+    @Test
+    public void testCourseExistsByCode() {
+        List<CourseManager> courses = new ArrayList<>();
+        courses.add(new CourseManager("Test Course 1", "TC101", "GC101"));
+        CourseManager.appendCoursesToCSV(courses);
+
+        // Check if the course exists by code
+        assertTrue(CourseManager.courseExistsByCode("TC101"));
+        assertFalse(CourseManager.courseExistsByCode("TC999"));
+    }
+
+    @Test
+    public void testGetCourseCodeByName() {
+        List<CourseManager> courses = new ArrayList<>();
+        courses.add(new CourseManager("Test Course 1", "TC101", "GC101"));
+        CourseManager.appendCoursesToCSV(courses);
+
+        // Get the course code by name
+        assertEquals("TC101", CourseManager.getCourseCodeByName("Test Course 1"));
+        assertNull(CourseManager.getCourseCodeByName("Nonexistent Course"));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // Clean up the test CSV file after tests
+        File file = new File(testCsvPath);
+        if (file.exists()) {
+            file.delete();
         }
     }
 }
