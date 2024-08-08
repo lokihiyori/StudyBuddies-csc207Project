@@ -19,4 +19,12 @@ public class joinEventInteractor implements joinEventInputBoundary {
         joinEventPresenter.prepareJoinEventSuccessView(joinEventOutputData);
 
     }
+
+    public Object getFileEventDataAccessObject() {
+        return joinEventDataAccessInterface;
+    }
+
+    public Object getPresenter() {
+        return joinEventPresenter;
+    }
 }

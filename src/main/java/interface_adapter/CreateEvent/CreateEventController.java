@@ -26,4 +26,12 @@ public class CreateEventController {
         CancelInputData cancelInputData = new CancelInputData();
         cancelInteractor.execute();
     }
+
+    public Object getMakeEventInteractor() {
+        return makeEventInteractor;
+    }
+
+    public Object getCancelInteractor() {
+        return cancelInteractor;
+    }
 }

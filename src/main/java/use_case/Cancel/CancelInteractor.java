@@ -10,4 +10,8 @@ public class CancelInteractor implements CancelInputBoundary{
     public void execute(){
         cancelOutputBoundary.prepareSuccessView();
     }
+
+    public Object getOutputBoundary() {
+        return cancelOutputBoundary;
+    }
 }

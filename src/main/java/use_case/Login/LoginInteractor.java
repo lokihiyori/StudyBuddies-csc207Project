@@ -31,4 +31,12 @@ public class LoginInteractor implements LoginInputBoundary {
             }
         }
     }
+
+    public Object getUserDataAccessObject() {
+        return userDataAccessObject;
+    }
+
+    public Object getOutputBoundary() {
+        return loginPresenter;
+    }
 }

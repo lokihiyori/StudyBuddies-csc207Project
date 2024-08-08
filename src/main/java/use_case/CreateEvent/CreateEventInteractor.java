@@ -18,4 +18,12 @@ public class CreateEventInteractor implements CreateEventInputBoundary{
         CreateEventOutputData outputUser = new CreateEventOutputData(user.getName());
         createEventPagePresenter.prepareSuccessView(outputUser);
     }
+
+    public Object getUserDataAccessObject() {
+        return userDataAccessObject;
+    }
+
+    public Object getOutputBoundary() {
+        return createEventPagePresenter;
+    }
 }
