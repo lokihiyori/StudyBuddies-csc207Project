@@ -1,6 +1,7 @@
-package interface_adapter.CreateCourse;
+package interface_adapter;
 
 import entity.GroupChat;
+import interface_adapter.CreateCourse.CreateCourseController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

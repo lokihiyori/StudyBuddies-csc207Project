@@ -22,15 +22,6 @@ public class LoggedInViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
 
-    public void setCurrentUser(CommonUser currentUser) {
-        CommonUser oldUser = this.currentUser;
-        this.currentUser = currentUser;
-        support.firePropertyChange("currentUser", oldUser, currentUser);
-    }
-
-    public CommonUser getCurrentUser() {
-        return currentUser;
-    }
 
     public void setState(LoggedInState state) {
         LoggedInState oldState = this.state;
@@ -50,9 +41,6 @@ public class LoggedInViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
 
     public String getLoggedInUser() {
         return loggedInUser;

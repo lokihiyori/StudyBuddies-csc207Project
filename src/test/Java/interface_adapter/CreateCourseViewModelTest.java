@@ -1,5 +1,7 @@
-package interface_adapter.CreateCourse;
+package interface_adapter;
 
+import interface_adapter.CreateCourse.CreateCourseState;
+import interface_adapter.CreateCourse.CreateCourseViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

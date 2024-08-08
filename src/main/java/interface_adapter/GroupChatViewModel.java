@@ -20,18 +20,6 @@ public class GroupChatViewModel {
         courses.add("CSC207");
     }
 
-    public boolean searchForCourse(String course) {
-        return courses.contains(course);
-    }
-
-    public boolean checkGroupChatExists(String course) {
-        return groupChats.contains(course);
-    }
-
-    public void createGroupChat(String course) {
-        groupChats.add(course);
-        support.firePropertyChange("groupChatCreated", null, course);
-    }
 
     public void joinGroupChat(String course) {
         support.firePropertyChange("groupChatJoined", null, course);
@@ -41,15 +29,4 @@ public class GroupChatViewModel {
         support.addPropertyChangeListener(pcl);
     }
 
-    public void removePropertyChangeListener(PropertyChangeListener pcl) {
-        support.removePropertyChangeListener(pcl);
-    }
-    //must be implemented
-    public boolean isCourseInDatabase(String course) {
-        return false;
-    }
-    //must be implemented
-    public boolean isGroupChatCreated(String course) {
-        return false;
-    }
 }
