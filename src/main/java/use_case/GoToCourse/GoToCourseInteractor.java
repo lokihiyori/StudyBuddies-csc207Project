@@ -22,4 +22,11 @@ public class GoToCourseInteractor implements GoToCourseInputBoundary{
     public void execute(){
         goToCoursePagePresenter.prepareSuccessView();}
 
+    public Object getUserDataAccessObject() {
+        return userDataAccessObject;
+    }
+
+    public Object getPresenter() {
+        return goToCoursePagePresenter;
+    }
 }

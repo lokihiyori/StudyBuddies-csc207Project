@@ -267,6 +267,10 @@ public class CreateEventView extends JPanel implements ActionListener, PropertyC
         username.setText(state.getUsername());
 
     }
+
+    public CreateEventController getController() {
+        return createEventController;
+    }
 }
 
 
