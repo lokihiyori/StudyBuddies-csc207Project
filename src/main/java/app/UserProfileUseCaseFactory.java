@@ -9,7 +9,6 @@ import interface_adapter.UserProfile.UserProfileState;
 import interface_adapter.UserProfile.UserProfileViewModel;
 import use_case.UserProfile.UserProfileInteractor;
 import use_case.UserProfile.UserProfileOutputBoundary;
-import use_case.UserProfile.UserProfileOutputData;
 import view.UserprofileView;
 import entity.*;
 
@@ -19,8 +18,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Factory class for creating instances of UserprofileView and associated controllers and use cases.
+ */
 public class UserProfileUseCaseFactory {
+
+    /** Prevent instantiation. */
     private UserProfileUseCaseFactory() {}
+
+    /**
+     * Creates a new UserprofileView along with its controller and initializes the required use cases.
+     *
+     * @param userDataAccessObject   the FileUserDataAccessObject instance
+     * @param courseDataAccessObject the CourseDataAccessObject instance
+     * @param username               the username of the user
+     * @return a new UserprofileView instance
+     * @throws IOException if there is an error accessing the user data file
+     */
     public static UserprofileView create(
             FileUserDataAccessObject userDataAccessObject,
             CourseDataAccessObject courseDataAccessObject,
