@@ -180,15 +180,9 @@ public class CourseView extends JPanel implements PropertyChangeListener {
                 userProfileFrame.setSize(500, 300);
                 userProfileFrame.setContentPane(userprofileView);
                 userProfileFrame.setVisible(true);
-            }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error loading data", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-
-
     }
 
     private void handleAddCalendarAction() {
