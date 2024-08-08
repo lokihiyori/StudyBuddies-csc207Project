@@ -8,9 +8,7 @@ import use_case.Signup.SignupUserDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, makeEventUserDataAccessInterface {
 
@@ -60,6 +58,10 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         accounts.put(user.getName(), user);
         this.save();
     }
+    public List<User> getAllUsers() {
+        return new ArrayList<>(accounts.values());
+    }
+
 
     private void save() {
         BufferedWriter writer;

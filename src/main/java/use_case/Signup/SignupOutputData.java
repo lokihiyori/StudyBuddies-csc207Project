@@ -6,12 +6,12 @@ public class SignupOutputData {
     private final String email;
     private String creationTime;
 
-    private boolean useCaseFailed;
+    public boolean useCaseFailed;
 
-    public SignupOutputData(String username, String creationTime, String email, boolean useCaseFailed) {
+    public SignupOutputData(String username, String email, String creationTime, boolean useCaseFailed) {
         this.username = username;
-        this.creationTime = creationTime;
         this.email = email;
+        this.creationTime = creationTime;
         this.useCaseFailed = useCaseFailed;
     }
 
