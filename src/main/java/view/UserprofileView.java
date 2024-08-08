@@ -1,24 +1,18 @@
 package view;
 
-import entity.Course;
 import interface_adapter.UserProfile.UserProfileController;
-import interface_adapter.UserProfile.UserProfilePresenter;
 import interface_adapter.UserProfile.UserProfileState;
-import interface_adapter.UserProfile.UserProfileViewModel;
-import use_case.SearchCourse.CourseRepository;
-import use_case.UserProfile.UserProfileInteractor;
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * UserprofileView is a JPanel that displays the user's profile information.
+ */
 public class UserprofileView extends JPanel implements PropertyChangeListener {
     private final UserProfileController userProfileController;
     private final UserProfileState userProfileState;
@@ -27,6 +21,12 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
     private final JTextField emailField = new JTextField(20);
     private final JTextField courseField = new JTextField(20);
 
+    /**
+     * Constructs a new UserprofileView with the specified controller and state.
+     *
+     * @param userProfileController the UserProfileController instance
+     * @param userProfileState      the UserProfileState instance
+     */
     public UserprofileView(UserProfileController userProfileController, UserProfileState userProfileState) {
         this.userProfileController = userProfileController;
         this.userProfileState = userProfileState;
@@ -62,6 +62,11 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
         this.add(inputPanel);
     }
 
+    /**
+     * Handles property changes in the user profile state.
+     *
+     * @param evt the PropertyChangeEvent object
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("name".equals(evt.getPropertyName())) {
@@ -76,10 +81,20 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
         }
     }
 
+    /**
+     * Gets the UserProfileController associated with this view.
+     *
+     * @return the UserProfileController instance
+     */
     public UserProfileController getController() {
         return userProfileController;
     }
 
+    /**
+     * Gets the UserProfileState associated with this view.
+     *
+     * @return the UserProfileState instance
+     */
     public UserProfileState getState() {
         return userProfileState;
     }
