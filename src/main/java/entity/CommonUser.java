@@ -12,7 +12,7 @@ public class CommonUser implements User{
     private final String email;
     private final List<GroupChat> groupChatList;
 
-    public CommonUser(String name, String password, String email, LocalDateTime creationTime) {
+    public CommonUser(String name, String email, String password, LocalDateTime creationTime) {
         this.name = name;
         this.password = password;
         this.creationTime = creationTime;
