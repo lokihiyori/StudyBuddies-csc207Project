@@ -192,4 +192,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         LoggedInState state = (LoggedInState) evt.getNewValue();
         // Update the UI based on state changes
     }
+
+    public LoggedIncontroller getController() {
+        return loggedIncontroller;
+    }
 }

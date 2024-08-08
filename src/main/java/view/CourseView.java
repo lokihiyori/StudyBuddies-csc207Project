@@ -245,87 +245,7 @@ public class CourseView extends JPanel implements PropertyChangeListener {
     private void handleCreateEventAction()  {
         CourseState courseState = courseViewModel.getState();
         courseViewController.executeCreateEvent(courseState.getUsername());
-//        updateEventsList();
     }
-
-//    private void handleJoinGroupChatsAction() {
-//        // Implement the action for the Join Group Chats button
-//        List<String> courseNames = readCoursesFromFile("courses.csv");
-//        JDialog courseDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Join Group Chat", true);
-//        courseDialog.setLayout(new BorderLayout());
-//        courseDialog.setSize(300, 400);
-//
-//        JList<String> courseList = new JList<>(courseNames.toArray(new String[0]));
-//        courseList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        courseDialog.add(new JScrollPane(courseList), BorderLayout.CENTER);
-//
-//        JButton joinButton = new JButton("Join");
-//        joinButton.addActionListener(e -> {
-//            //selectedCourse is the course name
-//            String selectedCourse = courseList.getSelectedValue();
-//            String courseCode = null;
-//
-//
-//            String filePath = "courses.csv";
-//            String line;
-//            String csvSplitBy = ",";
-//
-//            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-//                // Skip the header
-//                br.readLine();
-//                while ((line = br.readLine()) != null) {
-//                    String[] courseCheck = line.split(csvSplitBy);
-//                    if (courseCheck[0].trim().equalsIgnoreCase(selectedCourse)) {
-//                        courseCode = courseCheck[1];
-//                        break;
-//                    }
-//
-//                }
-//            } catch (IOException exception) {
-//                exception.printStackTrace();
-//            }
-//
-//
-//            if (courseCode != null) {
-//                joinGroupChat(courseCode);
-//                courseDialog.dispose();
-//            } else {
-//                JOptionPane.showMessageDialog(courseDialog, "Please select a course to join.");
-//            }
-//        });
-//        courseDialog.add(joinButton, BorderLayout.SOUTH);
-//
-//        courseDialog.setVisible(true);
-//    }
-//
-//
-//    private void joinGroupChat(String courseCode) {
-//        // Implement the logic to join the group chat for the selected course
-//        int port = GroupChatPort.getPortByCourseCode(courseCode);
-//        String host = GroupChatPort.getHostFromFirstLine();
-//        //int port = 3001;
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                GroupChatServer server = new GroupChatServer();
-//                server.startServer(port, host);
-//            }
-//        }).start();
-//
-//        // Give the server a moment to start up
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Start the client
-//        GroupChatClient groupChatClient = new GroupChatClient();
-//
-//        groupChatClient.startChat(courseCode, host, port);
-//
-//
-//    }
 
 
     private void handleJoinGroupChatsAction() {
@@ -452,5 +372,9 @@ public class CourseView extends JPanel implements PropertyChangeListener {
         for (String eventName : eventNames) {
             eventComboBox.addItem(eventName);
         }
+    }
+
+    public CourseViewController getController() {
+        return courseViewController;
     }
 }

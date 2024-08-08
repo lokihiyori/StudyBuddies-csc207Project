@@ -38,5 +38,20 @@ public class makeEventInteractor implements makeEventInputBoundary{
 
     }
 
+    public Object getFileEventDataAccessObject() {
+        return eventDataAccessObject;
     }
+
+    public Object getUserDataAccessObject() {
+        return userDataAccessObject;
+    }
+
+    public Object getCalendarEventFactory() {
+        return calendarEventFactory;
+    }
+
+    public Object getOutputBoundary() {
+        return createEventPresenter;
+    }
+}
 

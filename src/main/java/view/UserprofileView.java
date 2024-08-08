@@ -75,4 +75,12 @@ public class UserprofileView extends JPanel implements PropertyChangeListener {
             courseField.setText(String.join(", ", courseCodes));
         }
     }
+
+    public UserProfileController getController() {
+        return userProfileController;
+    }
+
+    public UserProfileState getState() {
+        return userProfileState;
+    }
 }

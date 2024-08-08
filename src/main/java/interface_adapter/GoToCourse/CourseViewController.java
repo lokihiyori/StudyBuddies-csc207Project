@@ -27,4 +27,15 @@ public class CourseViewController {
         createEventInteractor.execute(createEventInputData);
     }
 
+    public Object getGoToCourseInputBoundary() {
+        return goToCourseInputBoundary;
+    }
+
+    public Object getJoinEventUseCaseInteractor() {
+        return joinEventInputBoundary;
+    }
+
+    public Object getCreateEventInteractor() {
+        return createEventInteractor;
+    }
 }

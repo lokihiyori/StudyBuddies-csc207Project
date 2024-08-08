@@ -15,4 +15,8 @@ public class LoggedIncontroller {
         GoToCourseInputData goToCourseInputData = new GoToCourseInputData(username);
         goToCourseInteractor.execute(goToCourseInputData);
     }
+
+    public Object getGoToCourseInputBoundary() {
+        return goToCourseInteractor;
+    }
 }

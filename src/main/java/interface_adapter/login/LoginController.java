@@ -23,4 +23,11 @@ public class LoginController {
         cancelInteractor.execute();
     }
 
+    public Object getLoginInputBoundary() {
+        return loginUseCaseInteractor;
+    }
+
+    public Object getCancelInputBoundary() {
+        return cancelInteractor;
+    }
 }
