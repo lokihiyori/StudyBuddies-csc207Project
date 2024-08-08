@@ -39,7 +39,7 @@ public class makeEventInputData {
         return eventTime;
     }
     public LocalTime getEventEndTime() {return eventEndTime;}
-    String getEventLabel() {
+    public String getEventLabel() {
         return eventLabel;
     }
     public String getEventType() {

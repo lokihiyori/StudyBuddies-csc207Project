@@ -104,12 +104,10 @@ public class GroupChatMember {
 
     public static void main(String[] args) {
         GroupChatMember groupChatMember = new GroupChatMember();
-        groupChatMember.addMember("CSC207", "Alice");
-        groupChatMember.addMember("CSC207", "Bob");
-        groupChatMember.addMember("PHY131", "Charlie");
+        groupChatMember.addMember("CSC207", "Lily");
+        groupChatMember.addMember("PHY131", "Sarah");
         //groupChatMember.addMember("MAT141", "David");
-        groupChatMember.addMember("CSC207", "Amy");
-        groupChatMember.addMember("CSC207", "Amy");
+        groupChatMember.addMember("CSC207", "Sarah");
         System.out.println("Members of CSC207: " + groupChatMember.getMembersByCourseCode("CSC207"));
 
     }

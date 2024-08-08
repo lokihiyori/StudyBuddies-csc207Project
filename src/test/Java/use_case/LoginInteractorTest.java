@@ -1,41 +1,75 @@
 package use_case;
 
-import data_access.FileUserDataAccessObject;
-import entity.CommonUserFactory;
-import junit.framework.TestCase;
+import entity.CommonUser;
+import entity.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import use_case.Login.*;
 
-import java.io.IOException;
+import java.time.LocalDateTime;
 
-public class LoginInteractorTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
-    String username = "user1";
-    String password = "password1";
+class LoginInteractorTest {
 
-    LoginInputData loginInputData = new LoginInputData(username,password);
+    private LoginUserDataAccessInterface userDataAccessObject;
+    private LoginOutputBoundary loginPresenter;
+    private LoginInteractor loginInteractor;
 
-    LoginOutputBoundary presenter = new LoginOutputBoundary() {
-        @Override
-        public void prepareSuccessView(LoginOutputData user) {
-            assertEquals(user.getUsername(),username);
-        }
-
-        @Override
-        public void prepareFailView(String error) {
-
-        }
-    };
-
-    public void testExecute() {
-        FileUserDataAccessObject userDataAccessObject;
-        try {
-            userDataAccessObject = new FileUserDataAccessObject("./test_users.json", new CommonUserFactory());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        LoginInputBoundary interactor = new LoginInteractor(userDataAccessObject,presenter);
-        interactor.execute(loginInputData);
+    @BeforeEach
+    void setUp() {
+        userDataAccessObject = mock(LoginUserDataAccessInterface.class);
+        loginPresenter = mock(LoginOutputBoundary.class);
+        loginInteractor = new LoginInteractor(userDataAccessObject, loginPresenter);
     }
 
+    @Test
+    void testExecute_UserDoesNotExist() {
+        // Arrange
+        when(userDataAccessObject.existsByName(anyString())).thenReturn(false);
+        LoginInputData inputData = new LoginInputData("testUser", "testPassword");
 
+        // Act
+        loginInteractor.execute(inputData);
+
+        // Assert
+        verify(loginPresenter).prepareFailView("testUser: Account does not exist.");
+    }
+
+    @Test
+    void testExecute_IncorrectPassword() {
+        // Arrange
+        CommonUser mockUser = new CommonUser("testUser", "test@example.com", "correctPassword", LocalDateTime.now());
+        when(userDataAccessObject.existsByName(anyString())).thenReturn(true);
+        when(userDataAccessObject.get(anyString())).thenReturn(mockUser);
+        LoginInputData inputData = new LoginInputData("testUser", "wrongPassword");
+
+        // Act
+        loginInteractor.execute(inputData);
+
+        // Assert
+        verify(loginPresenter).prepareFailView("Incorrect password for testUser.");
+    }
+
+    @Test
+    void testExecute_SuccessfulLogin() {
+        CommonUser mockUser = new CommonUser("testUser", "test@example.com", "testPassword", LocalDateTime.now());
+        when(userDataAccessObject.existsByName(anyString())).thenReturn(true);
+        when(userDataAccessObject.get(anyString())).thenReturn(mockUser);
+        LoginInputData inputData = new LoginInputData("testUser", "testPassword");
+
+        // Act
+        loginInteractor.execute(inputData);
+
+        // Assert
+        ArgumentCaptor<LoginOutputData> captor = ArgumentCaptor.forClass(LoginOutputData.class);
+        verify(loginPresenter).prepareSuccessView(captor.capture());
+        LoginOutputData capturedOutputData = captor.getValue();
+        assertEquals("testUser", capturedOutputData.getUsername());
+    }
 }
