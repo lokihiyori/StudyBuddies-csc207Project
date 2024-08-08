@@ -1,6 +1,5 @@
 package interface_adapter.UserProfile;
 
-import use_case.UserProfile.UserProfileInputBoundary;
 import use_case.UserProfile.UserProfileOutputBoundary;
 import use_case.UserProfile.UserProfileOutputData;
 
@@ -13,11 +12,12 @@ public class UserProfilePresenter implements UserProfileOutputBoundary {
     }
 
     @Override
-    public void presentUserProfile(UserProfileOutputData outputData) {
+    public UserProfileOutputData presentUserProfile(UserProfileOutputData outputData) {
         viewModel.setName(outputData.getName());
         viewModel.setEmail(outputData.getEmail());
         viewModel.setCreationTime(outputData.getCreationTime());
         viewModel.setCourseCodes(outputData.getCourseCodes());
+        return outputData;
     }
 
     public UserProfileViewModel getViewModel() {

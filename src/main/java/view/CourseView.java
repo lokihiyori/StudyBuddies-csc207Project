@@ -137,13 +137,13 @@ public class CourseView extends JPanel implements PropertyChangeListener {
             String userCsvPath = "user.csv"; // Ensure this path is correct
             FileUserDataAccessObject userDataAccessObject = new FileUserDataAccessObject(userCsvPath, new CommonUserFactory());
 
-            // Retrieve all user data
-            List<User> users = userDataAccessObject.getAllUsers(); // Assuming this method is implemented to fetch all users
 
-            for (User user : users) {
-                if (user == null) {
-                    continue; // Skip if user is not found
-                }
+            // Retrieve user data
+            String username = courseViewModel.getState().getUsername();
+            User user = userDataAccessObject.get(username);
+            if (user == null) {
+                throw new RuntimeException("User not found.");
+            }
 
                 // Initialize CourseDataAccessObject
                 String courseCsvPath = "courses.csv";
@@ -180,15 +180,9 @@ public class CourseView extends JPanel implements PropertyChangeListener {
                 userProfileFrame.setSize(500, 300);
                 userProfileFrame.setContentPane(userprofileView);
                 userProfileFrame.setVisible(true);
-            }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error loading data", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-
-
     }
 
     private void handleAddCalendarAction() {

@@ -23,7 +23,7 @@ public class CommonUserFactoryTest {
         String email = "test@example.com";
         LocalDateTime creationTime = LocalDateTime.now();
 
-        User user = factory.create(name, password, email, creationTime);
+        User user = factory.create(name, email, password, creationTime);
 
         assertNotNull(user);
         assertEquals(name, user.getName());
