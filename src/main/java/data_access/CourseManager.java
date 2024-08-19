@@ -3,25 +3,51 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages course-related operations, including appending course data to a CSV file
+ * and checking the existence of courses based on their name or code.
+ */
 public class CourseManager {
     private String courseName;
     private String courseCode;
     private String groupChatName;
 
+    /**
+     * Constructs a CourseManager with the specified course details.
+     *
+     * @param courseName   the name of the course
+     * @param courseCode   the code of the course
+     * @param groupChatName the name of the group chat associated with the course
+     */
     public CourseManager(String courseName, String courseCode, String groupChatName) {
         this.courseName = courseName;
         this.courseCode = courseCode;
         this.groupChatName = groupChatName;
     }
 
+    /**
+     * Gets the name of the course.
+     *
+     * @return the course name
+     */
     public String getCourseName() {
         return courseName;
     }
 
+    /**
+     * Gets the code of the course.
+     *
+     * @return the course code
+     */
     public String getCourseCode() {
         return courseCode;
     }
 
+    /**
+     * Gets the name of the group chat associated with the course.
+     *
+     * @return the group chat name
+     */
     public String getGroupChatName() {
         return groupChatName;
     }

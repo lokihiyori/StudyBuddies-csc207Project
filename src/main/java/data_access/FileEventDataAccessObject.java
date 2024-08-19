@@ -17,6 +17,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Handles the data access for calendar events using a CSV file.
+ * Implements both event creation and joining functionalities.
+ */
 public class FileEventDataAccessObject implements makeEventDataAccessInterface, joinEventDataAccessInterface {
     private final File csvFileEvent;
 
@@ -24,6 +28,14 @@ public class FileEventDataAccessObject implements makeEventDataAccessInterface, 
     private UserFactory userFactory;
     private CalendarEventFactory calendarEventFactory;
 
+    /**
+     * Constructs a FileEventDataAccessObject with the specified CSV file path, user factory, and event factory.
+     *
+     * @param csvPathEvent           the path to the CSV file for event data
+     * @param userFactory            the factory to create User objects
+     * @param calendarEventFactory   the factory to create CalendarEvent objects
+     * @throws IOException if an I/O error occurs while reading the file
+     */
     public FileEventDataAccessObject(String csvPathEvent, UserFactory userFactory, CalendarEventFactory calendarEventFactory) throws IOException {
         this.userFactory = userFactory;
         this.calendarEventFactory = calendarEventFactory;
@@ -46,6 +58,12 @@ public class FileEventDataAccessObject implements makeEventDataAccessInterface, 
         }
     }
 
+    /**
+     * Parses a CSV line into a CalendarEvent object.
+     *
+     * @param data the array of strings representing the CSV line data
+     * @return a CalendarEvent object
+     */
     private CalendarEvent parseEventCsvLine(String[] data) {
         String eventName = data[0];
         String organizer = data[1];
@@ -65,19 +83,42 @@ public class FileEventDataAccessObject implements makeEventDataAccessInterface, 
         return event;
     }
 
+    /**
+     * Retrieves a CalendarEvent by its name.
+     *
+     * @param eventName the name of the event to retrieve
+     * @return the CalendarEvent object if found, null otherwise
+     */
     public CalendarEvent getCalendarEvent(String eventName) {
         return events.get(eventName);
     }
 
+    /**
+     * Checks if an event exists by its name.
+     *
+     * @param name the name of the event to check
+     * @return true if the event exists, false otherwise
+     */
     public boolean existsByName(String name) {
         return events.containsKey(name);
     }
 
+    /**
+     * Saves the specified CalendarEvent and updates the CSV file.
+     *
+     * @param event the CalendarEvent object to save
+     */
     public void save(CalendarEvent event) {
         events.put(event.getName(), event);
         save();
     }
 
+    /**
+     * Adds a participant to an existing event and updates the CSV file.
+     *
+     * @param eventName the name of the event
+     * @param username  the username of the participant
+     */
     public void addParticipant(String eventName, String username) {
         if (existsByName(eventName)) {
             CalendarEvent calendarEvent = events.get(eventName);
@@ -86,6 +127,9 @@ public class FileEventDataAccessObject implements makeEventDataAccessInterface, 
         }
     }
 
+    /**
+     * Saves all events to the CSV file, writing the header and event details.
+     */
     public void save() {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(csvFileEvent.toURI()))) {
             writer.write("Event Name,Organizer,Event Description,Event Date,Event Time,Event Location,Max Attendance,Event Type,Attendance,Event End Date,Event End Time\n");
