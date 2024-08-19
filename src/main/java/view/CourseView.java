@@ -1,9 +1,10 @@
 package view;
 import data_access.CourseDataAccessObject;
 import data_access.FileUserDataAccessObject;
-import SocketIO.GroupChatClient;
 import SocketIO.GroupChatPort;
 import SocketIO.GroupChatServer;
+import interface_adapter.GroupChat.GroupChatFacade;
+import interface_adapter.GroupChat.GroupChatFacadeImpl;
 
 import entity.*;
 
@@ -331,27 +332,17 @@ public class CourseView extends JPanel implements PropertyChangeListener {
      */
     private void joinGroupChat(String courseCode) {
         // Implement the logic to join the group chat for the selected course
+
+        //start server
+        GroupChatServer server = new GroupChatServer();
         int port = GroupChatPort.getPortByCourseCode(courseCode);
         String host = GroupChatPort.getHostFromFirstLine();
+        server.startServer(port, host);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                GroupChatServer server = new GroupChatServer();
-                server.startServer(port, host);
-            }
-        }).start();
+        //Use the facade to start the client and join the group chat
+        GroupChatFacade groupChatFacade = new GroupChatFacadeImpl();
+        groupChatFacade.startGroupChat(courseCode, host, port);
 
-        // Give the server a moment to start up
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Start the client
-        GroupChatClient groupChatClient = new GroupChatClient();
-        groupChatClient.startChat(courseCode, host, port);
     }
 
     /**

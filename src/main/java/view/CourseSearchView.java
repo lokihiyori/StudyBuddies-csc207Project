@@ -1,6 +1,5 @@
 package view;
 
-import SocketIO.GroupChatClient;
 import SocketIO.GroupChatServer;
 import data_access.CourseManager;
 import interface_adapter.GroupChatViewModel;
@@ -12,6 +11,9 @@ import java.awt.event.ActionListener;
 
 import interface_adapter.SearchCourse.SearchCourseController;
 import interface_adapter.SearchCourse.SearchCourseViewModel;
+
+import interface_adapter.GroupChat.GroupChatFacade;
+import interface_adapter.GroupChat.GroupChatFacadeImpl;
 
 
 import SocketIO.GroupChatPort;
@@ -140,25 +142,13 @@ public class CourseSearchView extends JPanel implements ActionListener {
                 int port = GroupChatPort.getPortByCourseCode(courseCode);
                 String host = GroupChatPort.getHostFromFirstLine();
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        GroupChatServer server = new GroupChatServer();
-                        server.startServer(port, host);
-                    }
-                }).start();
+                // Step 1: Start the server
+                GroupChatServer server = new GroupChatServer();
+                server.startServer(port, host);
 
-                // Give the server a moment to start up
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                // Start the client
-                GroupChatClient groupChatClient = new GroupChatClient();
-                groupChatClient.startChat(courseCode, host, port);
-
+                // Step 2: Use the facade to start the client and join the group chat
+                GroupChatFacade groupChatFacade = new GroupChatFacadeImpl();
+                groupChatFacade.startGroupChat(courseCode, host, port);
 
                 groupChatViewModel.joinGroupChat(course);
                 resultLabel.setText("You have joined the group chat for " + course);
