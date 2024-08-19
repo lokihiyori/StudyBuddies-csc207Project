@@ -1,9 +1,10 @@
 package entity;
 
-
+/**
+ * Represents a course with a name, code, and associated group chat.
+ * The course name and code are stored in uppercase.
+ */
 public class Course {
-    // Attributes
-    // The types of attributes need to be discussed later!!!!!!!!
     private String name;
     private String code;
     private GroupChat groupchat;
