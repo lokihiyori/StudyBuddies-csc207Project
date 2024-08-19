@@ -11,11 +11,22 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Handles data access and storage for group chats using a CSV file.
+ * Implements functionalities for creating, retrieving, and checking the existence of group chats.
+ */
 public class GroupChatDataAccessObject implements CreateGroupChatDataAccessInterface {
     private final File csvFile;
     private final Map<String, GroupChat> groupChats = new HashMap<>();
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
+    /**
+     * Constructs a GroupChatDataAccessObject with the specified CSV file path and group chat factory.
+     *
+     * @param csvPath          the path to the CSV file for group chat data
+     * @param groupChatFactory the factory to create GroupChat objects
+     * @throws IOException if an I/O error occurs while reading the file
+     */
     public GroupChatDataAccessObject(String csvPath, GroupChatFactory groupChatFactory) throws IOException {
         this.csvFile = new File(csvPath);
         headers.put("GroupChat Code", 0);
@@ -43,6 +54,11 @@ public class GroupChatDataAccessObject implements CreateGroupChatDataAccessInter
 
     }
 
+    /**
+     * Writes all group chat data to the CSV file, including the header and group chat details.
+     *
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
     private void save() throws IOException{
         BufferedWriter writer;
         try {
@@ -65,6 +81,12 @@ public class GroupChatDataAccessObject implements CreateGroupChatDataAccessInter
         }
     }
 
+    /**
+     * Saves or updates the specified GroupChat and writes it to the CSV file.
+     *
+     * @param groupChat the GroupChat object to save
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
     @Override
     public void saveGroupChat(GroupChat groupChat) throws IOException {
         groupChats.put(groupChat.getCode(), groupChat);
@@ -72,11 +94,23 @@ public class GroupChatDataAccessObject implements CreateGroupChatDataAccessInter
     }
 
 
+    /**
+     * Retrieves a GroupChat by its code.
+     *
+     * @param code the code of the group chat to retrieve
+     * @return the GroupChat object if found, null otherwise
+     */
     @Override
     public GroupChat getGroupChat(String code) {
         return groupChats.get(code);
     }
 
+    /**
+     * Checks if a group chat exists by its code.
+     *
+     * @param code the code of the group chat to check
+     * @return true if a group chat exists with the specified code, false otherwise
+     */
     @Override
     public boolean existsByCode(String code) {
         return groupChats.get(code) != null;}
