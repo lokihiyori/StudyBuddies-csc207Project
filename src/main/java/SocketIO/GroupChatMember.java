@@ -105,6 +105,7 @@ public class GroupChatMember {
     public static void main(String[] args) {
         GroupChatMember groupChatMember = new GroupChatMember();
         groupChatMember.addMember("CSC207", "Lily");
+        groupChatMember.addMember("CSC207", "Lucas");
         groupChatMember.addMember("PHY131", "Sarah");
         //groupChatMember.addMember("MAT141", "David");
         groupChatMember.addMember("CSC207", "Sarah");
