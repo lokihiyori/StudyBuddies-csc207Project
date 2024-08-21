@@ -8,28 +8,15 @@ This software would allow students to create an account with a profile that disp
 4. On the main page if you choose the go the groupchat open you will see a list of groupchats that you joined, you click into one of them and talk to other group members, you can see other group members' profiles by clicking them.
 5. Users can then leave groupchat after joining.
 
-## Phase One Progress and How to Run
-1. **Clone the repository**: https://github.com/lokihiyori/StudyBuddies-csc207Project
-2. In Phase One we Implement UIs for the first three parts of the logics listed above, so **to run the program you need go to src/app/main and run it**, and then you will see the sign up page, fill in all the info and click sign up, and then you will be directed to the log in page, put in you info again and log in.
-3. You will see two options on the main page, you can either search course or go to your courses. 
+## Program Workflow Overview
+To ensure the program executes properly, please first confirm the IP address of the server machine. This IP address will be used as the host and must be configured on every client side. The configuration procedures are described below:
 
-   Since in our case, if there is a course in the course list, there is always a group chat created which is associated with this course. Because of the one-to-one mapping, searching course is equivalent to searching group chat.\
- a) To test the SearchCourse use case, you need to go to **src/app/SearchCourseMain.java** to test. Here's how you can navigate through the test:\
-       **There are three courses initialized to be stored in the course list and their group chats
-       has been created**:\
-        Course name: SOFTWARE DESIGN, Course code: CSC207\
-        Course name: CALCULUS I, Course code MAT141\
-        Course name: PHYSICS I, Course code PHY131\
-       These three courses/group chats can be found either by providing course name or
-       course code. For example, if searching query is CSC207, the result would be “Group
-       chat for CSC207 exits. Do you want to join?” If searching query is CSC209, the result
-       would be “No group chat for CSC209 exits. Do you want to create one?”
-       The searching is made to be case insensitive for better experience of user. For
-       instance, query like “software design” or “Software Design” can both find the group
-       chat of CSC207.\
- b) To test CreateGroupChat and CreateCourse, you need to go to **src/app/CreateGroupChatMain.java** and **src/app/CreateCourseMain.java**. For use case CreateGroupChat, you will get a UI to enter the course code and if the groupchat has been created before, you will get a message showing the groupchat has been created before. Else if it has not been created, it will show that the groupchat was successfully created.
-    These two use cases can also be tested in test file **Test/UseCaseInteractorsTest/CreateCourse_Test.java** and **Test/UseCaseInteractorsTest/CreateGroupChat_test.java**. At this stage, these two use cases haven't been linked to the other use cases.
-    
-   We have finished implementing UIs for go to your courses so it temporarily displays a default lists.
-4. You can manully create more courses and user profiles in src/app/CreateCourseMain and src/app/UserProfileMain.
-5. The LeaveGroupChat Use Case is finished implementing but has conflict on the out package so it is temperarily placed on stefan's branch and it will be integrated in phase 2.
+In the terminal or command prompt, use the command ipconfig /all to find the IPv4 address of the server machine (e.g., laptop). Copy this IPv4 address and paste it into the host variable in the main method of the GroupChatPort class located in the SocketIO folder. Run this main method to configure and initialize the setup for the Software Design course (CSC207). The group chat can then be accessed using the server's IP address as the host and port number 4000. After completing this setup, run the Main class located in the APP folder to display the API for StudyBuddies.
+![Screenshot.jpg](Screenshot.jpg)
+After logging in, if you click on “Go to Search Course”, you can search for a course either by its name or course code. The search function is not case-sensitive, allowing you to search for a course using uppercase, lowercase, or a mix of both. If the course exists, the system will prompt you to join it. If you choose to join, the course will be added to your course list, and you will be connected to the group chat for that course. If the course does not exist in the system, the API will ask if you want to create it. If you choose to create the course, you will be prompted to provide the course name and course code. The program will then use this information to create the course and set up a corresponding group chat. The group chat's host will be the IP address of the server machine, and the port number will be one higher than the current largest port number already in use. This ensures that each group chat is associated with a unique port number.
+
+After logging in, if you click on "Go to Your Courses" and then click the orange "Group Chat" button, a list of courses you have already enrolled in will be displayed. You can then select the course you want and click "Join" to enter the group chat for that course.
+
+After logging in, click on 'Go to Your Courses,' then select the green 'Profile' button to view your profile, which displays your name, email, and enrolled courses.
+
+Similarly, after logging in, you can click 'Go to Your Courses' and then select the yellow 'Create Event' button to access the event creation UI. Enter the Event Name, Event Location, Max Attendance, Event Type, Event Start/End Date, and Event Start/End Time, then click 'Create' to finalize your event. You can view your created events by selecting 'Choose Your Event' from the drop-down list. Once you choose the desired event, click the 'My Event' button to see all the event details you previously created.
